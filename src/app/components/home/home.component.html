@@ -1,0 +1,14 @@
+<div [ngStyle.lt-sm]="'min-height: 300px;'" fxLayout="column">
+  <div fxFlex="100%" fxLayout="column" fxLayoutAlign="stretch">
+    <div>Latest Animes</div>
+    <div class="content-container" fxFlex="auto" fxLayout="column" fxLayoutAlign="stretch">
+      <swiper *ngIf="show" [config]="config" class="swiper-container" fxFlex="auto">
+        <div *ngFor="let anime of latestAnimes" class="swiper-slide">
+          <div fxFlexFill fxLayout="column" fxLayoutAlign="center center">
+            <img [alt]="anime.name" [routerLink]="['/animes',anime._id]" [src]="anime.image" height="100%" width="80%">
+          </div>
+        </div>
+      </swiper>
+    </div>
+  </div>
+</div>
