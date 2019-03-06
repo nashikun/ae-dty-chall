@@ -22,14 +22,15 @@ const GetProfileHandler = async (req, res) => {
         res.status(500).end()
       } else if (friendship.length) {
         profile.friendship = friendship[0].status;
+        res.status(200).send(profile)
       }
-      res.status(200).send(profile)
     })
-  } else if (req.userId) {
-    profile.me = true;
+  } else {
+    if (req.userId) {
+      profile.me = true;
+    }
+    res.status(200).send(profile)
   }
-  res.status(200).send(profile)
-
 };
 
 const UpdateBioHandler = async (req, res) => {
