@@ -27,13 +27,14 @@ There are two types of roles: user and admin
 Unauthenticated users can:  
 _ See animes, sort them by score or name, and search for animes.  
 _ Read animes descriptions and see the reviews.  
-_ See users animes lists.
+_ See users profiles and animes lists.
 
 Besides the above, users have the ability to:  
 _ Add animes to their personal list with different statuses / seen episodes.  
 _ Rate animes.  
 _ Post, edit and delete reviews.  
-_ Add friends.  
+_ Add friends.
+_ Edit their profiles and bio
 _ Send messages and reply to them.
 
 Admins have access to the above functionalities and:
@@ -42,7 +43,7 @@ _ Add new animes.
 ##Installing and running the project
 
 ### Installing the SSL certificate:
-In the `frontend/ssl`, install the ssl certificate 
+Install the ssl certificate from the `frontend/ssl`folder.
 
 ### Starting the backend server
 Start `Redis` on port 6379  
@@ -60,5 +61,3 @@ Run `ng serve --ssl`
 
 Enter `https://localhost:4200` in your browser.  
 To enter as an admin, use admin@admin as an email, and Admin0 as a password.  
-
-##
