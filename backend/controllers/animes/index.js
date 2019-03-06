@@ -43,7 +43,8 @@ AnimesController.post('/', verifyAdmin, multer({storage: storage}).single('image
 AnimesController.get('/latest', GetLatestAnimesHandler);
 
 AnimesController.get('/:anime', verifyId('anime'), async (req, res, next) => {
-  if (req.headers.authorization && req.headers.authorization.split(' ')[1] === 'null') {
+  console.log(req.headers.authorization);
+  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
     GetGuestAnimeHandler(req, res)
   } else {
     verifyUser(req, res, next);

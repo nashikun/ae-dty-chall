@@ -11,6 +11,8 @@ export class AnimeService {
 
   constructor(private http: HttpClient, private _auth: AuthService) {
   }
+  
+  
 
   getAnimes(PageSize: number, PageNumber: number, Search: string, SortType, SortOrder: string) {
     return this.http.get<any>(`https://localhost:3000/animes/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
@@ -20,8 +22,7 @@ export class AnimeService {
     return this.http.get<any>(`https://localhost:3000/animes/${anime}`);
   }
 
-  addAnime(anime) {
-    // const image = imageUrl.split(',')[1];
+  addAnime(anime: Anime) {
     const postData = new FormData();
     postData.append('name', anime.name);
     postData.append('description', anime.description);

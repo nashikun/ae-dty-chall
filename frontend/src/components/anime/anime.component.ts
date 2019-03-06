@@ -28,7 +28,7 @@ export class AnimeComponent implements OnInit {
   }
 
   reviewForm: FormGroup;
-  anime = {name: '', image: '', description: '', _id: null, status: '', watchedEpisodes: '', rating: {_id: '', rating: ''}};
+  anime = {name: '', image: '', description: '', _id: null, status: '', watchedEpisodes: '', rating: {_id: '', rating: 0}};
   reviews = [];
   userReview = {id: '', review: ''};
   editMode = false;

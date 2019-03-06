@@ -27,7 +27,7 @@ const MIME_TYPE_MAP = {
 };
 
 ProfileController.get('/', async (req, res, next) => {
-  if (req.headers.authorization && req.headers.authorization.split(' ')[1] === 'null') {
+  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
     req.userId = null;
     next();
   } else {

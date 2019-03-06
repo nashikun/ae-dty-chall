@@ -1,6 +1,6 @@
 export interface Anime {
   name: string,
   description: string,
-  episodes: number,
+  episodes: string,
   image: string,
 }

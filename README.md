@@ -18,8 +18,11 @@ _Mongodb with mongoose for the NoSQL database
 _Express : backend framework running on top of Nodejs  
 _Angular : frontend  
   
-Redis is used to cache data on the backend  
-JWT is used to authenticate users
+Redis is used to cache data on the backend
+JWT is used to authenticate users  
+  
+  The mongodb runs on mongo atlas. The credentials are: anasselidrissi97@gmail.com / Mccus@1997  
+  Redis runs on redislabs.com, and the credentials are: anasselidrissi97@gmail.com / mccus1997 
 
 ### Functionalities
 
@@ -46,10 +49,10 @@ _ Add new animes.
 Install the ssl certificate from the `frontend/ssl`folder.
 
 ### Starting the backend server
-Start `Redis` on port 6379  
 in the backend folder:    
 Run `npm install` to install the dependencies  
-Run `npm start server.js` 
+Run `npm start server.js`
+Whitelist your IP in mongo atlas. The credentials are: anasselidrissi97@gmail.com / Mccus@1997
 
 ### Starting the frontend server
 
