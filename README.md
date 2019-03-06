@@ -1,27 +1,64 @@
-# MyList
+# My List
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
+DTY challenge by Anass Elidrissi  
+Uses Node v10.13.0
 
-## Development server
+## Project description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project is a simple 'List' site where users can keep track of their animes and interact with other users.
 
-## Code scaffolding
+### Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Git, Node 10, express, mongo/mongoose, angular, flex-layout  
+ 
+### Technical description
 
-## Build
+This project is made following the mean stack:   
+_Mongodb with mongoose for the NoSQL database  
+_Express : backend framework running on top of Nodejs  
+_Angular : frontend  
+  
+Redis is used to cache data on the backend  
+JWT is used to authenticate users
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Functionalities
 
-## Running unit tests
+There are two types of roles: user and admin  
+Unauthenticated users can:  
+_ See animes, sort them by score or name, and search for animes.  
+_ Read animes descriptions and see the reviews.  
+_ See users animes lists.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Besides the above, users have the ability to:  
+_ Add animes to their personal list with different statuses / seen episodes.  
+_ Rate animes.  
+_ Post, edit and delete reviews.  
+_ Add friends.  
+_ Send messages and reply to them.
 
-## Running end-to-end tests
+Admins have access to the above functionalities and:
+_ Add new animes.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+##Installing and running the project
 
-## Further help
+### Installing the SSL certificate:
+In the `frontend/ssl`, install the ssl certificate 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Starting the backend server
+Start `Redis` on port 6379  
+in the backend folder:    
+Run `npm install` to install the dependencies  
+Run `npm start server.js` 
+
+### Starting the frontend server
+
+in the frontend folder
+Run `npm install` to install the dependencies  
+Run `ng serve --ssl`
+
+### Testing the website
+
+Enter `https://localhost:4200` in your browser.  
+To enter as an admin, use admin@admin as an email, and Admin0 as a password.  
+
+##
