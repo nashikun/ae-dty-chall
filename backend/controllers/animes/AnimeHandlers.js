@@ -3,8 +3,8 @@ const cachegoose = require('cachegoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const GuestAnimesHandler = async (req, res) => {
-    const limit = +req.query.size;
-    const skip = limit * req.query.page;
+    const limit = +req.query.size || 10;
+    const skip = limit * req.query.page || 0;
     let sort = {};
     switch (req.query.order) {
         default:
@@ -15,8 +15,9 @@ const GuestAnimesHandler = async (req, res) => {
             sort[req.query.sort] = -1;
             break;
     }
+    console.log(sort);
     const animes = await mongoose.model('anime').aggregate([{
-        $match: {name: {$regex: req.query.search, $options: 'i'}}
+        $match: {name: {$regex: req.query.search || "", $options: 'i'}}
     }, {
         $lookup: {
             from: "ratings",
@@ -51,8 +52,8 @@ const GuestAnimesHandler = async (req, res) => {
 };
 
 const UserAnimesHandler = async (req, res) => {
-    const limit = +req.query.size;
-    const skip = limit * req.query.page;
+    const limit = +req.query.size || 10;
+    const skip = limit * req.query.page || 0;
     let sort = {};
     switch (req.query.order) {
         default:
@@ -64,7 +65,7 @@ const UserAnimesHandler = async (req, res) => {
             break;
     }
     const animes = await mongoose.model('anime').aggregate([{
-        $match: {name: {$regex: req.query.search, $options: 'i'}}
+        $match: {name: {$regex: req.query.search || "", $options: 'i'}}
     }, {
         $lookup: {
             from: "ratings",
