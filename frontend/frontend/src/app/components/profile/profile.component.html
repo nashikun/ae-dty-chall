@@ -1,0 +1,83 @@
+<!--Picture Start-->
+<img [alt]="profile.username" [src]="imageUrl">
+<div *ngIf="myProfile">
+  <button *ngIf="!(imageChanged || editUsername || editProfile)" mat-button
+          (click)="Imginput.click(); $event.preventDefault()">Change Image
+  </button>
+  <button *ngIf="imageChanged" mat-button (click)="saveImage()">Save Image</button>
+  <button mat-button *ngIf="imageChanged" type="reset" (click)="imageChanged=false; imageUrl=profile.picture"> Cancel
+  </button>
+  <input #Imginput (change)="ImageUploader($event)" type="file" accept="image/*" hidden="hidden" required>
+</div>
+<!--Picture End-->
+
+<!--Friendship Status and message Button Start-->
+<div *ngIf="!myProfile && !profile.me">
+  <button mat-button color="accent" (click)="addFriend()" *ngIf="!profile.friendship"> Add friend</button>
+  <button mat-button color="accent" (click)="addFriend()" *ngIf="profile.friendship=='pending'"> Accept Request</button>
+  <button mat-button color="accent" disabled *ngIf="profile.friendship=='requested'"> Request Sent</button>
+  <button mat-button color="accent" disabled *ngIf="profile.friendship=='accepted'"> Friends</button>
+  <button mat-button color="primary" (click)="sendMessage()"> Send A Message</button>
+</div>
+<!--Friendship Status and message Button End-->
+
+<!--Bio Start-->
+<div *ngIf="!editUsername">Username : {{profile.username}}
+  <button *ngIf="myProfile && !(imageChanged || editProfile)" mat-button (click)="editUsername=true"> Change Username
+  </button>
+</div>
+<form [formGroup]="profileForm" *ngIf="myProfile && editUsername" (submit)="changeUsername()">
+  <mat-form-field>
+    <input matInput formControlName="username" placeholder="username" type="text">
+  </mat-form-field>
+  <button mat-button type="submit"> Save</button>
+  <mat-error *ngIf="errors.usernameExists" class="alert alert-warning" role="alert">
+    Username Taken
+  </mat-error>
+</form>
+<div *ngIf="!editProfile">
+  <p>Birthday : {{(profile.birthdate | date:'dd/MM/yyyy') || '--/--/--'}}</p>
+  <p>Location : {{profile.location || '-----'}}</p>
+  <p>Gender : {{profile.gender || '-----'}}</p>
+  <p><a *ngIf="userId" [routerLink]="['/profile', userId,'animelist']">Anime List</a>
+    <a *ngIf="!userId" [routerLink]="['/profile', _auth.getId(),'animelist']">Anime List</a></p>
+
+  {{profile.bio || 'No Bio Entered'}}
+  <button mat-button *ngIf="!(imageChanged || editProfile) && myProfile" (click)="editProfile=true"> Edit Bio</button>
+</div>
+<!--Bio Start-->
+
+<!--Bo Form Start-->
+<form [formGroup]="profileForm" *ngIf="editProfile" (submit)="updateProfile()">
+  <p>Birthday :
+    <mat-form-field>
+      <input matInput formControlName="birthdate" [matDatepicker]="dp" placeholder="dd/mm/yyyy"
+             [max]="currentDay()">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+      <mat-error *ngIf="profileForm.get('birthdate').hasError('required')"> Enter a valid date</mat-error>
+    </mat-form-field>
+  </p>
+  <p>Location :
+    <mat-form-field>
+      <input matInput formControlName="location" placeholder="Enter your location">
+    </mat-form-field>
+  </p>
+  <p>Gender :
+    <mat-form-field>
+      <mat-select formControlName="gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+        <mat-option value="Other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <p>Bio :
+    <mat-form-field>
+      <textarea matInput formControlName="bio" placeholder="Enter your bio"></textarea>
+    </mat-form-field>
+  </p>
+  <button mat-button [disabled]="profileForm.invalid"> Save bio</button>
+</form>
+<!--Bo Form End-->
+

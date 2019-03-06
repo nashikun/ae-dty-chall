@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2eff4b7f-371c-43d1-9f1f-2b51bb18189e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>slides</find>
+      <find>action-container</find>
+      <find>content-container</find>
+      <find>findById</find>
+      <find>cache</find>
+      <find>type</find>
+      <find>selec</find>
+      <find>Profile</find>
+      <find>Me</find>
+      <find>MatCarT</find>
+      <find>row&quot;</find>
+      <find>column</find>
+      <find>add</find>
+      <find>addAnime</find>
+      <find>model</find>
+      <find>user'</find>
+      <find>console.log</find>
+      <find>console.lo</find>
+      <find>user</find>
+      <find>Login&gt;</find>
+      <find>cache(</find>
+      <find>nodem</find>
+      <find>test</find>
+      <find>backend</find>
+      <find>packa</find>
+      <find>ajv</find>
+      <find>hammerjs</find>
+      <find>localhost</find>
+      <find>back</find>
+      <find>express</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>res.status(500).end();</replace>
+      <replace>res.status(200).end();</replace>
+      <replace>end();</replace>
+      <replace>&lt;ul&gt;&lt;li&gt;&lt;a</replace>
+      <replace>mongoose.model('Review').</replace>
+      <replace>mongoose.model('reviews').</replace>
+      <replace>.</replace>
+      <replace>('/messages/</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>D:\Programming\IDEs\WebStorm 2018.3</dir>
+      <dir>D:\Projects\Angular\MyList\ssl</dir>
+      <dir>D:\Projects\Angular\MyList\</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/app/components/home/home.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/home/home.component.html" />
+        <option value="$PROJECT_DIR$/src/app/modules/anime.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/anime/anime.component.css" />
+        <option value="$PROJECT_DIR$/src/app/components/anime/anime.component.html" />
+        <option value="$PROJECT_DIR$/src/app/modules/profile.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/modules/auth.module.ts" />
+        <option value="$PROJECT_DIR$/node_modules/@angular/material/prebuilt-themes/indigo-pink.css" />
+        <option value="$PROJECT_DIR$/src/app/components/profile/profile.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/add-anime/add-anime.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/user-header/user-header.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/anime/anime.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/modules/anime-routing.module.ts" />
+        <option value="$PROJECT_DIR$/backend/models/message.js" />
+        <option value="$PROJECT_DIR$/src/app/components/write-mail/write-mail.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/mail/mail.component.html" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/ListController/ListHandlers.js" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/ProfileController/MessagesController/index.js" />
+        <option value="$PROJECT_DIR$/src/app/components/profile/profile.component.ts" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/index.js" />
+        <option value="$PROJECT_DIR$/src/app/modules/app.module.ts" />
+        <option value="$PROJECT_DIR$/backend/middleware/verifyImage.js" />
+        <option value="$PROJECT_DIR$/src/app/services/profile.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/mailbox/mailbox.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/mailbox/mailbox.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/mail/mail.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/services/auth.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/error-interceptor.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/animes/animes.component.html" />
+        <option value="$PROJECT_DIR$/src/app/components/animes/animes.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/user-header/user-header.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/components/login/login.component.html" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/UsersHandlers.js" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/ProfileController/MessagesController/MessagesHandler.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/src/app/components/animelist/animelist.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/services/animelist.service.ts" />
+        <option value="$PROJECT_DIR$/backend/controllers/animes/index.js" />
+        <option value="$PROJECT_DIR$/backend/package.json" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/ProfileController/index.js" />
+        <option value="$PROJECT_DIR$/backend/server.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$USER_HOME$/Documents/extension/custom-style.css" />
+        <option value="$PROJECT_DIR$/backend/models/anime.js" />
+        <option value="$PROJECT_DIR$/src/app/nterfaces/anime.ts" />
+        <option value="$PROJECT_DIR$/src/app/interfaces/review.ts" />
+        <option value="$PROJECT_DIR$/src/app/services/anime.service.ts" />
+        <option value="$PROJECT_DIR$/backend/controllers/users/ProfileController/ProfileHandlers.js" />
+        <option value="$PROJECT_DIR$/backend/models/profile.js" />
+        <option value="$PROJECT_DIR$/backend/mongoose-friends/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="frontend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="D:\Projects\Angular\MyList\node_modules\tslint" />
+    <property name="nodejs.protractor.protractor_package" value="$PROJECT_DIR$/node_modules/protractor" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="ts.external.directory.path" value="D:\Projects\Angular\MyList\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Angular\MyList\backend" />
+      <recent name="D:\Projects\Angular\MyList\backend\middleware" />
+      <recent name="D:\Projects\Angular\MyList\src\app\modules" />
+      <recent name="D:\Projects\Angular\MyList\src\app\validators" />
+      <recent name="D:\Projects\Angular\MyList\src\app\components\errors" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\Angular\MyList\backend" />
+      <recent name="D:\Projects\Angular\MyList\backend\images\profiles" />
+      <recent name="D:\Projects\Angular\MyList\src\app\modules" />
+      <recent name="D:\Projects\Angular\MyList\src\app\components" />
+      <recent name="D:\Projects\Angular\MyList\src\app" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Karma.ProfileComponent">
+    <configuration name="ProfileComponent" type="JavaScriptTestRunnerKarma" temporary="true" nameIsGenerated="true">
+      <config-file value="$PROJECT_DIR$/src/karma.conf.js" />
+      <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli" />
+      <working-directory value="$PROJECT_DIR$" />
+      <node-interpreter value="project" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-names>
+        <test-name value="ProfileComponent" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests" type="JavaScriptTestRunnerKarma">
+      <config-file value="$PROJECT_DIR$/src/karma.conf.js" />
+      <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli" />
+      <working-directory value="$PROJECT_DIR$" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="E2E Tests" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-package value="$PROJECT_DIR$/node_modules/protractor" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="mongod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="mongod" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="startit" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="startit" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.startit" />
+        <item itemvalue="npm.mongod" />
+        <item itemvalue="Karma.ProfileComponent" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2eff4b7f-371c-43d1-9f1f-2b51bb18189e" name="Default Changelist" comment="" />
+      <created>1549881286365</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1549881286365</updated>
+      <workItem from="1549881288541" duration="6057000" />
+      <workItem from="1549922447025" duration="6412000" />
+      <workItem from="1549989890921" duration="107218000" />
+      <workItem from="1550518872688" duration="174453000" />
+      <workItem from="1551343708571" duration="153842000" />
+      <workItem from="1551724429553" duration="25591000" />
+      <workItem from="1551876452926" duration="631000" />
+      <workItem from="1551889269738" duration="1219000" />
+    </task>
+    <task id="LOCAL-00001" summary="progressing">
+      <created>1550439433758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1550439433758</updated>
+    </task>
+    <task id="LOCAL-00002" summary="reviews fully operational">
+      <created>1550490806126</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1550490806126</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added Search and Pagination">
+      <created>1550689969336</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1550689969336</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added captchas">
+      <created>1550702430312</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1550702430312</updated>
+    </task>
+    <task id="LOCAL-00005" summary="search fixed">
+      <created>1550860177336</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1550860177336</updated>
+    </task>
+    <task id="LOCAL-00006" summary="sorting fixed">
+      <created>1550963646781</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1550963646781</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added scores to animes">
+      <created>1551018739475</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1551018739475</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ratings work">
+      <created>1551038060114</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1551038060114</updated>
+    </task>
+    <task id="LOCAL-00009" summary="ratings works for anime component and non-logged users">
+      <created>1551052979106</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1551052979106</updated>
+    </task>
+    <task id="LOCAL-00010" summary="adding profile, cleaning code">
+      <created>1551195983875</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1551195983875</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Almost there!">
+      <created>1551299690642</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1551299690642</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added Friend Requests and their notifications">
+      <created>1551374938629</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1551374938629</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Sending Messages and Unread Messages Added">
+      <created>1551388089347</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1551388089347</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Reading messages works&#10;//TODO : populate the mailbox senders/recipients">
+      <created>1551395714997</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1551395714997</updated>
+    </task>
+    <task id="LOCAL-00015" summary="a few more edits">
+      <created>1551433156154</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1551433156154</updated>
+    </task>
+    <task id="LOCAL-00016" summary="MVP">
+      <created>1551433332348</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1551433332348</updated>
+    </task>
+    <task id="LOCAL-00017" summary="adding ngModules">
+      <created>1551440108839</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1551440108839</updated>
+    </task>
+    <task id="LOCAL-00018" summary="NgModules Added">
+      <created>1551442395143</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1551442395143</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Animes Route --&gt; Controller">
+      <created>1551491151558</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1551491151558</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Changed Routes to controllers. Messages have to fixed">
+      <created>1551529294274</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1551529294274</updated>
+    </task>
+    <task id="LOCAL-00021" summary="started caching. added ObjectId verification middleware">
+      <created>1551550588788</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1551550588788</updated>
+    </task>
+    <task id="LOCAL-00022" summary="minor changes">
+      <created>1551567522069</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1551567522069</updated>
+    </task>
+    <task id="LOCAL-00023" summary="made a few more components reactive">
+      <created>1551647467157</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1551647467157</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed the Messages Controller">
+      <created>1551698471220</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1551698471220</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Completed the mailbox components">
+      <created>1551714261433</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1551714261433</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Old pics are now deleted on profile pic change">
+      <created>1551718304635</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1551718304635</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixed the backend type checker">
+      <created>1551720362670</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1551720362670</updated>
+    </task>
+    <task id="LOCAL-00028" summary="added pagination to the emails">
+      <created>1551732399447</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1551732399447</updated>
+    </task>
+    <task id="LOCAL-00029" summary="a few fixes">
+      <created>1551736406521</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1551736406521</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fixed some bugs">
+      <created>1551867253815</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1551867253816</updated>
+    </task>
+    <task id="LOCAL-00031" summary="fixed some bugs">
+      <created>1551889355200</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1551889355200</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="475423000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1536" height="864" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5173745" visible="true" weight="0.20290813" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" id="npm" order="2" sideWeight="0.48262548" side_tool="true" visible="true" weight="0.20290813" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32947233" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" weight="0.35778636" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49966952" weight="0.32818532" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3951094" />
+      <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32947233" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50033045" side_tool="true" weight="0.32818532" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33848134" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32947233" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="3" side_tool="true" weight="0.3295302" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7915832" visible="true" weight="0.20290813" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="npm" order="2" sideWeight="0.20841683" side_tool="true" weight="0.20290813" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32947233" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966952" weight="0.35778636" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49966952" weight="0.32818532" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32947233" />
+      <window_info anchor="bottom" id="TypeScript" order="9" weight="0.32947233" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50033045" side_tool="true" weight="0.32818532" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33848134" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32947233" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="3" side_tool="true" weight="0.3295302" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <ignored-roots>
+      <path value="D:" />
+    </ignored-roots>
+    <MESSAGE value="added scores to animes" />
+    <MESSAGE value="ratings work" />
+    <MESSAGE value="ratings works for anime component and non-logged users" />
+    <MESSAGE value="adding profile, cleaning code" />
+    <MESSAGE value="Almost there!" />
+    <MESSAGE value="Added Friend Requests and their notifications" />
+    <MESSAGE value="Sending Messages and Unread Messages Added" />
+    <MESSAGE value="Reading messages works&#10;//TODO : populate the mailbox senders/recipients" />
+    <MESSAGE value="a few more edits" />
+    <MESSAGE value="MVP" />
+    <MESSAGE value="adding ngModules" />
+    <MESSAGE value="NgModules Added" />
+    <MESSAGE value="Animes Route --&gt; Controller" />
+    <MESSAGE value="Changed Routes to controllers. Messages have to fixed" />
+    <MESSAGE value="started caching. added ObjectId verification middleware" />
+    <MESSAGE value="minor changes" />
+    <MESSAGE value="added slider with latest animes" />
+    <MESSAGE value="made a few more components reactive" />
+    <MESSAGE value="Fixed the Messages Controller" />
+    <MESSAGE value="Completed the mailbox components" />
+    <MESSAGE value="Old pics are now deleted on profile pic change" />
+    <MESSAGE value="Fixed the backend type checker" />
+    <MESSAGE value="added pagination to the emails" />
+    <MESSAGE value="a few fixes" />
+    <MESSAGE value="fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed some bugs" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/backend/images/profiles/68efc7ae2dc63734b3b2e4107a15a136edd99417hq-1551519172855.jpeg" />
+    <entry file="file://$PROJECT_DIR$/backend/images/profiles/IMG5161-1551716374599.jpeg" />
+    <entry file="file://$PROJECT_DIR$/backend/images/profiles/gintama-1551716600249.jpeg" />
+    <entry file="file://$PROJECT_DIR$/backend/images/profiles/kimi-no-na-wa-1551519275056.jpeg" />
+    <entry file="file://$PROJECT_DIR$/backend/images/profiles/default.jpg" />
+    <entry file="file://$PROJECT_DIR$/src/app/modules/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="67" column="38" selection-start-line="67" selection-start-column="38" selection-end-line="67" selection-end-column="38" />
+          <folding>
+            <element signature="e#1217#1923#0" expanded="true" />
+            <element signature="e#1553#1891#0" expanded="true" />
+            <element signature="e#1594#1669#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/profile/profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+            <element signature="e#1892#1975#0" expanded="true" />
+            <element signature="e#2189#2650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/profile/profile.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+          <folding>
+            <element signature="n#mat-form-field#0;n#form#0;n#!!top" />
+            <element signature="n#mat-error#0;n#form#0;n#!!top" />
+            <element signature="n#mat-form-field#0;n#p#3;n#form#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/middleware/verifyImage.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/components/mailbox/mailbox.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#124#238#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#MailboxComponent#0" expanded="true" />
+            <element signature="n#!!block;n#ngOnInit#0;n#MailboxComponent#0" expanded="true" />
+            <element signature="n#!!block;n#changePage#0;n#MailboxComponent#0" expanded="true" />
+            <element signature="n#!!block;n#a#0;n#MailboxComponent#0" expanded="true" />
+            <element signature="e#1083#1112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/mailbox/mailbox.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="40" column="66" selection-start-line="40" selection-start-column="66" selection-end-line="40" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/anime/anime.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="39" column="27" lean-forward="true" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+          <folding>
+            <element signature="n#mat-form-field#0;n#div#1;n#div#0;n#div#1;n#div#0;n#mat-card-header#0;n#mat-card#0;n#!!top" />
+            <element signature="n#input#0;n#mat-form-field#0;n#div#1;n#div#0;n#div#1;n#div#0;n#mat-card-header#0;n#mat-card#0;n#!!top" />
+            <element signature="n#button#0;n#div#1;n#div#0;n#div#1;n#div#0;n#mat-card-header#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#div#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-expansion-panel-header#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-panel-title#0;n#mat-expansion-panel-header#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-panel-description#0;n#mat-expansion-panel-header#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-header#0;n#mat-card#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-content#0;n#mat-card#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#button#0;n#mat-card#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#button#1;n#mat-card#0;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card#1;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#form#0;n#mat-card#1;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-form-field#0;n#form#0;n#mat-card#1;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-error#0;n#mat-form-field#0;n#form#0;n#mat-card#1;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card#2;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-header#0;n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-content#0;n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#mat-card-footer#0;n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#div#0;n#mat-card-footer#0;n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+            <element signature="n#div#1;n#mat-card-footer#0;n#mat-card#3;n#mat-expansion-panel#0;n#mat-accordion#0;n#mat-card-content#0;n#mat-card#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/user-header/user-header.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#3;n#mat-menu#1;n#mat-toolbar#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/error-interceptor.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="20" column="11" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#109#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#ErrorInterceptor#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/mail/mail.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#MailComponent#0" expanded="true" />
+            <element signature="e#875#945#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/animes/animes.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+            <element signature="n#!!block;n#ngOnInit#0;n#AnimesComponent#0" expanded="true" />
+            <element signature="e#1364#1764#0" expanded="true" />
+            <element signature="n#!!block;n#getAnimes#0;n#AnimesComponent#0" expanded="true" />
+            <element signature="e#2420#2625#0" expanded="true" />
+            <element signature="e#2469#2581#0" expanded="true" />
+            <element signature="n#!!block;n#rateAnime#0;n#AnimesComponent#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/animes/animes.component.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/user-header/user-header.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#UserHeaderComponent#0" expanded="true" />
+            <element signature="n#!!block;n#ngOnDestroy#0;n#UserHeaderComponent#0" expanded="true" />
+            <element signature="n#!!block;n#acceptFriend#0;n#UserHeaderComponent#0" expanded="true" />
+            <element signature="e#1601#1735#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/angular.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/login/login.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="30" column="59" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/login/login.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/users/ProfileController/MessagesController/MessagesHandler.js" />
+    <entry file="file://$USER_HOME$/Documents/extension/custom-style.css" />
+    <entry file="file://$PROJECT_DIR$/src/app/components/animelist/animelist.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/server.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/services/profile.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-183">
+          <caret line="44" column="3" lean-forward="true" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#148#172#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getProfile#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getMyProfile#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#changePicture#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#changeUsername#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getUsername#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#updateProfile#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#addFriend#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getFriendRequests#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#sendMessage#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getMessagesCount#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getSentMails#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getReceivedMails#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#getMail#0;n#ProfileService#0" expanded="true" />
+            <element signature="n#!!block;n#markMailRead#0;n#ProfileService#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/auth.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#180#204#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#AuthService#0" expanded="true" />
+            <element signature="n#!!block;n#existingUser#0;n#AuthService#0" expanded="true" />
+            <element signature="n#!!block;n#registerUser#0;n#AuthService#0" expanded="true" />
+            <element signature="n#!!block;n#loginUser#0;n#AuthService#0" expanded="true" />
+            <element signature="n#!!block;n#verifyUser#0;n#AuthService#0" expanded="true" />
+            <element signature="n#!!block;n#addUsername#0;n#AuthService#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/services/animelist.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="24" column="47" lean-forward="true" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#AnimelistService#0" expanded="true" />
+            <element signature="n#!!block;n#getMyList#0;n#AnimelistService#0" expanded="true" />
+            <element signature="n#!!block;n#getList#0;n#AnimelistService#0" expanded="true" />
+            <element signature="n#!!block;n#addToList#0;n#AnimelistService#0" expanded="true" />
+            <element signature="n#!!block;n#updateList#0;n#AnimelistService#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/animes/reviews-controller/upvotes-controller/UpvotesHandlers.js" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/users/UsersHandlers.js" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/users/ProfileController/index.js" />
+    <entry file="file://$PROJECT_DIR$/backend/models/list.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/components/anime/anime.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="98" column="18" lean-forward="true" selection-start-line="98" selection-start-column="18" selection-end-line="98" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+            <element signature="e#479#587#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="n#!!block;n#ngOnInit#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#1797#1904#0" expanded="true" />
+            <element signature="e#2004#2099#0" expanded="true" />
+            <element signature="n#!!block;n#Add#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#2227#2277#0" expanded="true" />
+            <element signature="n#!!block;n#Update#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="n#!!block;n#postReview#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#2557#2631#0" expanded="true" />
+            <element signature="e#2758#2861#0" expanded="true" />
+            <element signature="n#!!block;n#deleteReview#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#2975#3087#0" expanded="true" />
+            <element signature="n#!!block;n#getReviews#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#3210#3430#0" expanded="true" />
+            <element signature="n#!!block;n#upVote#0;n#AnimeComponent#0" expanded="true" />
+            <element signature="e#3535#3622#0" expanded="true" />
+            <element signature="e#3721#3809#0" expanded="true" />
+            <element signature="n#!!block;n#rateAnime#0;n#AnimeComponent#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/middleware/verifyId.js" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/users/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/interfaces/anime.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" selection-start-column="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/animes/AnimeHandlers.js" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/animes/index.js" />
+    <entry file="file://$PROJECT_DIR$/backend/models/anime.js" />
+    <entry file="file://$PROJECT_DIR$/backend/mongoose-friends/lib/plugin.js" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/users/ProfileController/ProfileHandlers.js" />
+    <entry file="file://$PROJECT_DIR$/backend/mongoose-friends/README.md" />
+    <entry file="file://$PROJECT_DIR$/backend/models/profile.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/services/anime.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-276">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#201#225#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#getAnime#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#addAnime#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#getReviews#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#postReview#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#editReview#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#deleteReview#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#upvote#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#unvote#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#addRating#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#changeRating#0;n#AnimeService#0" expanded="true" />
+            <element signature="n#!!block;n#getLatest#0;n#AnimeService#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/backend/package.json" />
+    <entry file="file://$PROJECT_DIR$/../MyList - Copy/backend/package.json" />
+    <entry file="file://$PROJECT_DIR$/backend/controllers/animes/reviews-controller/ReviewsHandlers.js" />
+    <entry file="file://$PROJECT_DIR$/src/app/interfaces/review.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="23" selection-start-column="17" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/review.js" />
+    <entry file="file://$PROJECT_DIR$/package.json" />
+  </component>
+</project>
