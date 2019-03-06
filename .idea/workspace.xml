@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc15be82-17ef-40b0-a7f9-910cc84c6657" name="Default Changelist" comment="ignore .idea">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="cc15be82-17ef-40b0-a7f9-910cc84c6657" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +52,6 @@
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
-            <path>
-              <item name="DTY project" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="frontend" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -73,11 +63,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.tslint" value="" />
+    <property name="node.js.selected.package.tslint" value="D:\DTY project\frontend\frontend\node_modules\tslint" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
-    <property name="ts.external.directory.path" value="D:\Programming\IDEs\WebStorm 2018.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="D:\DTY project\frontend\frontend\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -110,7 +101,7 @@
       <workItem from="1551888555364" duration="649000" />
       <workItem from="1551889244166" duration="24000" />
       <workItem from="1551889366203" duration="412000" />
-      <workItem from="1551889788115" duration="1485000" />
+      <workItem from="1551889788115" duration="1604000" />
     </task>
     <task id="LOCAL-00001" summary="ignore .idea">
       <created>1551890703923</created>
@@ -126,18 +117,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551890771633</updated>
     </task>
-    <task id="LOCAL-00003" summary="Merge branch 'master' of https://github.com/nashikun/ae-dty-chall&#10;&#10;# Conflicts:&#10;#&#9;backend/controllers/animes/AnimeHandlers.js&#10;#&#9;backend/controllers/animes/index.js&#10;#&#9;backend/controllers/animes/ratings-controller/RatingsHandlers.js&#10;#&#9;backend/controllers/animes/ratings-controller/index.js&#10;#&#9;backend/controllers/animes/reviews-controller/ReviewsHandlers.js&#10;#&#9;backend/controllers/animes/reviews-controller/index.js&#10;#&#9;backend/controllers/animes/reviews-controller/upvotes-controller/UpvotesHandlers.js&#10;#&#9;backend/controllers/animes/reviews-controller/upvotes-controller/index.js&#10;#&#9;backend/controllers/users/ListController/ListHandlers.js&#10;#&#9;backend/controllers/users/ListController/index.js&#10;#&#9;backend/controllers/users/ProfileController/MessagesController/MessagesHandler.js&#10;#&#9;backend/controllers/users/ProfileController/MessagesController/index.js&#10;#&#9;backend/controllers/users/ProfileController/ProfileHandlers.js&#10;#&#9;backend/controllers/users/ProfileController/index.js&#10;#&#9;backend/controllers/users/UsersHandlers.js&#10;#&#9;backend/controllers/users/index.js&#10;#&#9;backend/middleware/email-validator.js&#10;#&#9;backend/middleware/verifyAdmin.js&#10;#&#9;backend/middleware/verifyId.js&#10;#&#9;backend/middleware/verifyImage.js&#10;#&#9;backend/middleware/verifyUser.js&#10;#&#9;backend/models/anime.js&#10;#&#9;backend/models/list.js&#10;#&#9;backend/models/message.js&#10;#&#9;backend/models/profile.js&#10;#&#9;backend/models/rating.js&#10;#&#9;backend/models/review.js&#10;#&#9;backend/models/user.js&#10;#&#9;backend/package.json&#10;#&#9;backend/server.js">
-      <created>1551889483162</created>
+    <task id="LOCAL-00003" summary="added missing frontend files">
+      <created>1551891343011</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1551889483162</updated>
+      <updated>1551891343011</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2570000" />
+    <option name="totallyTimeSpent" value="2689000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -168,9 +159,13 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="removed the node_modules" />
     <MESSAGE value="ignore .idea" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignore .idea" />
+    <MESSAGE value="added missing frontend files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added missing frontend files" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/frontend/tslint.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/write-mail/write-mail.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
