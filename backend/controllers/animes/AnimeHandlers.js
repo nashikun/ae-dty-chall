@@ -65,7 +65,7 @@ const UserAnimesHandler = async (req, res) => {
             break;
     }
     const animes = await mongoose.model('anime').aggregate([{
-        $match: {name: {$regex: req.query.search || "", $options: 'i'}}
+        $match: {name: {$regex: req.query.search || ""  , $options: 'i'}}
     }, {
         $lookup: {
             from: "ratings",
