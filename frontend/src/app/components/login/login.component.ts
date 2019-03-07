@@ -12,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  errors = {};
+  errors = {MAX_ATTEMPTS: false, WRONG_CREDITENTIALS: false};
 
   constructor(private _auth: AuthService, private _router: Router, private fb: FormBuilder) {
   }

@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class GuestHeaderComponent implements OnInit {
 
-  constructor(private _router: Router, private _auth: AuthService) {
+  constructor(private _router: Router, public _auth: AuthService) {
   }
 
   ngOnInit() {

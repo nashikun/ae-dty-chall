@@ -12,8 +12,8 @@ import {ImageValidator} from '../../util/ImageValidator';
   styleUrls: ['./add-anime.component.css']
 })
 export class AddAnimeComponent implements OnInit {
-  private imageUrl;
-  private imageChanged = false;
+  imageUrl;
+  imageChanged = false;
 
   constructor(private fb: FormBuilder,
               private _animelistService: AnimelistService,

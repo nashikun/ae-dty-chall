@@ -15,6 +15,7 @@ export class Profile {
   location: string;
   gender: string;
   friendship: string;
+  me: boolean
 }
 
 export const MY_FORMATS = {

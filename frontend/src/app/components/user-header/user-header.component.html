@@ -14,7 +14,7 @@
   <!--Friend Requests Starts -->
   <button mat-button [matBadge]="nfriendRequests?nfriendRequests:null" matBadgeColor="warn"
           [matMenuTriggerFor]="friends">
-    <mat-icon svgIcon="friends" [ngStyle]="{'color': white}"></mat-icon>
+    <mat-icon svgIcon="friends" [ngStyle]="{'color': '#ffffff'}"></mat-icon>
   </button>
   <mat-menu #friends="matMenu" class="dropdown-menu">
     <div mat-menu-item *ngFor="let fr of friendRequests">

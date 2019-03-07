@@ -13,7 +13,7 @@ export class MailComponent implements OnInit {
   mailId = '';
   mail = {title: '', senderId: '', recipientId: '', message: '', sender: {username: ''}, recipient: {username: ''}};
 
-  constructor(private _activatedRoute: ActivatedRoute, private _profile: ProfileService, private _auth: AuthService) {
+  constructor(private _activatedRoute: ActivatedRoute, private _profile: ProfileService, public _auth: AuthService) {
   }
 
   ngOnInit() {

@@ -19,7 +19,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   nfriendRequests = 0;
   nMessages = 0;
 
-  constructor(private _router: Router, private _auth: AuthService, private _profile: ProfileService, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+  constructor(private _router: Router, public _auth: AuthService, private _profile: ProfileService, private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
     this.matIconRegistry.addSvgIcon('friends',
       this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/friends-24px.svg'));
   }

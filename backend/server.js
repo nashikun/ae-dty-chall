@@ -52,7 +52,7 @@ app.use('/users', users);
 app.get('/', function (req, res) {
 });
 
-httpsServer.listen(3000);
+httpsServer.listen(8081);
 
 // TODO : add comments, animelist statistics
 //  handle token expiration
