@@ -14,6 +14,7 @@ import {environment} from '../../../environments/environment'
 
 export class RegisterComponent implements OnInit {
 
+    captcha_key : string = environment.captcha_key;
     registrationForm: FormGroup;
     errors = {emailExists: false};
 
@@ -22,6 +23,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.captcha_key);
         this.registrationForm = this.fb.group({
             password: new FormControl(null, {
                 validators: [Validators.required, Validators.pattern('(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+).{6,20}$')
