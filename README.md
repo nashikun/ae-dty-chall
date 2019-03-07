@@ -40,7 +40,7 @@ _ Send messages and reply to them.
 Admins have access to the above functionalities and:
 _ Add new animes.
 
-##Installing and running the project
+## Installing and running the project
 
 ### Installing the SSL certificate:
 Install the ssl certificate from the `frontend/ssl`folder.
