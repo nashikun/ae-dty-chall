@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsernameValidator} from '../../util/UsernameValidator';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {environment} from '../../../environments/environment'
 
 @Component({
     selector: 'app-register',

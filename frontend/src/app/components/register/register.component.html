@@ -32,7 +32,7 @@
     </div>
     <p></p>
     <re-captcha formControlName="recaptcha"
-                siteKey="6LeU3JIUAAAAAIwinZbgOSQ0rm8ALqyrfjfN8h5I"></re-captcha>
+                siteKey=environment.captcha_key></re-captcha>
     <p></p>
     <button mat-button [disabled]="registrationForm.invalid">Register</button>
     <div *ngIf="errors.emailExists"> Email already taken. Please choose an other one</div>
