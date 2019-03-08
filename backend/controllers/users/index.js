@@ -1,3 +1,4 @@
+
 const UserController = require('express').Router({mergeParams: true});
 const ProfileController = require('./ProfileController');
 const ListController = require('./ListController');
@@ -19,7 +20,7 @@ UserController.get('/verify/:URL', VerifyUserHandler);
 
 UserController.use('/:user/profile', verifyId('user'), ProfileController);
 
-UserController.use('/:user/list', verifyId('user'), ListController);
+UserController.use('/:user/list', ListController);
 
 UserController.head('/usernames/:username', (req, res) => {
   User.findOne({username: req.params.username}, (err, user) => {

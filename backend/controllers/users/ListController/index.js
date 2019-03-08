@@ -4,11 +4,11 @@ const verifyId = require('../../../middleware/verifyId');
 const ListController = require('express').Router({mergeParams: true});
 const {GetListHandler, AddListAnimeHandler, ChangeListAnime} = require('./ListHandlers');
 
-ListController.get('/', verifyUser, GetListHandler);
+ListController.get('/', verifyId('user'), GetListHandler);
 
-ListController.post('/', verifyUser, AddListAnimeHandler);
+ListController.post('/', verifyUser, verifyId('user'), AddListAnimeHandler);
 
-ListController.put('/:anime', verifyUser, verifyId('anime'), ChangeListAnime);
+ListController.put('/:anime', verifyUser, verifyId('user'), verifyId('anime'), ChangeListAnime);
 
 module.exports = ListController;
 
