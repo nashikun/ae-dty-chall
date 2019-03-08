@@ -23,7 +23,7 @@ const privateKey = fs.readFileSync('ssl/server.key', 'utf8');
 const certificate = fs.readFileSync('ssl/server.crt', 'utf8');
 
 const app = express();
-const httpsServer = https.createServer({key: privateKey, cert: certificate}, app);
+const httpsServer = https.createServser({key: privateKey, cert: certificate}, app);
 const httpServer = http.createServer(app);
 
 mongoose.set('useCreateIndex', true);
