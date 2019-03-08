@@ -8,7 +8,7 @@ ListController.get('/', verifyUser, GetListHandler);
 
 ListController.post('/', verifyUser, AddListAnimeHandler);
 
-ListController.put('/:anime', verifyId('anime'), verifyUser, ChangeListAnime);
+ListController.put('/:anime', verifyUser, verifyId('anime'), ChangeListAnime);
 
 module.exports = ListController;
 

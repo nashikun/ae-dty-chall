@@ -6,20 +6,20 @@ const UpvotesController = require('./upvotes-controller');
 const ReviewsController = require('express').Router({mergeParams: true});
 
 ReviewsController.get('/', (req, res, next) => {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-    req.userId = null;
-    next();
-  } else {
-    verifyUser(req, res, next);
-  }
+    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
+        req.userId = null;
+        next();
+    } else {
+        verifyUser(req, res, next);
+    }
 }, GetReviewsHandler);
 
 ReviewsController.post('/', verifyUser, PostReviewHandler);
 
-ReviewsController.patch('/:review', verifyId('review'), verifyUser, EditReviewHndler);
+ReviewsController.patch('/:review', verifyUser, verifyId('review'), EditReviewHndler);
 
-ReviewsController.delete('/:review', verifyId('review'), verifyUser, RemoveReviewHandler);
+ReviewsController.delete('/:review', verifyUser, verifyId('review'), RemoveReviewHandler);
 
-ReviewsController.use('/:review/upvotes', verifyId('review'), verifyUser, UpvotesController);
+ReviewsController.use('/:review/upvotes', verifyUser, verifyId('review'), UpvotesController);
 
 module.exports = ReviewsController;

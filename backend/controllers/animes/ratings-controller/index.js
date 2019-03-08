@@ -5,6 +5,6 @@ const RatingsController = require('express').Router({mergeParams: true});
 
 RatingsController.post('/', verifyUser, PostRatingHandler);
 
-RatingsController.put('/:rating', verifyId('rating'), verifyUser, ChangeRatingHandler);
+RatingsController.put('/:rating', verifyUser, verifyId('rating'), ChangeRatingHandler);
 
 module.exports = RatingsController;
