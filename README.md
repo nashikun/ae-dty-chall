@@ -63,4 +63,4 @@ Run `ng serve --ssl`
 ### Testing the website
 
 Enter `https://localhost:4200` in your browser.  
-To enter as an admin, use admin@admin as an email, and Admin0 as a password.  
+To enter as an admin, use mangas4fun@gmail.com as an email, and Mccus1997 as a password.  
