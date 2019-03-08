@@ -22,14 +22,14 @@ const GetProfileHandler = async (req, res) => {
         res.status(500).end()
       } else if (friendship.length) {
         profile.friendship = friendship[0].status;
-        res.status(200).send(profile)
+        res.status(200).json(profile)
       }
     })
   } else {
     if (req.userId) {
       profile.me = true;
     }
-    res.status(200).send(profile)
+    res.status(200).json(profile)
   }
 };
 
@@ -43,7 +43,7 @@ const UpdateBioHandler = async (req, res) => {
     });
     cachegoose.clearCache(req.userId + '-list');
     if (updatedProfile.n) {
-      res.status(200).send(req.body);
+      res.status(200).json(req.body);
     } else {
       res.status(404).end();
     }
@@ -89,7 +89,7 @@ const GetUsernameHandler = async (req, res) => {
   if (!user) {
     res.status(404).end();
   } else {
-    res.status(200).send({username: user.username});
+    res.status(200).json({username: user.username});
   }
 };
 
@@ -102,17 +102,17 @@ const AddUsernameHandler = async (req, res) => {
     res.status(404).end();
   } else {
     if (user.verified) {
-      res.status(409).send({verified: true});
+      res.status(409).json({verified: true});
     } else {
       if (user.verificationURL !== req.body.url) {
-        res.status(403).send({wrongLink: true});
+        res.status(403).json({wrongLink: true});
       } else {
         const username = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
           console.error(err);
           res.status(500).end()
         });
         if (username) {
-          res.status(400).send({usernameExists: true})
+          res.status(400).json({usernameExists: true})
         } else {
           {
             const list = new List();
@@ -135,7 +135,7 @@ const AddUsernameHandler = async (req, res) => {
               console.error(err);
               res.status(500).end();
             });
-            res.status(201).send({success: true});
+            res.status(201).json({success: true});
           }
         }
       }
@@ -152,7 +152,7 @@ const ChangeUsernameHandler = async (req, res) => {
       res.status(500).end()
     });
     if (usernameExists && !usernameExists.user.equals(req.userId)) {
-      res.status(400).send({usernameExists: true})
+      res.status(400).json({usernameExists: true})
     } else {
       const profile = await mongoose.model('profile').updateOne({user: req.userId}, {username: req.body.username}).catch(err => {
         console.error(err);
@@ -173,7 +173,7 @@ const AddFriendsHandler = (req, res) => {
     res.status(400).end();
   } else {
     mongoose.model('profile').requestFriend(req.userId, req.body.friend, (err, result) => {
-      res.status(201).send(result);
+      res.status(201).json(result);
     });
   }
 };
@@ -185,7 +185,7 @@ const GetFriendRequestsHandler = (req, res) => {
         console.error(err);
         res.status(500).end()
       } else {
-        res.status(200).send(friends)
+        res.status(200).json(friends)
       }
     })
   }

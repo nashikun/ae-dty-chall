@@ -48,7 +48,7 @@ const GuestAnimesHandler = async (req, res) => {
     let count;
     if (total.length) count = total[0].count;
     else count = 0;
-    res.status(200).send({animes: animes[0].paginated_results, count: count})
+    res.status(200).json({animes: animes[0].paginated_results, count: count})
 };
 
 const UserAnimesHandler = async (req, res) => {
@@ -111,7 +111,7 @@ const UserAnimesHandler = async (req, res) => {
     let count;
     if (total.length) count = total[0].count;
     else count = 0;
-    res.status(200).send({animes: animes[0].paginated_results, count: count})
+    res.status(200).json({animes: animes[0].paginated_results, count: count})
 };
 
 const PostAnimeHandler = (req, res) => {
@@ -130,7 +130,7 @@ const PostAnimeHandler = (req, res) => {
                             res.status(500).end();
                         } else {
                             cachegoose.clearCache(req.userId + '-list');
-                            res.status(200).send({id: savedAnime._id});
+                            res.status(200).json({id: savedAnime._id});
                         }
                     })
                 }
@@ -165,7 +165,7 @@ const GetGuestAnimeHandler = async (req, res) => {
         } else {
             anime.score = 'N/A'
         }
-        res.status(200).send(anime);
+        res.status(200).json(anime);
     }
 };
 
@@ -221,7 +221,7 @@ const GetUserAnimeHandler = async (req, res) => {
             anime.score = 'N/A';
             anime.rating = {};
         }
-        res.status(200).send(anime)
+        res.status(200).json(anime)
     }
 };
 
@@ -234,7 +234,7 @@ const GetLatestAnimesHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    res.status(200).send(latest);
+    res.status(200).json(latest);
 };
 
 module.exports = {

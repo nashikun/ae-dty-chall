@@ -31,7 +31,7 @@ const UnreadCountHandler = async (req, res) => {
       res.status(500).end();
     });
     const count = unread.length;
-    res.status(200).send({count: count});
+    res.status(200).json({count: count});
   } else {
     res.status(401).end();
   }
@@ -72,7 +72,7 @@ const SentMessagesHandler = async (req, res) => {
         res.status(500).end();
       } else {
         console.log(results);
-        res.status(200).send({sent: results[0], sentCount: results[1]});
+        res.status(200).json({sent: results[0], sentCount: results[1]});
       }
     });
   } else {
@@ -115,7 +115,7 @@ const ReceivedMessagesHandler = async (req, res) => {
         res.status(500).end();
       } else {
         console.log(results);
-        res.status(200).send({received: results[0], receivedCount: results[1]});
+        res.status(200).json({received: results[0], receivedCount: results[1]});
       }
     });
   } else {
@@ -138,7 +138,7 @@ const GetMessagesHandler = async (req, res) => {
     if (!(message.senderId.equals(req.userId) || message.recipientId.equals(req.userId))) {
       res.status(401).end();
     } else {
-      res.status(200).send(message);
+      res.status(200).json(message);
     }
   }
 };

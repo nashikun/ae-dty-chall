@@ -9,14 +9,14 @@ const CreateUserHandle = (req, res) => {
       res.status(500).end();
     } else {
       if (reasons) {
-        res.status(400).send(reasons);
+        res.status(400).json(reasons);
       } else {
         emailvalidator.sendVerificationEmail(newTempUser, function (err, info) {
           if (err) {
             console.error(err);
             res.status(500).end();
           }
-          res.status(201).send({success: true});
+          res.status(201).json({success: true});
         });
       }
     }
@@ -32,7 +32,7 @@ const LoginUserHandler = (req, res) => {
       if (user) {
         let payload = {subject: user._id, role: user.role};
         let token = jwt.sign(payload, 'anassino');
-        res.status(201).send({
+        res.status(201).json({
           token: token,
           username: user.username,
           role: user.role,
@@ -44,11 +44,11 @@ const LoginUserHandler = (req, res) => {
       switch (reason) {
         case reasons.NOT_FOUND:
         case reasons.PASSWORD_INCORRECT:
-          res.status(401).send({WRONG_CREDITENTIALS: true});
+          res.status(401).json({WRONG_CREDITENTIALS: true});
           break;
         case reasons.MAX_ATTEMPTS:
           //TODO send an email to the user
-          res.status(400).send({MAX_ATTEMPTS: true});
+          res.status(400).json({MAX_ATTEMPTS: true});
           break;
       }
     }
@@ -65,7 +65,7 @@ const VerifyUserHandler = (req, res) => {
         if (!user) {
           res.status(404).end();
         } else {
-          res.status(200).send({id: user._id});
+          res.status(200).json({id: user._id});
         }
       }
     }

@@ -37,7 +37,7 @@ const GetReviewsHandler = async (req, res) => {
 
 const PostReviewHandler = async (req, res) => {
   mongoose.model('review').create({reviewerId: req.userId, review: req.body.review, anime: req.params.anime})
-    .then(result => res.status(201).send(result))
+      .then(result => res.status(201).json(result))
     .catch(err => {
       console.error(err);
       res.status(500).end();
@@ -72,12 +72,12 @@ const RemoveReviewHandler = (req, res) => {
   }, (err, result) => {
     if (err) {
       console.error(err);
-      res.status(500).send()
+      res.status(500).end()
     } else {
       if (result.n) {
-        res.status(204).send()
+        res.status(204).end()
       } else {
-        res.status(404).send()
+        res.status(404).end()
       }
     }
   });

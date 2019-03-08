@@ -17,7 +17,7 @@ cachegoose(mongoose, {
 const animes = require('./controllers/animes');
 const users = require('./controllers/users');
 
-const PORT = process.enc.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const db = process.env.DB_KEY || 'mongodb://AEDTYCHALL:8TsJ3sAoZzVD5Jiu@cluster0-shard-00-00-eilxa.mongodb.net:27017,cluster0-shard-00-01-eilxa.mongodb.net:27017,cluster0-shard-00-02-eilxa.mongodb.net:27017/MAL?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
 const privateKey = fs.readFileSync('ssl/server.key', 'utf8');
 const certificate = fs.readFileSync('ssl/server.crt', 'utf8');

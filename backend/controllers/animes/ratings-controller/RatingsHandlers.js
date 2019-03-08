@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const PostRatingHandler = (req, res) => {
   mongoose.model('rating').create({user: req.userId, rating: req.body.rating, anime: req.params.anime})
-    .then(result => res.status(201).send(result))
+      .then(result => res.status(201).json(result))
     .catch(err => {
       console.error(err);
       res.status(500).end();

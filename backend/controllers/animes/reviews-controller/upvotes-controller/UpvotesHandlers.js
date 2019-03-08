@@ -13,7 +13,7 @@ const AddUpvoteHandler = (req, res) => {
         if (!review) {
           res.status(404).end();
         } else {
-          res.status(201).send({upvotesCount: review.upvotesCount});
+          res.status(201).json({upvotesCount: review.upvotesCount});
         }
       }
     });
@@ -35,7 +35,7 @@ const RemoveUpvote = (req, res) => {
           if (!review) {
             res.status(404).end()
           } else {
-            res.status(200).send({upvotesCount: review.upvotesCount})
+            res.status(200).json({upvotesCount: review.upvotesCount})
           }
         }
       });

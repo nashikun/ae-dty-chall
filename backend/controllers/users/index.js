@@ -27,8 +27,8 @@ UserController.head('/usernames/:username', (req, res) => {
       console.error(err);
       res.status(500).end();
     }
-    if (!user) res.status(204).send({userExists: false});
-    else res.status(204).send({userExists: true});
+    if (!user) res.status(204).json({userExists: false});
+    else res.status(204).json({userExists: true});
   })
 });
 

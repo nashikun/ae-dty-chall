@@ -29,7 +29,7 @@ const GetListHandler = async (req, res) => {
     for (let i = 0; i < n; i += 1) {
       formatedList[list[i]._id] = list[i].animelist;
     }
-    res.status(200).send(formatedList);
+    res.status(200).json(formatedList);
   }
 };
 
