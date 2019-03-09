@@ -28,6 +28,7 @@ export class AnimeComponent implements OnInit {
     }
 
     loaded = false;
+    errors = {invalid: false}
     reviewForm: FormGroup;
     anime = {
         name: '',
@@ -66,7 +67,11 @@ export class AnimeComponent implements OnInit {
     }
 
     Update() {
-        this._animelist.updateList(this.anime._id, this.anime.status, this.anime.watchedEpisodes).subscribe();
+        this._animelist.updateList(this.anime._id, this.anime.status, this.anime.watchedEpisodes).subscribe(() => {
+            this.errors = {invalid: false}
+        }, err => {
+            this.errors = err.error || {};
+        });
     }
 
     postReview() {

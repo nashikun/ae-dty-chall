@@ -70,11 +70,8 @@ const ChangeListAnime = async (req, res) => {
     if (!anime) {
         res.status(404).end();
     } else {
-        console.log(req.body.episodes);
-        console.log(req.body.watchedEpisodes);
-        if ( // either episodes aren't specified, or they are nd should verify the conditions
-            (!req.body.episodes || (0 < req.body.watchedEpisodes < anime.episodes && Number.isInteger(req.body.watchedEpisodes)))
-            && STATUSES.includes(req.body.status)) {
+        if ((!req.body.watchedEpisodes || (0 <= req.body.watchedEpisodes && req.body.watchedEpisodes <= anime.episodes && Number.isInteger(req.body.watchedEpisodes))) && STATUSES.includes(req.body.status)) {
+            // either episodes aren't specified, or they are nd should verify the conditions
             cachegoose.clearCache(req.userId + '-list');
             mongoose.model('list').updateOne({
                 'user': req.userId,
@@ -97,7 +94,7 @@ const ChangeListAnime = async (req, res) => {
                     res.status(500).end()
                 });
         } else {
-            res.status(422).end()
+            res.status(422).json({invalid: true})
         }
     }
 };

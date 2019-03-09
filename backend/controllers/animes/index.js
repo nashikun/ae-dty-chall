@@ -1,5 +1,6 @@
 const AnimesController = require('express').Router();
 const multer = require('multer');
+const path =require('path');
 
 const MODELS = '../../models/';
 const Anime = require(MODELS + 'anime');
@@ -12,18 +13,18 @@ const verifyImage = require('../../middleware/verifyImage');
 const verifyId = require('../../middleware/verifyId');
 
 const MIME_TYPE_MAP = {
-  "image/png": ".png",
-  "image/jpeg": ".jpeg",
-  "image/jpg": ".jpg"
+    "image/png": ".png",
+    "image/jpeg": ".jpeg",
+    "image/jpg": ".jpg"
 };
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './backend/images/animes');
-  }, filename: (req, file, cb) => {
-    const name = file.originalname.replace(/[ ]/gi, '-').replace(/[^0-9a-z-]/gi, '');
-    const ext = MIME_TYPE_MAP[file.mimetype];
-    cb(null, name + '-' + Date.now() + ext);
-  }
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'images', 'animes'));
+    }, filename: (req, file, cb) => {
+        const name = file.originalname.replace(/[ ]/gi, '-').replace(/[^0-9a-z-]/gi, '');
+        const ext = MIME_TYPE_MAP[file.mimetype];
+        cb(null, name + '-' + Date.now() + ext);
+    }
 });
 
 const {GuestAnimesHandler, UserAnimesHandler, PostAnimeHandler, GetGuestAnimeHandler, GetUserAnimeHandler, GetLatestAnimesHandler} = require('./AnimeHandlers');
@@ -31,11 +32,11 @@ const RatingsController = require('./ratings-controller');
 const ReviewsController = require('./reviews-controller');
 
 AnimesController.get('/', (req, res, next) => {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-    GuestAnimesHandler(req, res)
-  } else {
-    verifyUser(req, res, next)
-  }
+    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
+        GuestAnimesHandler(req, res)
+    } else {
+        verifyUser(req, res, next)
+    }
 }, UserAnimesHandler);
 
 AnimesController.post('/', verifyAdmin, multer({storage: storage}).single('image'), verifyImage, PostAnimeHandler);
@@ -43,11 +44,11 @@ AnimesController.post('/', verifyAdmin, multer({storage: storage}).single('image
 AnimesController.get('/latest', GetLatestAnimesHandler);
 
 AnimesController.get('/:anime', verifyId('anime'), async (req, res, next) => {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-    GetGuestAnimeHandler(req, res)
-  } else {
-    verifyUser(req, res, next);
-  }
+    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
+        GetGuestAnimeHandler(req, res)
+    } else {
+        verifyUser(req, res, next);
+    }
 }, GetUserAnimeHandler);
 
 AnimesController.use('/:anime/ratings', verifyId('anime'), RatingsController);
