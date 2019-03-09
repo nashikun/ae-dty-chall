@@ -88,7 +88,6 @@ const ReceivedMessagesHandler = async (req, res) => {
         .find({recipientId: req.userId}, {}, {createdAt: -1})
         .skip(skip)
         .limit(limit)
-        .select('-read')
         .populate({path: 'sender', select: 'username'})
         .exec((err, results) => {
           if (err) {
