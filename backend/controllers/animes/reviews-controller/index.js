@@ -1,5 +1,5 @@
-const verifyUser = require('../../../middleware/verifyUser');
-const verifyId = require('../../../middleware/verifyId');
+const verifyUser = require('../../../util/verifyUser');
+const verifyId = require('../../../util/verifyId');
 
 const {GetReviewsHandler, PostReviewHandler, EditReviewHndler, RemoveReviewHandler} = require('./ReviewsHandlers');
 const UpvotesController = require('./upvotes-controller');

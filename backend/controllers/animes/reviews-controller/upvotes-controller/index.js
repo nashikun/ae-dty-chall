@@ -1,7 +1,7 @@
 const UpvotesController = require('express').Router({mergeParams: true});
 const {AddUpvoteHandler, RemoveUpvote} = require('./UpvotesHandlers');
 
-const verifyId = require('../../../../middleware/verifyId');
+const verifyId = require('../../../../util/verifyId');
 
 UpvotesController.post('/', AddUpvoteHandler);
 

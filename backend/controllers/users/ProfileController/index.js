@@ -3,8 +3,9 @@ const {AddFriendsHandler, AddUsernameHandler, ChangeUsernameHandler, GetFriendRe
 
 const ProfileController = require('express').Router({mergeParams: true});
 const MessagesController = require('./MessagesController');
-const verifyUser = require('../../../middleware/verifyUser');
-const verifyImage = require('../../../middleware/verifyImage');
+const verifyUser = require('../../../util/verifyUser');
+const verifyImage = require('../../../util/verifyImage');
+const verifyId = require('../../../util/verifyId');
 
 const {GetProfileHandler, UpdateBioHandler, UploadProfilePictureHndler} = require('./ProfileHandlers');
 

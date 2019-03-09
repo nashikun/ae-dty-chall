@@ -1,5 +1,5 @@
-const verifyUser = require('../../../middleware/verifyUser');
-const verifyId = require('../../../middleware/verifyId');
+const verifyUser = require('../../../util/verifyUser');
+const verifyId = require('../../../util/verifyId');
 
 const ListController = require('express').Router({mergeParams: true});
 const {GetListHandler, AddListAnimeHandler, ChangeListAnime} = require('./ListHandlers');

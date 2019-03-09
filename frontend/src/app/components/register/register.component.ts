@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.captcha_key);
         this.registrationForm = this.fb.group({
             password: new FormControl(null, {
                 validators: [Validators.required, Validators.pattern('(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+).{6,20}$')
@@ -52,7 +51,6 @@ export class RegisterComponent implements OnInit {
 
         }, (err) => {
             this.show = true;
-            console.error(err);
             this.errors = err.error || {};
         });
     }

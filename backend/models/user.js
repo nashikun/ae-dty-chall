@@ -25,6 +25,7 @@ const userSchema = Schema({
   loginAttempts: {type: Number, required: true, default: 0},
   lockUntil: Number,
   verified: {type: Boolean, default: false},
+    banned: {type: Boolean, default: false},
   verificationURL: String
 }, {timestamps: {createdAt: true, updatedAt: false}});
 
