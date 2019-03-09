@@ -6,9 +6,9 @@ const {GetListHandler, AddListAnimeHandler, ChangeListAnime} = require('./ListHa
 
 ListController.get('/', verifyId('user'), GetListHandler);
 
-ListController.post('/', verifyUser, verifyId('user'), AddListAnimeHandler);
+ListController.post('/', verifyUser, AddListAnimeHandler);
 
-ListController.put('/:anime', verifyUser, verifyId('user'), verifyId('anime'), ChangeListAnime);
+ListController.put('/:anime', verifyUser, verifyId('anime'), ChangeListAnime);
 
 module.exports = ListController;
 

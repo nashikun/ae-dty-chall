@@ -34,68 +34,77 @@ const GetListHandler = async (req, res) => {
 };
 
 const AddListAnimeHandler = async (req, res) => {
-    const anime = await mongoose.model('anime').findById(req.body.id).catch(err => {
-        console.error(err);
-        res.status(500).end()
-    });
-    if (!anime) {
-        res.status(404).end();
-    } else {
-        //scouldn't put it in a hook because of: ref:  https://github.com/Automattic/mongoose/issues/964
-        cachegoose.clearCache(req.userId + '-list');
-        const list = await mongoose.model('list').updateOne({
-            'user': req.userId, 'anime': {$ne: anime.id}
-        }, {
-            $addToSet: {
-                animelist: {
-                    'anime': anime.id,
-                    'status': req.body.status,
-                    'watchedEpisodes': req.body.watchedEpisodes
-                }
-            }
+    if (req.userId.toString() === req.params.user) {
+        const anime = await mongoose.model('anime').findById(req.body.id).catch(err => {
+            console.error(err);
+            res.status(500).end()
         });
-        if (!list.n) {
-            res.status(400).end()
+        if (!anime) {
+            res.status(404).end();
         } else {
-            res.status(204).end()
+            //scouldn't put it in a hook because of: ref:  https://github.com/Automattic/mongoose/issues/964
+            // should look for an alternative
+            cachegoose.clearCache(req.userId + '-list');
+            const list = await mongoose.model('list').updateOne({
+                'user': req.userId, 'anime': {$ne: anime.id}
+            }, {
+                $addToSet: {
+                    animelist: {
+                        'anime': anime.id,
+                        'status': req.body.status,
+                        'watchedEpisodes': req.body.watchedEpisodes
+                    }
+                }
+            });
+            if (!list.n) {
+                res.status(400).end()
+            } else {
+                res.status(204).end()
+            }
         }
+    } else {
+        res.status(401).end()
     }
 };
 
 const ChangeListAnime = async (req, res) => {
-    const anime = await mongoose.model('anime').findById(req.params.anime).catch(err => {
-        console.error(err);
-        res.status(500).end();
-    });
-    if (!anime) {
-        res.status(404).end();
-    } else {
-        if ((!req.body.watchedEpisodes || (0 <= req.body.watchedEpisodes && req.body.watchedEpisodes <= anime.episodes && Number.isInteger(req.body.watchedEpisodes))) && STATUSES.includes(req.body.status)) {
-            // either episodes aren't specified, or they are nd should verify the conditions
-            cachegoose.clearCache(req.userId + '-list');
-            mongoose.model('list').updateOne({
-                'user': req.userId,
-                'animelist.anime': anime._id
-            }, {
-                $set: {
-                    'animelist.$.status': req.body.status,
-                    'animelist.$.watchedEpisodes': req.body.watchedEpisodes
-                }
-            }, {new: true})
-                .then(result => {
-                    if (result.n) {
-                        res.status(204).end();
-                    } else {
-                        res.status(404).end();
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    res.status(500).end()
-                });
+    if (req.userId.toString() === req.params.user) {
+        const anime = await mongoose.model('anime').findById(req.params.anime).catch(err => {
+            console.error(err);
+            res.status(500).end();
+        });
+        if (!anime) {
+            res.status(404).end();
         } else {
-            res.status(422).json({invalid: true})
+            if ((!req.body.watchedEpisodes || (0 <= req.body.watchedEpisodes && req.body.watchedEpisodes <= anime.episodes && Number.isInteger(req.body.watchedEpisodes))) && STATUSES.includes(req.body.status)) {
+                // either episodes aren't specified, or they are nd should verify the conditions
+                cachegoose.clearCache(req.userId + '-list');
+                mongoose.model('list').updateOne({
+                    'user': req.userId,
+                    'animelist.anime': anime._id
+                }, {
+                    $set: {
+                        'animelist.$.status': req.body.status,
+                        'animelist.$.watchedEpisodes': req.body.watchedEpisodes
+                    }
+                }, {new: true})
+                    .then(result => {
+                        if (result.n) {
+                            res.status(204).end();
+                        } else {
+                            res.status(404).end();
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        res.status(500).end()
+                    });
+            } else {
+                res.status(422).json({invalid: true})
+            }
         }
+    } else {
+        res.status(401).end()
     }
 };
 
