@@ -43,6 +43,10 @@ export class ProfileService {
         return this.http.post<any>(BACKEND + `/users/${this._auth.getId()}/profile/friends`, {friend: friend});
     }
 
+    banUser(user) {
+        return this.http.post<any>(BACKEND + `/users/${user}/ban`, {});
+    }
+
     getFriendRequests() {
         return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/friends/requested`);
     }

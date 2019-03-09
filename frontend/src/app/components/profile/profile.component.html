@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="!loaded">   </mat-spinner>
+<mat-spinner *ngIf="!loaded"></mat-spinner>
 <div *ngIf="loaded">
     <!--Picture Start-->
     <img [alt]="profile.username" [src]="imageUrl">
@@ -24,6 +24,10 @@
         <button mat-button color="primary" (click)="sendMessage()"> Send A Message</button>
     </div>
     <!--Friendship Status and message Button End-->
+
+    <!--Ban Button Start-->
+    <button mat-button *ngIf="_auth.isAdmin()" color="warn" (click)="banUser()"> Ban User</button>
+    <!--Ban Button End-->
 
     <!--Bio Start-->
     <div *ngIf="!editUsername">Username : {{profile.username}}

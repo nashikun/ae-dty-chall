@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const cachegoose = require('cachegoose');
 const emailvalidator = require('../../util/email-validator');
 const jwt = require("jsonwebtoken");
+const async = require('async');
 const ObjectId = mongoose.Types.ObjectId;
 
 const CreateUserHandle = (req, res) => {
@@ -61,7 +63,7 @@ const LoginUserHandler = (req, res) => {
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.URL;
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, (err, user) => {
-        if (err) {
+            if (err) {
                 console.error(err);
                 res.status(500).end();
             } else {
@@ -76,27 +78,31 @@ const VerifyUserHandler = (req, res) => {
 };
 
 const BanUserHandler = async (req, res) => {
-    await Promise.all(
-        mongoose.model('user').updateOne({_id: ObjectId(req.userId)}, {
-            $unset: {role: 1, list: 1, profile: 1},
-            banned: true
-        }).catch(err => {
+    await async.parallel([
+        (cb) => {
+            mongoose.model('user').updateOne({_id: ObjectId(req.params.user)}, {
+                $unset: {role: 1, list: 1, profile: 1},
+                banned: true
+            }, cb)
+        },
+        (cb) => {
+            mongoose.model('profile').deleteMany({user: ObjectId(req.params.user)}, cb)
+        },
+        (cb) => {
+            mongoose.model('list').deleteMany({user: ObjectId(req.params.user)}, cb)
+        },
+        (cb) => {
+            mongoose.model('review').deleteMany({user: ObjectId(req.params.user)}, cb)
+        }
+    ], (err, result) => {
+        cachegoose.clearCache(req.params.user + '-profile');
+        if (err) {
             console.error(err);
-            res.status(500).end();
-        }),
-        mongoose.model('profile').delete({user: ObjectId(req.userId)}).catch(err => {
-            console.error(err);
-            res.status(500).end();
-        }),
-        mongoose.model('list').delete({user: ObjectId(req.userId)}).catch(err => {
-            console.error(err);
-            res.status(500).end();
-        }),
-        mongoose.model('reviews').delete({user: ObjectId(req.userId)}).catch(err => {
-            console.error(err);
-            res.status(500).end();
-        }));
-    res.status(200).end();
+            res.status(500).end()
+        } else {
+            res.status(200).end();
+        }
+    })
 };
 
 module.exports = {CreateUserHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};

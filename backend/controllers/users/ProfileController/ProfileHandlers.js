@@ -15,21 +15,25 @@ const GetProfileHandler = async (req, res) => {
         });
     if (!profile) {
         res.status(404).end()
-    } else if (req.userId && !req.userId.equals(profile.user)) {
-        mongoose.model('profile').getFriends(req.userId, {user: profile.user}, {user: 1}, (err, friendship) => {
-            if (err) {
-                console.error(err);
-                res.status(500).end()
-            } else if (friendship.length) {
-                profile.friendship = friendship[0].status;
-                res.status(200).json(profile)
-            }
-        })
     } else {
-        if (req.userId) {
-            profile.me = true;
+        if (req.userId && !req.userId.equals(profile.user)) {
+            mongoose.model('profile').getFriends(req.userId, {user: profile.user}, {user: 1}, (err, friendship) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).end()
+                } else {
+                    if (friendship.length) {
+                        profile.friendship = friendship[0].status;
+                    }
+                    res.status(200).json(profile)
+                }
+            })
+        } else {
+            if (req.userId) {
+                profile.me = true;
+            }
+            res.status(200).json(profile)
         }
-        res.status(200).json(profile)
     }
 };
 
@@ -118,6 +122,7 @@ const AddUsernameHandler = async (req, res) => {
                         const list = new mongoose.model('list')();
                         const profile = new mongoose.model('profile')();
                         user.verified = true;
+                        user.verificationURL = undefined;
                         user.list = list._id;
                         user.profile = profile._id;
                         list.user = user._id;

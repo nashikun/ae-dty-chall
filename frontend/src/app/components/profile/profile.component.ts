@@ -71,6 +71,7 @@ export class ProfileComponent implements OnInit {
         } else {
             this.myProfile = true;
             this._profile.getMyProfile().subscribe(res => {
+                this.loaded = true;
                 this.profile = res;
                 this.imageUrl = this.profile.picture;
                 this.profileForm = this.fb.group({
@@ -81,7 +82,6 @@ export class ProfileComponent implements OnInit {
                     location: new FormControl(this.profile.location, {}),
                     gender: new FormControl(this.profile.gender, {}),
                 });
-                this.loaded = true;
             });
         }
     }
@@ -135,11 +135,17 @@ export class ProfileComponent implements OnInit {
         return this._profile.addFriend(this.userId).subscribe();
     }
 
+    banUser() {
+        return this._profile.banUser(this.userId).subscribe(() => this._router.navigate(['/']));
+    }
+
     currentDay() {
         return new Date();
-    }co
+    }
 
     sendMessage() {
         this._router.navigate(['/profile/mails/create'], {queryParams: {recipient: this.userId}});
     }
+
 }
+
