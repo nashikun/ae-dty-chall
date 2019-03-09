@@ -73,5 +73,9 @@ const VerifyUserHandler = (req, res) => {
     )
 };
 
-module.exports = {CreateUserHandle, LoginUserHandler, VerifyUserHandler};
+const BanUserHandler = (req, res) => {
+
+};
+
+module.exports = {CreateUserHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};
 

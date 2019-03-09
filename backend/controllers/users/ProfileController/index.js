@@ -40,9 +40,9 @@ ProfileController.put('/bio', verifyUser, UpdateBioHandler);
 
 ProfileController.put('/picture', verifyUser, multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
 
-ProfileController.get('/username', GetUsernameHandler);
+ProfileController.get('/username', verifyId('user'), GetUsernameHandler);
 
-ProfileController.post('/username', AddUsernameHandler);
+ProfileController.post('/username', verifyId('user'), AddUsernameHandler);
 
 ProfileController.put('/username', verifyUser, ChangeUsernameHandler);
 
