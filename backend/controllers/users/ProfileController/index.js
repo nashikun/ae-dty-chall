@@ -8,11 +8,11 @@ const verifyImage = require('../../../middleware/verifyImage');
 
 const {GetProfileHandler, UpdateBioHandler, UploadProfilePictureHndler} = require('./ProfileHandlers');
 
-const path =require('path');
+const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'images', 'profiles'));
+        cb(null, path.join(__dirname, '..', '..', '..', 'images', 'profiles'));
     }, filename: (req, file, cb) => {
         const name = file.originalname.split('.').slice(0, -1).join('')
             .replace(/[ ]/g, '-').replace(/[^0-9a-z-]/gi, '');

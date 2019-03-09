@@ -37,12 +37,13 @@ export class MailboxComponent implements OnInit {
   getMails() {
     if (this.selected) {
       this._profile.getSentMails(this.pageSize, this.pageNumber).subscribe(res => {
-        this.sent = res.sent;
+        console.log(res.sent);
         this.sentCount = res.sentCount;
       });
     } else {
       this._profile.getReceivedMails(this.pageSize, this.pageNumber).subscribe(res => {
         this.received = res.received;
+        console.log(this.received);
         this.receivedCount = res.receivedCount;
       });
     }

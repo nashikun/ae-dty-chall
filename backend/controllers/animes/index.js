@@ -19,7 +19,7 @@ const MIME_TYPE_MAP = {
 };
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'images', 'animes'));
+        cb(null, path.join(__dirname, '..', '..', 'images', 'animes'));
     }, filename: (req, file, cb) => {
         const name = file.originalname.replace(/[ ]/gi, '-').replace(/[^0-9a-z-]/gi, '');
         const ext = MIME_TYPE_MAP[file.mimetype];

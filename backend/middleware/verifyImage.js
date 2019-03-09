@@ -4,8 +4,7 @@ const fs = require("fs");
 const PERMITTED_EXT = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
 
 const verifyImage = function (req, res, next) {
-  const filepath = path.join(__dirname, '..', '..', req.file.path);
-  fs.open(filepath, "r", function (err, fd) {
+  fs.open(req.file.path, "r", function (err, fd) {
     let buffer = Buffer.alloc(fileType.minimumBytes);
     fs.read(fd, buffer, 0, fileType.minimumBytes, null, function (error, bytesRead, buffer) {
       if (error) {
