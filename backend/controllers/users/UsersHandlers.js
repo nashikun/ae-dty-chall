@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const emailvalidator = require('../../middleware/email-validator');
+const emailvalidator = require('../../util/email-validator');
 const jwt = require("jsonwebtoken");
+const ObjectId = mongoose.Types.ObjectId;
 
 const CreateUserHandle = (req, res) => {
     emailvalidator.createTempUser(req.body, (err, reasons, newTempUser) => {
@@ -8,10 +9,11 @@ const CreateUserHandle = (req, res) => {
             console.error(err);
             res.status(500).end();
         } else {
+            console.log(newTempUser);
             if (reasons) {
                 res.status(400).json(reasons);
             } else {
-                emailvalidator.sendVerificationEmail(newTempUser, 'https://' + req.host, function (err, info) {
+                emailvalidator.sendVerificationEmail(newTempUser, function (err, info) {
                     if (err) {
                         console.error(err);
                         res.status(500).end();
@@ -58,8 +60,8 @@ const LoginUserHandler = (req, res) => {
 
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.URL;
-    mongoose.model('user').findOne({verificationURL: URL, verified: false}, async (err, user) => {
-            if (err) {
+    mongoose.model('user').findOne({verificationURL: URL, verified: false}, (err, user) => {
+        if (err) {
                 console.error(err);
                 res.status(500).end();
             } else {
@@ -73,8 +75,28 @@ const VerifyUserHandler = (req, res) => {
     )
 };
 
-const BanUserHandler = (req, res) => {
-
+const BanUserHandler = async (req, res) => {
+    await Promise.all(
+        mongoose.model('user').updateOne({_id: ObjectId(req.userId)}, {
+            $unset: {role: 1, list: 1, profile: 1},
+            banned: true
+        }).catch(err => {
+            console.error(err);
+            res.status(500).end();
+        }),
+        mongoose.model('profile').delete({user: ObjectId(req.userId)}).catch(err => {
+            console.error(err);
+            res.status(500).end();
+        }),
+        mongoose.model('list').delete({user: ObjectId(req.userId)}).catch(err => {
+            console.error(err);
+            res.status(500).end();
+        }),
+        mongoose.model('reviews').delete({user: ObjectId(req.userId)}).catch(err => {
+            console.error(err);
+            res.status(500).end();
+        }));
+    res.status(200).end();
 };
 
 module.exports = {CreateUserHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};

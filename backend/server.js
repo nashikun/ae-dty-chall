@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 //const http = require('http');
@@ -9,15 +10,15 @@ const helmet = require('helmet');
 const cachegoose = require('cachegoose');
 cachegoose(mongoose, {
     engine: 'redis',
-    port: 17844,
-    host: 'redis-17844.c57.us-east-1-4.ec2.cloud.redislabs.com',
-    password: '5ihSF2Qa9BNMp9t7dNewNdW5sLXOTsz1'
+    port: process.env.CACHE_PORT,
+    host: process.env.CACHE_HOST,
+    password: process.env.CACHE_PWD
 });
 
 const animes = require('./controllers/animes');
 const users = require('./controllers/users');
 
-const db = 'mongodb://AEDTYCHALL:8TsJ3sAoZzVD5Jiu@cluster0-shard-00-00-eilxa.mongodb.net:27017,cluster0-shard-00-01-eilxa.mongodb.net:27017,cluster0-shard-00-02-eilxa.mongodb.net:27017/MAL?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
+const db = process.env.DB;
 
 const privateKey = fs.readFileSync('ssl/server.key', 'utf8');
 const certificate = fs.readFileSync('ssl/server.crt', 'utf8');

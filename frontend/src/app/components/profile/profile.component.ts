@@ -137,7 +137,7 @@ export class ProfileComponent implements OnInit {
 
     currentDay() {
         return new Date();
-    }
+    }co
 
     sendMessage() {
         this._router.navigate(['/profile/mails/create'], {queryParams: {recipient: this.userId}});

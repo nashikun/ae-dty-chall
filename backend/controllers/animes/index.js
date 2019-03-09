@@ -7,10 +7,10 @@ const Anime = require(MODELS + 'anime');
 const Reviews = require(MODELS + 'review');
 const Rating = require(MODELS + 'rating');
 
-const verifyUser = require('../../middleware/verifyUser');
-const verifyAdmin = require('../../middleware/verifyAdmin');
-const verifyImage = require('../../middleware/verifyImage');
-const verifyId = require('../../middleware/verifyId');
+const verifyUser = require('../../util/verifyUser');
+const verifyAdmin = require('../../util/verifyAdmin');
+const verifyImage = require('../../util/verifyImage');
+const verifyId = require('../../util/verifyId');
 
 const MIME_TYPE_MAP = {
     "image/png": ".png",

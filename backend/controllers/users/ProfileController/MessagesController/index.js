@@ -1,6 +1,6 @@
 const MessagesController = require('express').Router({mergeParams: true});
-const verifyUser = require('../../../../middleware/verifyUser');
-const verifyId = require('../../../../middleware/verifyId');
+const verifyUser = require('../../../../util/verifyUser');
+const verifyId = require('../../../../util/verifyId');
 
 const {SendMessageHandler, UnreadCountHandler, SentMessagesHandler, ReceivedMessagesHandler, ReadMessageHandler, GetMessagesHandler} = require('./MessagesHandler');
 
