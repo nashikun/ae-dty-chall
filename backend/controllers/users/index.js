@@ -23,14 +23,14 @@ UserController.use('/:user/profile', ProfileController);
 
 UserController.use('/:user/list', ListController);
 
-UserController.head('/usernames/:username', (req, res) => {
-    User.findOne({username: req.params.username}, (err, user) => {
+UserController.head('/emails/:email', (req, res) => {
+    User.findOne({email: req.params.email}, (err, user) => {
         if (err) {
             console.error(err);
             res.status(500).end();
         }
-        if (!user) res.status(204).json({userExists: false});
-        else res.status(204).json({userExists: true});
+        if (!user) res.status(404).end();
+        else res.status(204).end();
     })
 });
 

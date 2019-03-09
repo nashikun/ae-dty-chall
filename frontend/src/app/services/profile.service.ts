@@ -74,5 +74,4 @@ export class ProfileService {
     markMailRead(messageId) {
         return this.http.post<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/${messageId}/set-read`, {});
     }
-
 }

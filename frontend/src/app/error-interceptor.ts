@@ -8,21 +8,21 @@ import {Router} from '@angular/router';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private dialog: MatDialog, private router: Router) {
-  }
+    constructor(private dialog: MatDialog, private router: Router) {
+    }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next
-      .handle(req)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status == 404) {
-            this.router.navigate(['/page-not-found']);
-          }
-          if (error.status == 401) {
-            this.router.navigate(['/login']);
-          }
-          return throwError(error);
-        }));
-  }
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next
+            .handle(req)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.status == 404 && req.method !== "HEAD") {
+                        this.router.navigate(['/page-not-found']);
+                    }
+                    if (error.status == 401) {
+                        this.router.navigate(['/login']);
+                    }
+                    return throwError(error);
+                }));
+    }
 }

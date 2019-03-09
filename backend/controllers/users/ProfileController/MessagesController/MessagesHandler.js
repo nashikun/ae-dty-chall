@@ -43,7 +43,8 @@ const SentMessagesHandler = async (req, res) => {
         const skip = req.query.page * limit;
         const sent = function (cb) {
             mongoose.model('message')
-                .find({senderId: req.userId}, {}, {createdAt: 1})
+                .find({senderId: req.userId})
+                .sort({createdAt: -1})
                 .skip(skip)
                 .limit(limit)
                 .select('-read')
@@ -85,7 +86,8 @@ const ReceivedMessagesHandler = async (req, res) => {
         const skip = req.query.page * limit;
         const sent = function (cb) {
             mongoose.model('message')
-                .find({recipientId: req.userId}, {}, {createdAt: 1})
+                .find({recipientId: req.userId})
+                .sort({createdAt: -1})
                 .skip(skip)
                 .limit(limit)
                 .populate({path: 'sender', select: 'username'})

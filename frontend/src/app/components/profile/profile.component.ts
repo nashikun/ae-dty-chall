@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProfileService} from '../../services/profile.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ImageValidator} from '../../util/ImageValidator';
+import {ImageValidator} from '../../validators/ImageValidator';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AuthService} from '../../services/auth.service';

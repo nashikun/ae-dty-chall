@@ -47,6 +47,7 @@ Besides the above, users have the ability to:
 Admins have access to the above functionalities and:
 * Add new animes.
 * Ban users.
+* Remove users reviews. 
 
 ## Accessing the project 
 
@@ -70,13 +71,15 @@ Create an `ssl` folder in `/frontend` and `/backend` and copy your certificates 
 Start Mongodb and Redis-server on your preferred port and replace the relevant details in `backend/.env` 
 
 ### Starting the backend server
-in the backend folder:    
+
+Please make sure you port 3000 is not being used
+In the backend folder:    
 Run `npm install` to install the dependencies  
 Run `npm start server.js`
 
 ### Starting the frontend server
 
-in the frontend folder
+In the frontend folder
 Run `npm install` to install the dependencies  
 Run `ng serve --ssl`
 

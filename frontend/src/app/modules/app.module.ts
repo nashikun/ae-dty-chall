@@ -9,7 +9,7 @@ import {AuthService} from '../services/auth.service';
 import {TokenInterceptor} from '../token-interceptor';
 import {ErrorInterceptor} from '../error-interceptor';
 import {AnimeService} from '../services/anime.service';
-import {UsernameValidator} from '../util/UsernameValidator';
+import {EmailValidator} from '../validators/EmailValidator';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {PageNotFoundComponent} from '../components/errors/page-not-found.component';
@@ -56,7 +56,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       useClass: ErrorInterceptor,
       multi: true
     },
-    UsernameValidator,
+    EmailValidator,
   ],
   bootstrap: [AppComponent],
 })

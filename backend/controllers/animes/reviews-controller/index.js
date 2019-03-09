@@ -1,4 +1,5 @@
 const verifyUser = require('../../../util/verifyUser');
+const verifyAdmin = require('../../../util/verifyAdmin');
 const verifyId = require('../../../util/verifyId');
 
 const {GetReviewsHandler, PostReviewHandler, EditReviewHndler, RemoveReviewHandler} = require('./ReviewsHandlers');
@@ -16,7 +17,10 @@ ReviewsController.get('/', (req, res, next) => {
 
 ReviewsController.post('/', verifyUser, PostReviewHandler);
 
-ReviewsController.patch('/:review', verifyUser, verifyId('review'), EditReviewHndler);
+ReviewsController.patch('/:review', verifyUser, verifyId('review'), (req, res, next) => {
+    if (req.params.user === req.userId.toString()) next();
+    else verifyAdmin(req, res, next)
+}, EditReviewHndler);
 
 ReviewsController.delete('/:review', verifyUser, verifyId('review'), RemoveReviewHandler);
 
