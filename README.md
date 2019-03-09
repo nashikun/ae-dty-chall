@@ -9,50 +9,70 @@ This project is a simple 'List' site where users can keep track of their animes 
 
 ### Prerequisites
 
-Git, Node 10, express, mongo/mongoose, angular, flex-layout  
+Git, nginx, Node 10, express, mongo/mongoose, angular, flex-layout  
  
 ### Technical description
 
 This project is made following the mean stack:   
-_Mongodb with mongoose for the NoSQL database  
-_Express : backend framework running on top of Nodejs  
-_Angular : frontend  
+* Mongodb with mongoose for the NoSQL database  
+* Express : backend framework running on top of Nodejs  
+* Angular : frontend  
   
 Redis is used to cache data on the backend
 JWT is used to authenticate users  
-  
-  The mongodb runs on mongo atlas. The credentials are: anasselidrissi97@gmail.com / Mccus@1997  
-  Redis runs on redislabs.com, and the credentials are: anasselidrissi97@gmail.com / mccus1997 
+
+For the webapp:      
+* The mongodb runs on mongo atlas. The credentials are: anasselidrissi97@gmail.com / Mccus@1997  
+* Redis runs on redislabs.com, and the credentials are: anasselidrissi97@gmail.com / mccus1997 
+* The frontend is hosted at firebase.  
+* The backend is hosted on an ubuntu ec2 instance on AWS.  
+* A nginx reverse proxy is set up to provide https and redirecting. 
 
 ### Functionalities
 
-There are two types of roles: user and admin  
-Unauthenticated users can:  
-_ See animes, sort them by score or name, and search for animes.  
-_ Read animes descriptions and see the reviews.  
-_ See users profiles and animes lists.
+There are three types of roles: guest, user and admin  
+Guestss can:  
+* See animes, sort them by score or name, and search for animes.  
+* Read animes descriptions and see the reviews.  
+* See users profiles and animes lists.
 
 Besides the above, users have the ability to:  
-_ Add animes to their personal list with different statuses / seen episodes.  
-_ Rate animes.  
-_ Post, edit and delete reviews.  
-_ Add friends.
-_ Edit their profiles and bio
-_ Send messages and reply to them.
+* Add animes to their personal list with different statuses / seen episodes.  
+* Rate animes.  
+* Post, edit and delete reviews.  
+* Add friends.
+* Edit their profiles and bio
+* Send messages and reply to them.
 
 Admins have access to the above functionalities and:
-_ Add new animes.
+* Add new animes.
+* Ban users.
 
-## Installing and running the project
+## Accessing the project 
+
+You can find a live version of the site [here](https://www.ae-dty-chall.com)  
+For admin rights, you can login using admin@admin / Admin0
+
+## Installing and running the project locally
 
 ### Installing the SSL certificate:
-Install the ssl certificate from the `frontend/ssl`folder.
+Install the ssl certificate from the `/ssl`folder or generate your own using 
+```
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+and install it.  
+Create an `ssl` folder in `/frontend` and `/backend` and copy your certificates in it.
+
+### Staring Redis and Mongodb
+Start Mongodb and Redis-server on your preferred port and replace the relevant details in `backend/.env` 
 
 ### Starting the backend server
 in the backend folder:    
 Run `npm install` to install the dependencies  
 Run `npm start server.js`
-Whitelist your IP in mongo atlas. The credentials are: anasselidrissi97@gmail.com / Mccus@1997
 
 ### Starting the frontend server
 
@@ -62,5 +82,5 @@ Run `ng serve --ssl`
 
 ### Testing the website
 
-Enter `https://localhost:4200` in your browser.  
-To enter as an admin, use mangas4fun@gmail.com as an email, and Mccus1997 as a password.  
+Enter `https://localhost:4200` in your browser.
+For admin rights, change a user's role in the user collection to `admin`
