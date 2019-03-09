@@ -15,6 +15,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AnimesComponent implements OnInit {
 
     loaded = false;
+    errors = {invalid: false}
     allAnimes = [];
     search = '';
     columnsToDisplay = ['name', 'score', 'rating', 'status'];
@@ -58,7 +59,11 @@ export class AnimesComponent implements OnInit {
     }
 
     Update(anime) {
-        this._animelist.updateList(anime._id, anime.status, anime.watchedEpisodes).subscribe();
+        this._animelist.updateList(anime._id, anime.status, anime.watchedEpisodes).subscribe(() => {
+            this.errors = {invalid: false}
+        }, err => {
+            this.errors = err.error || {};
+        });
     }
 
     changePage(event: PageEvent) {

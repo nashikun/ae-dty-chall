@@ -64,6 +64,7 @@
                    min="0" type="number">
           </mat-form-field>
           / {{anime.episodes}}
+          <mat-error *ngIf="errors.invalid"> Please enter a valid number</mat-error>
           <button (click)="Update(anime)" mat-button>
             Update
           </button>

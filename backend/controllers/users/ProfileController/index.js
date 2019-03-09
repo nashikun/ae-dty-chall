@@ -8,31 +8,32 @@ const verifyImage = require('../../../middleware/verifyImage');
 
 const {GetProfileHandler, UpdateBioHandler, UploadProfilePictureHndler} = require('./ProfileHandlers');
 
+const path =require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './backend/images/profiles');
-  }, filename: (req, file, cb) => {
-    const name = file.originalname.split('.').slice(0, -1).join('')
-      .replace(/[ ]/g, '-').replace(/[^0-9a-z-]/gi, '');
-    // Enleve l'extension, remplace les espaces par des tirets, et   enleve les characteres non alphanumeriques autres que -
-    const ext = MIME_TYPE_MAP[file.mimetype];
-    cb(null, name + '-' + Date.now() + ext);
-  }
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'images', 'profiles'));
+    }, filename: (req, file, cb) => {
+        const name = file.originalname.split('.').slice(0, -1).join('')
+            .replace(/[ ]/g, '-').replace(/[^0-9a-z-]/gi, '');
+        // Enleve l'extension, remplace les espaces par des tirets, et   enleve les characteres non alphanumeriques autres que -
+        const ext = MIME_TYPE_MAP[file.mimetype];
+        cb(null, name + '-' + Date.now() + ext);
+    }
 });
 const MIME_TYPE_MAP = {
-  "image/png": ".png",
-  "image/jpeg": ".jpeg",
-  "image/jpg": ".jpg"
+    "image/png": ".png",
+    "image/jpeg": ".jpeg",
+    "image/jpg": ".jpg"
 };
 
 ProfileController.get('/', async (req, res, next) => {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-    req.userId = null;
-    next();
-  } else {
-    verifyUser(req, res, next)
-  }
+    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
+        req.userId = null;
+        next();
+    } else {
+        verifyUser(req, res, next)
+    }
 }, GetProfileHandler);
 
 ProfileController.put('/bio', verifyUser, UpdateBioHandler);
