@@ -1,6 +1,6 @@
 const AnimesController = require('express').Router();
 const multer = require('multer');
-const path =require('path');
+const path = require('path');
 
 const MODELS = '../../models/';
 const Anime = require(MODELS + 'anime');
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const {GuestAnimesHandler, UserAnimesHandler, PostAnimeHandler, GetGuestAnimeHandler, GetUserAnimeHandler, GetLatestAnimesHandler} = require('./AnimeHandlers');
+const {GuestAnimesHandler, UserAnimesHandler, PostAnimeHandler, GetGuestAnimeHandler, AnimeExistsHandler, GetUserAnimeHandler, GetLatestAnimesHandler} = require('./AnimeHandlers');
 const RatingsController = require('./ratings-controller');
 const ReviewsController = require('./reviews-controller');
 
@@ -40,6 +40,8 @@ AnimesController.get('/', (req, res, next) => {
 }, UserAnimesHandler);
 
 AnimesController.post('/', verifyAdmin, multer({storage: storage}).single('image'), verifyImage, PostAnimeHandler);
+
+AnimesController.head('/:animename', AnimeExistsHandler);
 
 AnimesController.get('/latest', GetLatestAnimesHandler);
 

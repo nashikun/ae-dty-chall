@@ -64,7 +64,7 @@ const UserAnimesHandler = async (req, res) => {
             break;
     }
     const animes = await mongoose.model('anime').aggregate([{
-        $match: {name: {$regex: req.query.search || ""  , $options: 'i'}}
+        $match: {name: {$regex: req.query.search || "", $options: 'i'}}
     }, {
         $lookup: {
             from: "ratings",
@@ -168,6 +168,15 @@ const GetGuestAnimeHandler = async (req, res) => {
     }
 };
 
+const AnimeExistsHandler = async (req, res) => {
+    const anime = await mongoose.model('anime').findOne({name: req.params.animename}).catch(err => {
+        console.error(err);
+        res.status(500).end()
+    });
+    if (anime) res.status(204).end();
+    else res.status(404).end();
+};
+
 const GetUserAnimeHandler = async (req, res) => {
     const animes = await mongoose.model('anime').aggregate([
         {$match: {_id: ObjectId(req.params.anime)}},
@@ -241,6 +250,7 @@ module.exports = {
     UserAnimesHandler,
     PostAnimeHandler,
     GetGuestAnimeHandler,
+    AnimeExistsHandler,
     GetUserAnimeHandler,
     GetLatestAnimesHandler
 };

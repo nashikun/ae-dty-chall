@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsernameValidator} from '../../util/UsernameValidator';
+import {EmailValidator} from '../../validators/EmailValidator';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {environment} from '../../../environments/environment'
@@ -19,19 +19,23 @@ export class RegisterComponent implements OnInit {
     registrationForm: FormGroup;
     errors = {emailExists: false, unverified: false};
 
-    constructor(private _auth: AuthService, private _router: Router, private fb: FormBuilder, private usernameValidator: UsernameValidator,
+    constructor(private _auth: AuthService,
+                private _router: Router,
+                private fb: FormBuilder,
+                private emailValidator: EmailValidator,
                 private dialog: MatDialog) {
     }
 
     ngOnInit() {
+
         this.registrationForm = this.fb.group({
-            password: new FormControl(null, {
-                validators: [Validators.required, Validators.pattern('(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+).{6,20}$')
-                ]
-            }),
             email: new FormControl(null, {
                 validators: [Validators.required, Validators.pattern('([!#-\'*+/-9=?A-Z^-~-]+(\\.[!#-\'*+/-9=?A-Z^-~-]+)*|"([]!#-[^-~ \\t]' +
                     '|(\\\\[\\t -~]))+")@([!#-\'*+/-9=?A-Z^-~-]+(\\.[!#-\'*+/-9=?A-Z^-~-]+)*|\\[[\\t -Z^-~]*])')
+                ], asyncValidators: [this.emailValidator.available.bind(this.emailValidator)]
+            }),
+            password: new FormControl(null, {
+                validators: [Validators.required, Validators.pattern('(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+).{6,20}$')
                 ]
             }),
             recaptcha: new FormControl(null, {validators: [Validators.required]})

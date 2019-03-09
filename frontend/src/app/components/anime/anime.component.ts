@@ -28,7 +28,7 @@ export class AnimeComponent implements OnInit {
     }
 
     loaded = false;
-    errors = {invalid: false}
+    errors = {invalid: false};
     reviewForm: FormGroup;
     anime = {
         name: '',
@@ -88,7 +88,13 @@ export class AnimeComponent implements OnInit {
         }
     }
 
-    deleteReview() {
+    deleteReview(review) {
+        this._anime.deleteReview(this.anime._id, review.id).subscribe(() => {
+            this.reviews.splice(this.reviews.indexOf(review), 1)
+        });
+    }
+
+    deleteMyReview() {
         this._anime.deleteReview(this.anime._id, this.userReview.id).subscribe(() => {
             this.editMode = true;
             this.userReview = {id: '', review: ''};

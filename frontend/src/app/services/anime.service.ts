@@ -21,6 +21,10 @@ export class AnimeService {
     return this.http.get<any>(BACKEND+`/animes/${anime}`);
   }
 
+  animeExists(anime) {
+    return this.http.head<any>(BACKEND + `/animes/${anime}`);
+  }
+
   addAnime(anime) {
     // const image = imageUrl.split(',')[1];
     const postData = new FormData();

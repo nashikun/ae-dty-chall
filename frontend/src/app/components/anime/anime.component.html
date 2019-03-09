@@ -6,6 +6,7 @@
             <div>
                 {{anime.name}}
                 <p></p>
+
                 <!--Status Bar Start -->
                 <button (click)="Add()" *ngIf="_auth.loggedIn() && !anime.status" mat-button>Add</button>
                 <mat-icon color="primary" svgIcon="star"></mat-icon>
@@ -48,6 +49,7 @@
                     </div>
                 </div>
                 <!--Status Bar End -->
+
             </div>
         </div>
     </mat-card-header>
@@ -55,6 +57,7 @@
         <div>
             {{anime.description}}
         </div>
+
         <!--Reviews Start -->
         <mat-accordion>
             <mat-expansion-panel (afterExpand)="getReviews()">
@@ -66,6 +69,8 @@
                         {{anime.name}} reviews
                     </mat-panel-description>
                 </mat-expansion-panel-header>
+
+                <!-- User's review Start -->
                 <mat-card *ngIf="userReview.review && !editMode">
                     <mat-card-header>
                         Your review of {{anime.name}}
@@ -77,10 +82,13 @@
                     <button mat-button color="primary" (click)="editMode=true">
                         Edit
                     </button>
-                    <button mat-button color="warn" (click)="deleteReview()">
+                    <button mat-button color="warn" (click)="deleteMyReview()">
                         Delete
                     </button>
                 </mat-card>
+                <!-- User's review End -->
+
+                <!-- Review Post Form Start -->
                 <mat-card *ngIf="(!userReview.review || editMode) && _auth.loggedIn()">
                     <form [formGroup]="reviewForm" (submit)="postReview()">
                         <mat-form-field>
@@ -92,9 +100,13 @@
                         <button mat-button>Post review</button>
                     </form>
                 </mat-card>
+                <!-- Review Post Form End -->
+
                 <mat-card *ngIf="!(reviews.length || userReview.review)">
                     No reviews to show
                 </mat-card>
+
+                <!-- Other reviews Start -->
                 <mat-card *ngFor="let review of reviews">
                     <mat-card-header>
                         <img [src]="review.reviewer.picture" [alt]="review.reviewer.username" width="40px"
@@ -112,8 +124,13 @@
                         <div *ngIf="review.upvoted">
                             <mat-icon color="primary" svgIcon="upvoted" (click)="unVote(review)"></mat-icon>
                         </div>
+                        <button mat-button color="warn" (click)="deleteReview(review)" *ngIf="_auth.isAdmin()">
+                            Delete
+                        </button>
                     </mat-card-footer>
                 </mat-card>
+                <!-- Other reviews End -->
+
             </mat-expansion-panel>
         </mat-accordion>
         <!--Reviews End -->
