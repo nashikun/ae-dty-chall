@@ -1,0 +1,121 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<mat-card *ngIf="loaded" fxLayout="column" fxLayoutGap="30px">
+    <mat-card-header>
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
+            <div><img [alt]="anime.name" [src]="anime.image" mat-card-xl-image></div>
+            <div>
+                {{anime.name}}
+                <p></p>
+                <!--Status Bar Start -->
+                <button (click)="Add()" *ngIf="_auth.loggedIn() && !anime.status" mat-button>Add</button>
+                <mat-icon color="primary" svgIcon="star"></mat-icon>
+                Score: {{anime.score}}
+                <p></p>
+                <div *ngIf="_auth.loggedIn()">
+                    <mat-icon *ngIf="anime.rating.rating != 'N/A'" color="primary" svgIcon="star"></mat-icon>
+                    <div *ngIf="anime.rating.rating =='N/A'">
+                        <mat-icon color="primary" svgIcon="star_outline"></mat-icon>
+                    </div>
+                    <mat-form-field>
+                        <mat-select (selectionChange)="rateAnime()" [(ngModel)]="anime.rating.rating">
+                            <mat-option *ngFor="let score of [1,2,3,4,5,6,7,8,9,10]" [value]="score">
+                                {{score}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="anime.status">
+                        <mat-form-field>
+                            <input [(ngModel)]="anime.watchedEpisodes" [defaultValue]="anime.watchedEpisodes"
+                                   [max]="anime.episodes"
+                                   label="episodes" matInput
+                                   min="0" type="number">
+                        </mat-form-field>
+                        / {{anime.episodes}}
+                        <p></p>
+                        <mat-form-field>
+                            <mat-select [(value)]="anime.status">
+                                <mat-option value="Plan To Watch">Plan To Watch</mat-option>
+                                <mat-option value="Watching">Watching</mat-option>
+                                <mat-option value="Watched">Watched</mat-option>
+                                <mat-option value="Dropped">Dropped</mat-option>
+                                <mat-option value="On Hold">On Hold</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button (click)="Update()" mat-button>
+                            Update
+                        </button>
+                    </div>
+                </div>
+                <!--Status Bar End -->
+            </div>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            {{anime.description}}
+        </div>
+        <!--Reviews Start -->
+        <mat-accordion>
+            <mat-expansion-panel (afterExpand)="getReviews()">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Reviews
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{anime.name}} reviews
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-card *ngIf="userReview.review && !editMode">
+                    <mat-card-header>
+                        Your review of {{anime.name}}
+                    </mat-card-header>
+                    <mat-card-content>
+                        {{userReview.review}}
+                    </mat-card-content>
+                    Upvotes: {{userReview.upvotesCount}}
+                    <button mat-button color="primary" (click)="editMode=true">
+                        Edit
+                    </button>
+                    <button mat-button color="warn" (click)="deleteReview()">
+                        Delete
+                    </button>
+                </mat-card>
+                <mat-card *ngIf="(!userReview.review || editMode) && _auth.loggedIn()">
+                    <form [formGroup]="reviewForm" (submit)="postReview()">
+                        <mat-form-field>
+                            <textarea label="review" matInput formControlName="review"></textarea>
+                            <mat-error *ngIf="reviewForm.invalid"> A review should at least be 100
+                                character long
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-button>Post review</button>
+                    </form>
+                </mat-card>
+                <mat-card *ngIf="!(reviews.length || userReview.review)">
+                    No reviews to show
+                </mat-card>
+                <mat-card *ngFor="let review of reviews">
+                    <mat-card-header>
+                        <img [src]="review.reviewer.picture" [alt]="review.reviewer.username" width="40px"
+                             height="40px">
+                        <a [routerLink]="['/profile',review.reviewer.user]">{{review.reviewer.username}}</a>
+                    </mat-card-header>
+                    <mat-card-content>
+                        {{review.review}}
+                    </mat-card-content>
+                    <mat-card-footer>
+                        Upvotes: {{review.upvotesCount}}
+                        <div *ngIf="!review.upvoted">
+                            <mat-icon color="primary" svgIcon="upvote" (click)="upVote(review)"></mat-icon>
+                        </div>
+                        <div *ngIf="review.upvoted">
+                            <mat-icon color="primary" svgIcon="upvoted" (click)="unVote(review)"></mat-icon>
+                        </div>
+                    </mat-card-footer>
+                </mat-card>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <!--Reviews End -->
+
+    </mat-card-content>
+</mat-card>
