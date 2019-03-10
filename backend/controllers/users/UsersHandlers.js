@@ -11,7 +11,6 @@ const CreateUserHandle = (req, res) => {
             console.error(err);
             res.status(500).end();
         } else {
-            console.log(newTempUser);
             if (reasons) {
                 res.status(400).json(reasons);
             } else {
@@ -26,6 +25,45 @@ const CreateUserHandle = (req, res) => {
             }
         }
     });
+};
+
+const GetUsersHandle = async (req, res) => {
+    const limit = +req.query.size || 5;
+    const skip = limit * req.query.page || 0;
+    let sort = {};
+    switch (req.query.order) {
+        default:
+        case 'asc':
+            sort[req.query.sort] = 1;
+            break;
+        case 'desc':
+            sort[req.query.sort] = -1;
+            break;
+    }
+    async.parallel([
+        cb => {
+            mongoose
+                .model('profile')
+                .find({username: {$regex: req.query.search || "", $options: 'i'}})
+                .sort(sort)
+                .skip(skip)
+                .limit(limit)
+                .select('user username picture createdAt')
+                .exec(cb)
+        },
+        cb => {
+            mongoose
+                .model('profile')
+                .find({}, cb)
+        }
+    ], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).end()
+        } else {
+            res.status(200).json({users: result[0], count: result[1].length})
+        }
+    })
 };
 
 const LoginUserHandler = (req, res) => {
@@ -105,5 +143,5 @@ const BanUserHandler = async (req, res) => {
     })
 };
 
-module.exports = {CreateUserHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};
+module.exports = {CreateUserHandle, GetUsersHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};
 

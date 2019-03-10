@@ -3,7 +3,7 @@ const cachegoose = require('cachegoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const GuestAnimesHandler = async (req, res) => {
-    const limit = +req.query.size || 10;
+    const limit = +req.query.size || 5;
     const skip = limit * req.query.page || 0;
     let sort = {};
     switch (req.query.order) {
