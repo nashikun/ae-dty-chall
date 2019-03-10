@@ -11,6 +11,9 @@
                        class="form-control rounded-0"
                        autocomplete="email" required/>
                 <mat-error *ngIf="registrationForm.get('email').hasError('required')">Please Enter an email</mat-error>
+                <mat-error *ngIf="registrationForm.get('email').getError('exists')">Email already taken. Please choose
+                    an other one
+                </mat-error>
             </mat-form-field>
         </div>
         <p></p>

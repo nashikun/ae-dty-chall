@@ -93,11 +93,11 @@
                     <form [formGroup]="reviewForm" (submit)="postReview()">
                         <mat-form-field>
                             <textarea label="review" matInput formControlName="review"></textarea>
-                            <mat-error *ngIf="reviewForm.invalid"> A review should at least be 100
+                            <mat-error *ngIf="reviewForm.invalid"> A review should at least be 30
                                 character long
                             </mat-error>
                         </mat-form-field>
-                        <button mat-button>Post review</button>
+                        <button mat-button [disabled]="reviewForm.invalid">Post review</button>
                     </form>
                 </mat-card>
                 <!-- Review Post Form End -->
