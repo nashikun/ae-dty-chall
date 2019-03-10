@@ -79,7 +79,8 @@ export class AnimesComponent implements OnInit {
     }
 
     getAnimes() {
-        this.loaded = false;
+        //only show the spinner on the first loading. uncommenting the next line shows it on each oading but throws the sort header off
+        // this.loaded = false;
         this._anime.getAnimes(this.pageSize, this.pageNumber, this.search, this.sortType, this.sortOrder).subscribe(res => {
             this.allAnimes = res.animes.map(anime => {
                 if (!anime.rating) {

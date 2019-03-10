@@ -11,7 +11,7 @@ const profileSchema = Schema({
   location: String,
   picture: {type: String, default: 'https://api.ae-dty-chall.com/images/profiles/default.jpg'},
 }, {
-  versionKey: false
+  timestamp: {createdAt: true, updatedAt: false}
 });
 
 profileSchema.index({user: 1}, {unique: true});

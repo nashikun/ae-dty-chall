@@ -20,7 +20,6 @@ export class MailComponent implements OnInit {
     this.mailId = this._activatedRoute.snapshot.paramMap.get('mail');
     this.messages.getMail(this.mailId).subscribe(res => {
       this.mail = res;
-      console.log(res);
       if (!res.read && this.mail.recipientId == this._auth.getId()) {
         this.messages.markMailRead(this.mailId).subscribe();
       }

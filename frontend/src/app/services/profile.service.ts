@@ -13,6 +13,10 @@ export class ProfileService {
     constructor(private http: HttpClient, private _auth: AuthService) {
     }
 
+    getUsers(PageSize, PageNumber, Search, SortType, SortOrder){
+        return this.http.get<any>(BACKEND+`/users/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
+    }
+
     getProfile(userId) {
         return this.http.get<any>(BACKEND + `/users/${userId}/profile`);
     }

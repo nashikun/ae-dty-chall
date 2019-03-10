@@ -72,7 +72,6 @@ const RemoveReviewHandler = (req, res) => {
             console.error(err);
             res.status(500).end()
         } else {
-            console.log(req.params.user);
             if (result.n) {
                 res.status(204).end()
             } else {

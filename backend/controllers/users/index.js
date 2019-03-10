@@ -1,7 +1,7 @@
 const UserController = require('express').Router({mergeParams: true});
 const ProfileController = require('./ProfileController');
 const ListController = require('./ListController');
-const {CreateUserHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler} = require('./UsersHandlers');
+const {CreateUserHandle, GetUsersHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler} = require('./UsersHandlers');
 
 const verifyAdmin = require('../../util/verifyAdmin');
 
@@ -12,6 +12,8 @@ const Profile = require(models + 'profile');
 const Message = require(models + 'message');
 
 UserController.post('/', CreateUserHandle);
+
+UserController.get('/', GetUsersHandle);
 
 UserController.post('/login', LoginUserHandler);
 
