@@ -50,28 +50,4 @@ export class ProfileService {
     getFriendRequests() {
         return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/friends/requested`);
     }
-
-    sendMessage(userId, message) {
-        return this.http.post<any>(BACKEND + `/users/${userId}/profile/messages`, message);
-    }
-
-    getMessagesCount() {
-        return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/unread-count`);
-    }
-
-    getSentMails(PageSize, PageNumber) {
-        return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/sent?page=${PageNumber}&size=${PageSize}`);
-    }
-
-    getReceivedMails(PageSize, PageNumber) {
-        return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/received?page=${PageNumber}&size=${PageSize}`);
-    }
-
-    getMail(messageId) {
-        return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/${messageId}`);
-    }
-
-    markMailRead(messageId) {
-        return this.http.post<any>(BACKEND + `/users/${this._auth.getId()}/profile/messages/${messageId}/set-read`, {});
-    }
 }

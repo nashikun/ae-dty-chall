@@ -18,7 +18,7 @@
  * BROWSER POLYFILLS
  */
 
-/** IE9, IE10, IE11, and Chrome <55 requires all of the following polyfills.
+/** IE9, IE10, IE11, and Chrome <55 requires allUsers of the following polyfills.
  *  This also includes Android Emulators with older versions of Chrome and Google Search/Googlebot
  */
 
@@ -51,7 +51,7 @@
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 /**
- * By default, zone.js will patch all possible macroTask and DomEvents
+ * By default, zone.js will patch allUsers possible macroTask and DomEvents
  * user can disable parts of macroTask/DomEvents patch by setting following flags
  * because those flags need to be set before `zone.js` being loaded, and webpack
  * will put import in the top of bundle, so user need to create a separate file
@@ -61,7 +61,7 @@
  *
  * The flags allowed in zone-flags.ts are listed here.
  *
- * The following flags will work for all browsers.
+ * The following flags will work for allUsers browsers.
  *
  * (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
  * (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick

@@ -16,49 +16,51 @@ import {PageNotFoundComponent} from '../components/errors/page-not-found.compone
 import {AngularMaterialModule} from './angular-material.module';
 import {AuthModule} from './auth.module';
 import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from 'ngx-swiper-wrapper';
+import {UsersComponent} from "../components/users/users.component";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto'
+    direction: 'horizontal',
+    slidesPerView: 'auto'
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PageNotFoundComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserModule,
-    HttpClientModule,
-    AngularMaterialModule,
-    AuthModule,
-    FlexLayoutModule,
-    BrowserAnimationsModule,
-    SwiperModule
-  ],
-  providers: [
-    AuthService,
-    AnimeService,
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true
-    },
-    EmailValidator,
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        PageNotFoundComponent,
+        UsersComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        HttpClientModule,
+        AngularMaterialModule,
+        AuthModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+        SwiperModule
+    ],
+    providers: [
+        AuthService,
+        AnimeService,
+        {
+            provide: SWIPER_CONFIG,
+            useValue: DEFAULT_SWIPER_CONFIG
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }, {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true
+        },
+        EmailValidator,
+    ],
+    bootstrap: [AppComponent],
 })
 
 export class AppModule {
