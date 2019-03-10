@@ -46,7 +46,7 @@ export class AnimeComponent implements OnInit {
 
     ngOnInit() {
         this.reviewForm = this.fb.group({
-            review: new FormControl(null, {validators: [Validators.required, Validators.minLength(100)]})
+            review: new FormControl(null, {validators: [Validators.required, Validators.minLength(30)]})
         });
         this._anime.getAnime(this._activatedRoute.snapshot.paramMap.get('anime')).subscribe(anime => {
             this.anime = anime;

@@ -9,7 +9,7 @@ const profileSchema = Schema({
   bio: String,
   gender: String,
   location: String,
-  picture: {type: String, default: 'https://localhost:3000/images/profiles/default.jpg'},
+  picture: {type: String, default: 'https://api.ae-dty-chall.com/images/profiles/default.jpg'},
 }, {
   versionKey: false
 });

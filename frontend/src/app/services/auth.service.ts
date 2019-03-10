@@ -17,7 +17,7 @@ export class AuthService {
     public username = '';
 
     usernameExists(email) {
-        return this.http.head<any>(BACKEND + `/users/email/${email}`);
+        return this.http.head<any>(BACKEND + `/users/emails/${email}`);
     }
 
     registerUser(user) {
