@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProfileService} from '../../services/profile.service';
+import {MessagesService} from '../../services/messages.service';
 import {MatTabChangeEvent, PageEvent} from '@angular/material';
 
 @Component({
@@ -16,7 +16,7 @@ export class MailboxComponent implements OnInit {
   sentCount = 0;
   receivedCount = 0;
 
-  constructor(private _profile: ProfileService) {
+    constructor(private _messages: MessagesService) {
   }
 
   ngOnInit() {
@@ -36,12 +36,12 @@ export class MailboxComponent implements OnInit {
 
   getMails() {
     if (this.selected) {
-      this._profile.getSentMails(this.pageSize, this.pageNumber).subscribe(res => {
+        this._messages.getSentMails(this.pageSize, this.pageNumber).subscribe(res => {
         this.sentCount = res.sentCount;
           this.sent = res.sent;
       });
     } else {
-      this._profile.getReceivedMails(this.pageSize, this.pageNumber).subscribe(res => {
+        this._messages.getReceivedMails(this.pageSize, this.pageNumber).subscribe(res => {
         this.received = res.received;
         this.receivedCount = res.receivedCount;
       });
