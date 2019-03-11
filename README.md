@@ -72,7 +72,7 @@ Start Mongodb and Redis-server on your preferred port and replace the relevant d
 
 ### Starting the backend server
 
-Please make sure you port 3000 is not being used
+Please make sure you port 3000 is not being used  
 In the backend folder:    
 Run `npm install` to install the dependencies  
 Run `npm start server.js`

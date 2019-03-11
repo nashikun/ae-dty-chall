@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="!loaded"></mat-spinner>
-<div *ngIf="loaded" fxLayout="row">
-    <div>
+<div *ngIf="loaded" fxLayout="row" fxLayout.lt-sm="column">
+    <div fxflex="0 0 200px">
         <!--Picture Start-->
         <img [alt]="profile.username" [src]="imageUrl">
         <div *ngIf="myProfile">
@@ -88,10 +88,10 @@
         </form>
         <!--Bo Form End-->
     </div>
-    <div>
+    <div fxLayoutAlign="center" fxFlex="1 1 auto" fxFlex.lt-sm="none">
         <div *ngIf="!editProfile" [innerHTML]="profile.bio | safeHtml"></div>
-        <form *ngIf="editProfile" [formGroup]="profileForm">
-            <textarea [froalaEditor]="editorOptions" formControlName="bio"></textarea>
+        <form *ngIf="editProfile" [formGroup]="profileForm" fxFlex="stretch">
+            <app-ngx-editor [config]="toolbarOptions" formControlName="bio"></app-ngx-editor>
         </form>
     </div>
 </div>

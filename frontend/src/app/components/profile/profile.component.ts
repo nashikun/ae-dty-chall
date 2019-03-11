@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ProfileService} from '../../services/profile.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -6,9 +6,6 @@ import {ImageValidator} from '../../validators/ImageValidator';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AuthService} from '../../services/auth.service';
-import {environment} from 'src/environments/environment';
-
-const BACKEND = environment.backend;
 
 export class Profile {
     username: string;
@@ -49,7 +46,7 @@ export class ProfileComponent implements OnInit {
     userId: string;
     profile = new Profile();
     profileForm: FormGroup;
-    imageUrl: string | ArrayBuffer = BACKEND + '/images/profiles/default.jpg';
+    imageUrl: string | ArrayBuffer;
 
     //booleans for rendering
     myProfile: boolean = false;
@@ -57,16 +54,39 @@ export class ProfileComponent implements OnInit {
     editProfile: boolean = false;
     imageChanged: boolean = false;
 
-    editorOptions: Object = {
-        charCounterCount: false,
-        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo']
+    //Toolbar Options
+    toolbarOptions: Object = {
+        "editable": true,
+        "spellcheck": true,
+        "height": "auto",
+        "minHeight": "0",
+        "width": "auto",
+        "minWidth": "0",
+        "translate": "yes",
+        "enableToolbar": true,
+        "showToolbar": true,
+        "placeholder": "Enter text here...",
+        "imageEndPoint": ""
     };
+
+    //toolbars by size
+    buttons = [["bold", "italic", "underline", "strikeThrough", "superscript", "subscript"], ["fontName", "fontSize", "color"], ["justifyLeft", "justifyCenter", "justifyRight", "justifyFull", "indent", "outdent"], ["undo", "redo"], ["paragraph", "blockquote", "removeBlockquote", "horizontalLine", "orderedList", "unorderedList"], ["link", "unlink", "image", "video"]];
+    buttons_md = [["bold", "italic", "underline"], ["strikeThrough", "superscript", "subscript"], ["fontName", "fontSize", "color"], ["justifyLeft", "justifyCenter", "justifyRight"], ["removeFormat", "undo", "redo"], ["horizontalLine", "orderedList", "unorderedList"], ["link", "unlink", "image", "video"]];
+    buttons_sm = [["bold", "italic", "underline"], ["fontName", "fontSize", "color"], ["justifyLeft", "justifyCenter", "justifyRight"], ["removeFormat", "undo", "redo"], ["link", "unlink", "image", "video"]];
 
     constructor(private profileService: ProfileService, private auth: AuthService, private router: Router,
                 private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     }
 
     ngOnInit() {
+        const innerWidth = window.innerWidth;
+        if (innerWidth >= 800) {
+            this.toolbarOptions["toolbar"] = this.buttons;
+        } else if (innerWidth >= 600) {
+            this.toolbarOptions["toolbar"] = this.buttons_md;
+        } else {
+            this.toolbarOptions["toolbar"] = this.buttons_sm;
+        }
         this.userId = this.activatedRoute.snapshot.paramMap.get('user');
         if (this.userId) {
             this.profileService.getProfile(this.userId).subscribe(res => {
@@ -84,12 +104,27 @@ export class ProfileComponent implements OnInit {
                 this.profileForm = this.fb.group({
                     username: new FormControl(this.profile.username, {validators: [Validators.required]}),
                     bio: new FormControl(this.profile.bio, {}),
+                    // Thought about adding a validator to prevent injection attacks, but apparently
+                    // input is escaped  in the plugin already
                     picture: new FormControl(this.profile.picture, {asyncValidators: [ImageValidator]}),
                     birthdate: new FormControl(this.profile.birthdate, {validators: []}),
                     location: new FormControl(this.profile.location, {}),
                     gender: new FormControl(this.profile.gender, {}),
                 });
             });
+        }
+    }
+
+    // Changing Toolbar buttons on resize
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        const newWidth = event.target.innerWidth;
+        if (newWidth >= 800) {
+            this.toolbarOptions["toolbar"] = this.buttons;
+        } else if (newWidth >= 600) {
+            this.toolbarOptions["toolbar"] = this.buttons_md;
+        } else {
+            this.toolbarOptions["toolbar"] = this.buttons_sm;
         }
     }
 
