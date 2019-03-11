@@ -12,8 +12,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 export class WriteMailComponent implements OnInit {
 
     mailForm: FormGroup;
-    recipient = '';
-    userId = '';
+    recipient: string = '';
+    userId: string = '';
 
     constructor(private _router: Router, private _route: ActivatedRoute, private _messages: MessagesService,
                 private _profile: ProfileService, private fb: FormBuilder) {

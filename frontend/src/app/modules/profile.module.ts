@@ -5,12 +5,12 @@ import {MailboxComponent} from '../components/mailbox/mailbox.component';
 import {MailComponent} from '../components/mail/mail.component';
 import {CommonModule} from '@angular/common';
 import {AngularMaterialModule} from './angular-material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProfileRoutingModule} from './profile-routing.module';
 import {AnimelistComponent} from '../components/animelist/animelist.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import {SafeHtmlPipe} from "../safe-html.pipe";
+import {NgxEditorModule} from "ngx-editor";
 
 @NgModule({
   declarations: [
@@ -26,10 +26,10 @@ import {SafeHtmlPipe} from "../safe-html.pipe";
     CommonModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    FormsModule,
     ProfileRoutingModule,
     FlexLayoutModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    NgxEditorModule
   ]
 })
 

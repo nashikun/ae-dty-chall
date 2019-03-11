@@ -1,7 +1,7 @@
 const UserController = require('express').Router({mergeParams: true});
 const ProfileController = require('./ProfileController');
 const ListController = require('./ListController');
-const {CreateUserHandle, GetUsersHandle,     LoginUserHandler, VerifyUserHandler, BanUserHandler} = require('./UsersHandlers');
+const {CreateUserHandle, GetUsersHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler} = require('./UsersHandlers');
 
 const verifyAdmin = require('../../util/verifyAdmin');
 
