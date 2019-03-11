@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
     loaded = false;
     errors = {};
-    userId;
+    userId: string;
     profile = new Profile();
     profileForm: FormGroup;
     imageUrl: string | ArrayBuffer = BACKEND + '/images/profiles/default.jpg';
@@ -56,6 +56,11 @@ export class ProfileComponent implements OnInit {
     editUsername: boolean = false;
     editProfile: boolean = false;
     imageChanged: boolean = false;
+
+    editorOptions: Object = {
+        charCounterCount: false,
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'undo', 'redo']
+    };
 
     constructor(private profileService: ProfileService, private auth: AuthService, private router: Router,
                 private activatedRoute: ActivatedRoute, private fb: FormBuilder) {

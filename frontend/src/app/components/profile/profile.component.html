@@ -91,7 +91,7 @@
     <div>
         <div *ngIf="!editProfile" [innerHTML]="profile.bio | safeHtml"></div>
         <form *ngIf="editProfile" [formGroup]="profileForm">
-            <textarea [froalaEditor] formControlName="bio"></textarea>
+            <textarea [froalaEditor]="editorOptions" formControlName="bio"></textarea>
         </form>
     </div>
 </div>
