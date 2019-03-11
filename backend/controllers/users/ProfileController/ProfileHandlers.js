@@ -45,7 +45,7 @@ const UpdateBioHandler = async (req, res) => {
             console.error(err);
             res.status(500).end()
         });
-        cachegoose.clearCache(req.userId + '-list');
+        cachegoose.clearCache(req.userId + '-profile');
         if (updatedProfile.n) {
             res.status(200).json(req.body);
         } else {

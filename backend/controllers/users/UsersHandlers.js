@@ -98,6 +98,8 @@ const LoginUserHandler = (req, res) => {
     })
 };
 
+const ChangePasswordHandler = (req,res) =>{};
+
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.URL;
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, (err, user) => {

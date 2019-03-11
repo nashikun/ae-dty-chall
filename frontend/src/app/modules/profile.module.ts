@@ -9,6 +9,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ProfileRoutingModule} from './profile-routing.module';
 import {AnimelistComponent} from '../components/animelist/animelist.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
+import {SafeHtmlPipe} from "../safe-html.pipe";
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     WriteMailComponent,
     MailboxComponent,
     WriteMailComponent,
-    MailComponent
+    MailComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     ReactiveFormsModule,
     ProfileRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ]
 })
 

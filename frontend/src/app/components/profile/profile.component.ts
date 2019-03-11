@@ -57,22 +57,24 @@ export class ProfileComponent implements OnInit {
     editProfile: boolean = false;
     imageChanged: boolean = false;
 
-    constructor(private _profile: ProfileService, private _auth: AuthService, private _router: Router, private _activatedRoute: ActivatedRoute, private fb: FormBuilder) {
+    constructor(private profileService: ProfileService, private auth: AuthService, private router: Router,
+                private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        this.userId = this._activatedRoute.snapshot.paramMap.get('user');
+        this.userId = this.activatedRoute.snapshot.paramMap.get('user');
         if (this.userId) {
-            this._profile.getProfile(this.userId).subscribe(res => {
+            this.profileService.getProfile(this.userId).subscribe(res => {
                 this.profile = res;
                 this.imageUrl = this.profile.picture;
                 this.loaded = true;
             });
         } else {
             this.myProfile = true;
-            this._profile.getMyProfile().subscribe(res => {
+            this.profileService.getMyProfile().subscribe(res => {
                 this.loaded = true;
                 this.profile = res;
+                console.log(res);
                 this.imageUrl = this.profile.picture;
                 this.profileForm = this.fb.group({
                     username: new FormControl(this.profile.username, {validators: [Validators.required]}),
@@ -105,12 +107,12 @@ export class ProfileComponent implements OnInit {
     }
 
     saveImage() {
-        this._profile.changePicture(this.profileForm.value.picture).subscribe(() => this.imageChanged = false);
+        this.profileService.changePicture(this.profileForm.value.picture).subscribe(() => this.imageChanged = false);
     }
 
     changeUsername() {
         if (this.profileForm.value.username !== this.profile.username) {
-            this._profile.changeUsername(this.profileForm.value.username).subscribe(() => {
+            this.profileService.changeUsername(this.profileForm.value.username).subscribe(() => {
                 this.profile.username = this.profileForm.value.username;
                 this.editUsername = false;
             }, err => this.errors = err.error);
@@ -121,22 +123,21 @@ export class ProfileComponent implements OnInit {
 
     updateProfile() {
         let {birthdate, username, picture, ...bio} = this.profileForm.value;
-        if (birthdate) {
+        if (birthdate && birthdate != this.profile.birthdate) {
             birthdate = birthdate.toISOString();
         }
-        return this._profile.updateProfile({birthdate: birthdate, ...bio}).subscribe(res => {
+        this.profileService.updateProfile({birthdate: birthdate, ...bio}).subscribe(res => {
             this.profile = res;
             this.editProfile = false;
         });
-
     }
 
     addFriend() {
-        return this._profile.addFriend(this.userId).subscribe();
+        this.profileService.addFriend(this.userId).subscribe();
     }
 
     banUser() {
-        return this._profile.banUser(this.userId).subscribe(() => this._router.navigate(['/']));
+        this.profileService.banUser(this.userId).subscribe(() => this.router.navigate(['/']));
     }
 
     currentDay() {
@@ -144,7 +145,7 @@ export class ProfileComponent implements OnInit {
     }
 
     sendMessage() {
-        this._router.navigate(['/profile/mails/create'], {queryParams: {recipient: this.userId}});
+        this.router.navigate(['/profile/mails/create'], {queryParams: {recipient: this.userId}});
     }
 
 }
