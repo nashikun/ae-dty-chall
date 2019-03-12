@@ -1,0 +1,37 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<div *ngIf="loaded" fxFlex="1 1 80%" fxFlex.lt-md="auto" fxLayout="column">
+    <p>
+        <input (search)="getUsers()" [(ngModel)]="search" matInput placeholder="Search Users" type="search">
+    </p>
+
+    <table (matSortChange)="sortUsers($event)" [dataSource]="allUsers" class="mat-elevation-z8" fxFlex mat-table
+           matSort>
+
+        <!-- Users Start-->
+        <ng-container matColumnDef="username">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Users</th>
+            <td *matCellDef="let user" mat-cell>
+                <img height="33px" width="30px" [src]="user.picture" [alt]="user.username">
+                <a [routerLink]="['/profile',user.user]">{{user.username}}</a>
+            </td>
+        </ng-container>
+        <!-- Users End-->
+
+        <!-- Joined On Start-->
+        <ng-container matColumnDef="createdAt">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header> Joined On</th>
+            <td *matCellDef="let user" mat-cell>
+                {{user.createdAt | date }}
+            </td>
+        </ng-container>
+        <!-- oined On End-->
+
+        <tr *matHeaderRowDef="columnsToDisplay" mat-header-row></tr>
+        <tr *matRowDef="let myRowData; columns: columnsToDisplay" mat-row></tr>
+    </table>
+    <mat-paginator (page)="changePage($event)" [length]="usersCount" [pageIndex]="pageNumber"
+                   [pageSizeOptions]="[1,2,5,10]"
+                   [pageSize]="pageSize" class="mat-elevation-z8"></mat-paginator>
+</div>
+
+
