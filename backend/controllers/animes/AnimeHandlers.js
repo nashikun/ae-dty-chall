@@ -51,6 +51,7 @@ const GuestAnimesHandler = async (req, res) => {
 };
 
 const UserAnimesHandler = async (req, res) => {
+    console.log(req.user);
     const limit = +req.query.size || 10;
     const skip = limit * req.query.page || 0;
     let sort = {};
@@ -128,7 +129,7 @@ const PostAnimeHandler = (req, res) => {
                             console.error(err);
                             res.status(500).end();
                         } else {
-                            cachegoose.clearCache(req.user._id + '-list');
+                            cachegoose.clearCache('latest');
                             res.status(200).json({id: savedAnime._id});
                         }
                     })
@@ -238,7 +239,7 @@ const GetLatestAnimesHandler = async (req, res) => {
         _id: 1,
         image: 1,
         name: 1
-    }).sort({_id: 1}).limit(5).cache('latest').catch(err => {
+    }).sort({_id: -1}).limit(5).cache('latest').catch(err => {
         console.error(err);
         res.status(500).end()
     });

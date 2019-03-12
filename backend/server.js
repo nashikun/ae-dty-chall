@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //const http = require('http');
 const https = require('https');
 const fs = require('fs');
-const path =require('path');
+const path = require('path');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cachegoose = require('cachegoose');
@@ -65,6 +65,7 @@ app.use(bodyParser.json({limit: '2mb', extended: true}));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 require('./config/passport')(passport);
 
 
