@@ -11,8 +11,10 @@ UserController.post('/', CreateUserHandle);
 
 UserController.get('/', GetUsersHandle);
 
-UserController.post('/login', (req, res) => {
-    passport.authenticate('local', {session: false}, LoginUserHandler(req, res))(req, res)
+UserController.post('/login', function (req, res) {
+    passport.authenticate('local', {session: false}, function (err, user, info) {
+        LoginUserHandler(req, res)(err, user, info)
+    })(req, res)
 });
 
 UserController.get('/verify/:URL', VerifyUserHandler);
