@@ -8,7 +8,6 @@ const Reviews = require(MODELS + 'review');
 const Rating = require(MODELS + 'rating');
 
 const passport = require('passport');
-const verifyAdmin = require('../../util/verifyAdmin');
 const verifyImage = require('../../util/verifyImage');
 const verifyId = require('../../util/verifyId');
 
@@ -39,7 +38,10 @@ AnimesController.get('/', (req, res, next) => {
     }
 }, UserAnimesHandler);
 
-AnimesController.post('/', verifyAdmin, multer({storage: storage}).single('image'), verifyImage, PostAnimeHandler);
+AnimesController.post('/', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
+    if (req.user.role === 'admin') next();
+    else res.status(401).end()
+}, multer({storage: storage}).single('image'), verifyImage, PostAnimeHandler);
 
 AnimesController.head('/:animename', AnimeExistsHandler);
 
