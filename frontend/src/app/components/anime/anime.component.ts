@@ -6,6 +6,8 @@ import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AuthService} from '../../services/auth.service';
 import {AnimelistService} from '../../services/animelist.service';
+import {Anime} from "../../interfaces/anime";
+import {Review} from "../../interfaces/review";
 
 @Component({
     selector: 'app-anime',
@@ -30,17 +32,18 @@ export class AnimeComponent implements OnInit {
     loaded = false;
     errors = {invalid: false};
     reviewForm: FormGroup;
-    anime = {
+    anime: Anime = {
         name: '',
         image: '',
         description: '',
-        _id: null,
+        _id: '',
         status: '',
         watchedEpisodes: '',
+        episodes: '',
         score: '',
         rating: {_id: '', rating: ''}
     };
-    reviews = [];
+    reviews: Review[] = [];
     userReview = {id: '', review: ''};
     editMode = false;
 
@@ -51,7 +54,7 @@ export class AnimeComponent implements OnInit {
         this._anime.getAnime(this._activatedRoute.snapshot.paramMap.get('anime')).subscribe(anime => {
             this.anime = anime;
             if (!anime.rating) {
-                anime.rating = {};
+                anime.rating = {_id: '', rating: 'N/A'};
             }
             this.loaded = true;
         }, error => {
@@ -88,7 +91,7 @@ export class AnimeComponent implements OnInit {
         }
     }
 
-    deleteReview(review) {
+    deleteReview(review: Review) {
         this._anime.deleteReview(this.anime._id, review.id).subscribe(() => {
             this.reviews.splice(this.reviews.indexOf(review), 1)
         });
@@ -132,7 +135,7 @@ export class AnimeComponent implements OnInit {
         if (this.anime.rating._id) {
             this._anime.changeRating(this.anime._id, this.anime.rating._id, this.anime.rating.rating).subscribe();
         } else {
-            this._anime.addRating(this.anime._id, this.anime.rating.rating).subscribe();
+            this._anime.addRating(this.anime._id, this.anime.rating.rating).subscribe(result => this.anime.rating._id = result._id);
         }
     }
 

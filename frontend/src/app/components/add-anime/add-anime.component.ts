@@ -34,7 +34,7 @@ export class AddAnimeComponent implements OnInit {
                 ]
             }),
             description: new FormControl(null, {validators: [Validators.required]}),
-            episodes: new FormControl(null, {validators: [Validators.required]}),
+            episodes: new FormControl(0, {validators: [Validators.required]}),
             image: new FormControl(null, {validators: [Validators.required], asyncValidators: [ImageValidator]})
         });
     }

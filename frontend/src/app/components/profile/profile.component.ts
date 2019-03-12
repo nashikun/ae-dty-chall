@@ -18,6 +18,7 @@ export class Profile {
     me: boolean
 }
 
+// date Format
 export const MY_FORMATS = {
     parse: {
         dateInput: 'LL',
@@ -80,7 +81,7 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         const innerWidth = window.innerWidth;
-        if (innerWidth >= 800) {
+        if (innerWidth >= 1000) {
             this.toolbarOptions["toolbar"] = this.buttons;
         } else if (innerWidth >= 600) {
             this.toolbarOptions["toolbar"] = this.buttons_md;
@@ -119,7 +120,7 @@ export class ProfileComponent implements OnInit {
     @HostListener('window:resize', ['$event'])
     onResize(event) {
         const newWidth = event.target.innerWidth;
-        if (newWidth >= 800) {
+        if (newWidth >= 1000) {
             this.toolbarOptions["toolbar"] = this.buttons;
         } else if (newWidth >= 600) {
             this.toolbarOptions["toolbar"] = this.buttons_md;

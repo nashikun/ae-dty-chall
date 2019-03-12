@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {AnimeService} from '../../services/anime.service';
 import {AnimelistService} from '../../services/animelist.service';
-import {MatIconRegistry, PageEvent} from '@angular/material';
+import {MatIconRegistry, PageEvent, Sort} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Anime} from "../../interfaces/anime";
 
 
 @Component({
@@ -14,16 +15,16 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AnimesComponent implements OnInit {
 
-    loaded = false;
-    errors = {invalid: false}
-    allAnimes = [];
-    search = '';
+    loaded: boolean = false;
+    errors = {invalid: false};
+    allAnimes: Anime[] = [];
+    search: string = '';
     columnsToDisplay = ['name', 'score', 'rating', 'status'];
-    pageSize = 5;
-    pageNumber = 0;
-    animesCount = 0;
-    sortType = 'score';
-    sortOrder = 'desc';
+    pageSize: number = 5;
+    pageNumber: number = 0;
+    animesCount: number = 0;
+    sortType: string = 'score';
+    sortOrder: string = 'desc';
 
     constructor(private _auth: AuthService, private _route: ActivatedRoute, private _anime: AnimeService, private _animelist: AnimelistService,
                 private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
@@ -52,13 +53,13 @@ export class AnimesComponent implements OnInit {
         });
     }
 
-    Add(anime) {
+    Add(anime: Anime) {
         this._animelist.addToList(anime._id, 'Plan To Watch').subscribe(() => {
             anime.status = 'Plan To Watch';
         });
     }
 
-    Update(anime) {
+    Update(anime: Anime) {
         this._animelist.updateList(anime._id, anime.status, anime.watchedEpisodes).subscribe(() => {
             this.errors = {invalid: false}
         }, err => {
@@ -72,7 +73,7 @@ export class AnimesComponent implements OnInit {
         this.getAnimes();
     }
 
-    sortAnimes(event) {
+    sortAnimes(event: Sort) {
         this.sortType = event.active;
         this.sortOrder = event.direction;
         this.getAnimes();
@@ -84,7 +85,7 @@ export class AnimesComponent implements OnInit {
         this._anime.getAnimes(this.pageSize, this.pageNumber, this.search, this.sortType, this.sortOrder).subscribe(res => {
             this.allAnimes = res.animes.map(anime => {
                 if (!anime.rating) {
-                    anime.rating = {rating: 'N/A'};
+                    anime.rating = {_id: '', rating: 'N/A'};
                 }
                 this.loaded = true;
                 return anime;
