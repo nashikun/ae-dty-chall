@@ -55,6 +55,8 @@ export class ProfileComponent implements OnInit {
     editProfile: boolean = false;
     imageChanged: boolean = false;
 
+    // TODO ngx-editor's color picker is not user friendly. should change it later with https://www.npmjs.com/package/ngx-color-picker or something similar
+
     //Toolbar Options
     toolbarOptions: Object = {
         "editable": true,
