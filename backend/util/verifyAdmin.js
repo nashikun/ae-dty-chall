@@ -9,7 +9,7 @@ function verifyAdmin(req, res, next) {
     return res.status(401).send('Unauthorized Request');
   }
   try {
-    const payload = jwt.verify(token, 'anassino');
+      const payload = jwt.verify(token, process.env.JWT_PWD);
     if (payload.role === 'admin') {
       next();
     }

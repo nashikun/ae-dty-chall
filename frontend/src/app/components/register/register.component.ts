@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {environment} from '../../../environments/environment'
 
+declare var FB: any;
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -27,6 +29,26 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        (window as any).fbAsyncInit = function () {
+            FB.init({
+                appId: '2043788692590804',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
         this.registrationForm = this.fb.group({
             email: new FormControl(null, {
@@ -59,7 +81,26 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    submitLogin() {
+        console.log("submit login to facebook");
+        // FB.login();
+        FB.login((response) => {
+            console.log('submitLogin', response);
+            if (response.authResponse) {
+                FB.api(
+                    '/me?fields=id,name,email,birthday,profile_pic',
+                    function (response) {
+                        console.log('API', response);
+                    }
+                );
+            } else {
+                console.log('User login failed');
+            }
+        }, {scope: 'default'});
+
+    }
 }
+
 
 @Component({
     selector: 'mail-sent',

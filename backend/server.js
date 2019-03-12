@@ -14,12 +14,16 @@ cachegoose(mongoose, {
     host: process.env.CACHE_HOST,
     password: process.env.CACHE_PWD
 });
+const session = require("express-session");
+const passport = require('passport');
 
+//controllers
 const animes = require('./controllers/animes');
 const users = require('./controllers/users');
 
 const db = process.env.DB;
 
+// SSL
 const privateKey = fs.readFileSync('ssl/server.key', 'utf8');
 const certificate = fs.readFileSync('ssl/server.crt', 'utf8');
 
@@ -27,6 +31,15 @@ const app = express();
 const httpsServer = https.createServer({key: privateKey, cert: certificate}, app);
 //const httpServer = http.createServer(app);
 
+// Models
+const models = './models/';
+const User = require(models + 'user');
+const List = require(models + 'list');
+const Profile = require(models + 'profile');
+const Message = require(models + 'message');
+
+
+// Mongoose
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.connect(db, {useNewUrlParser: true}, err => {
@@ -45,11 +58,15 @@ app.use((req, res, next) => {
     );
     next();
 });
-
 //app.use(cors());
 app.use(helmet());
 
 app.use(bodyParser.json({limit: '2mb', extended: true}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

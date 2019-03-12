@@ -78,7 +78,7 @@ const UserAnimesHandler = async (req, res) => {
                 $lookup: {
                     from: "lists",
                     let: {"id": "$_id"},
-                    pipeline: [{$match: {$expr: {$eq: ["$user", req.userId]}}}, {$unwind: "$animelist"}, {$match: {$expr: {$eq: ["$$id", "$animelist.anime"]}}}],
+                    pipeline: [{$match: {$expr: {$eq: ["$user", req.user._id]}}}, {$unwind: "$animelist"}, {$match: {$expr: {$eq: ["$$id", "$animelist.anime"]}}}],
                     as: "animedata"
                 }
             }, {
@@ -93,7 +93,7 @@ const UserAnimesHandler = async (req, res) => {
                             $filter: {
                                 input: "$ratings",
                                 as: "rating",
-                                cond: {$eq: ["$$rating.user", ObjectId(req.userId)]}
+                                cond: {$eq: ["$$rating.user", req.user._id]}
                             }
                         }, 0]
                     },
@@ -128,7 +128,7 @@ const PostAnimeHandler = (req, res) => {
                             console.error(err);
                             res.status(500).end();
                         } else {
-                            cachegoose.clearCache(req.userId + '-list');
+                            cachegoose.clearCache(req.user._id + '-list');
                             res.status(200).json({id: savedAnime._id});
                         }
                     })
@@ -183,7 +183,7 @@ const GetUserAnimeHandler = async (req, res) => {
         {
             $lookup: {
                 from: "lists",
-                pipeline: [{$match: {$expr: {$eq: ["$user", req.userId]}}}, {$unwind: "$animelist"}, {$match: {$expr: {$eq: ["$animelist.anime", ObjectId(req.params.anime)]}}},],
+                pipeline: [{$match: {$expr: {$eq: ["$user", req.user._id]}}}, {$unwind: "$animelist"}, {$match: {$expr: {$eq: ["$animelist.anime", ObjectId(req.params.anime)]}}},],
                 as: "listdata"
             }
         },
@@ -211,7 +211,7 @@ const GetUserAnimeHandler = async (req, res) => {
                         _id: null,
                         score: {$avg: '$rating'},
                     }
-                }], rating: [{$match: {'user': req.userId}}]
+                }], rating: [{$match: {'user': req.user._id}}]
             }
         }, {
             $project: {

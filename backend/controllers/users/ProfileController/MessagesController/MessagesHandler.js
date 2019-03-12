@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const SendMessageHandler = async (req, res) => {
     const message = await mongoose.model('message').create({
-        senderId: req.userId,
+        senderId: req.user._id,
         title: req.body.title,
         recipientId: req.params.user,
         message: req.body.message
@@ -13,7 +13,7 @@ const SendMessageHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    cachegoose.clearCache(req.userId + '-unreadmail');
+    cachegoose.clearCache(req.user._id + '-unreadmail');
     if (!message) {
         res.status(400).end()
     } else {
@@ -22,7 +22,7 @@ const SendMessageHandler = async (req, res) => {
 };
 
 const UnreadCountHandler = async (req, res) => {
-    if (req.userId.toString() === req.params.user) {
+    if (req.user._id.toString() === req.params.user) {
         const unread = await mongoose.model('message').find({
             recipientId: ObjectId(req.params.user),
             read: false
@@ -38,12 +38,12 @@ const UnreadCountHandler = async (req, res) => {
 };
 
 const SentMessagesHandler = async (req, res) => {
-    if (req.userId.toString() === req.params.user) {
+    if (req.user._id.toString() === req.params.user) {
         const limit = +req.query.size;
         const skip = req.query.page * limit;
         const sent = function (cb) {
             mongoose.model('message')
-                .find({senderId: req.userId})
+                .find({senderId: req.user._id})
                 .sort({createdAt: -1})
                 .skip(skip)
                 .limit(limit)
@@ -59,7 +59,7 @@ const SentMessagesHandler = async (req, res) => {
                 });
         };
         const count = function (cb) {
-            mongoose.model('message').find({senderId: req.userId}, {}).exec((err, results) => {
+            mongoose.model('message').find({senderId: req.user._id}, {}).exec((err, results) => {
                 if (err) {
                     console.error(err);
                     res.status(500).end()
@@ -81,12 +81,12 @@ const SentMessagesHandler = async (req, res) => {
 };
 
 const ReceivedMessagesHandler = async (req, res) => {
-    if (req.userId.toString() === req.params.user) {
+    if (req.user._id.toString() === req.params.user) {
         const limit = +req.query.size;
         const skip = req.query.page * limit;
         const sent = function (cb) {
             mongoose.model('message')
-                .find({recipientId: req.userId})
+                .find({recipientId: req.user._id})
                 .sort({createdAt: -1})
                 .skip(skip)
                 .limit(limit)
@@ -101,7 +101,7 @@ const ReceivedMessagesHandler = async (req, res) => {
                 });
         };
         const count = function (cb) {
-            mongoose.model('message').find({recipientId: req.userId}, {}).exec((err, results) => {
+            mongoose.model('message').find({recipientId: req.user._id}, {}).exec((err, results) => {
                 if (err) {
                     console.error(err);
                     res.status(500).end()
@@ -134,7 +134,7 @@ const GetMessagesHandler = async (req, res) => {
     if (!message) {
         res.status(404).end();
     } else {
-        if (!(message.senderId.equals(req.userId) || message.recipientId.equals(req.userId))) {
+        if (!(message.senderId.equals(req.user._id) || message.recipientId.equals(req.user._id))) {
             res.status(401).end();
         } else {
             res.status(200).json(message);
@@ -150,7 +150,7 @@ const ReadMessageHandler = async (req, res) => {
     if (!message) {
         res.status(404).end();
     } else {
-        if (!message.recipientId.equals(req.userId)) {
+        if (!message.recipientId.equals(req.user._id)) {
             res.status(401).end();
         } else {
             message.read = true;
@@ -158,7 +158,7 @@ const ReadMessageHandler = async (req, res) => {
                 console.error(err);
                 res.status(500).end();
             });
-            cachegoose.clearCache(req.userId + '-unreadmail');
+            cachegoose.clearCache(req.user._id + '-unreadmail');
             if (update.read) {
                 res.status(204).end();
             } else {

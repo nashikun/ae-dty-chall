@@ -10,7 +10,7 @@ function verifyUser(req, res, next) {
     return res.status(401).send('Unauthorized Request');
   }
   try {
-    const payload = jwt.verify(token, 'anassino');
+    const payload = jwt.verify(token, process.env.JWT_PWD);
     req.userId = mongoose.Types.ObjectId(payload.subject);
     next();
   } catch (err) {

@@ -32,13 +32,16 @@ For the webapp:
 
 There are three types of roles: guest, user and admin  
 Guestss can:  
+* Login and signup.
 * See animes, sort them by score or name, and search for animes.  
-* Read animes descriptions and see the reviews.  
+* Read animes descriptions and see the reviews. 
+* Search for users. 
 * See users profiles and animes lists.
 
 Besides the above, users have the ability to:  
 * Add animes to their personal list with different statuses / seen episodes.  
 * Rate animes.  
+* Upvote reviews.
 * Post, edit and delete reviews.  
 * Add friends.
 * Edit their profiles and bio

@@ -18,14 +18,14 @@ const GetReviewsHandler = async (req, res) => {
     } else {
         let reviews = anime.reviews;
         reviews = reviews.map(review => {
-            review.set('upvoted', review.hasUpvoted(req.userId), {strict: false});
+            review.set('upvoted', review.hasUpvoted(req.user._id), {strict: false});
             return review
         });
         const NumberReviews = reviews.length;
         let userReview = null;
-        if (req.userId) {
+        if (req.user._id) {
             for (let i = 0; i < NumberReviews; i += 1) {
-                if (reviews[i].reviewer.user.equals(req.userId)) {
+                if (reviews[i].reviewer.user.equals(req.user._id)) {
                     userReview = reviews.splice(i, 1)[0];
                     break
                 }
@@ -36,7 +36,7 @@ const GetReviewsHandler = async (req, res) => {
 };
 
 const PostReviewHandler = async (req, res) => {
-    mongoose.model('review').create({reviewerId: req.userId, review: req.body.review, anime: req.params.anime})
+    mongoose.model('review').create({reviewerId: req.user._id, review: req.body.review, anime: req.params.anime})
         .then(result => res.status(201).json(result))
         .catch(err => {
             console.error(err);

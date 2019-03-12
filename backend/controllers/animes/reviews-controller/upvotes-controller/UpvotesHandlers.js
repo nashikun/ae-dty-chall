@@ -4,7 +4,7 @@ const AddUpvoteHandler = (req, res) => {
   mongoose.model('review').findOneAndUpdate({
     anime: req.params.anime,
     _id: req.params.review
-  }, {$addToSet: {upvoters: req.userId}}, {new: true})
+  }, {$addToSet: {upvoters: req.user._id}}, {new: true})
     .exec((err, review) => {
       if (err) {
         console.error(err);
@@ -20,7 +20,7 @@ const AddUpvoteHandler = (req, res) => {
 };
 
 const RemoveUpvote = (req, res) => {
-  if (!req.params.upvote === req.userId.toString()) {
+  if (!req.params.upvote === req.user._id.toString()) {
     res.status(401).end()
   } else {
     mongoose.model('review').findOneAndUpdate({

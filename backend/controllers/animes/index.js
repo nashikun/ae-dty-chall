@@ -7,7 +7,7 @@ const Anime = require(MODELS + 'anime');
 const Reviews = require(MODELS + 'review');
 const Rating = require(MODELS + 'rating');
 
-const verifyUser = require('../../util/verifyUser');
+const passport = require('passport');
 const verifyAdmin = require('../../util/verifyAdmin');
 const verifyImage = require('../../util/verifyImage');
 const verifyId = require('../../util/verifyId');
@@ -35,7 +35,7 @@ AnimesController.get('/', (req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
         GuestAnimesHandler(req, res)
     } else {
-        verifyUser(req, res, next)
+        passport.authenticate('jwt', {session: false})(req, res, next)
     }
 }, UserAnimesHandler);
 
@@ -49,7 +49,7 @@ AnimesController.get('/:anime', verifyId('anime'), async (req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
         GetGuestAnimeHandler(req, res)
     } else {
-        verifyUser(req, res, next);
+        passport.authenticate('jwt', {session: false})(req, res, next);
     }
 }, GetUserAnimeHandler);
 
