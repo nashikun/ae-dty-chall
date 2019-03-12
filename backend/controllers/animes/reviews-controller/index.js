@@ -1,8 +1,7 @@
 const passport = require('passport');
-const verifyAdmin = require('../../../util/verifyAdmin');
 const verifyId = require('../../../util/verifyId');
 
-const {GetReviewsHandler, PostReviewHandler, EditReviewHndler, RemoveReviewHandler} = require('./ReviewsHandlers');
+const {GetReviewsHandler, PostReviewHandler, EditReviewHandler, RemoveReviewHandler} = require('./ReviewsHandlers');
 const UpvotesController = require('./upvotes-controller');
 const ReviewsController = require('express').Router({mergeParams: true});
 
@@ -19,10 +18,13 @@ ReviewsController.post('/', passport.authenticate('jwt', {session: false}), Post
 
 ReviewsController.patch('/:review', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
     if (req.params.user === req.user._id.toString()) next();
-    else verifyAdmin(req, res, next)
-}, EditReviewHndler);
+    else res.status(401).end()
+}, EditReviewHandler);
 
-ReviewsController.delete('/:review', passport.authenticate('jwt', {session: false}), verifyId('review'), RemoveReviewHandler);
+ReviewsController.delete('/:review', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
+    if (req.params.user === req.user._id.toString() || req.user.role === 'admin') next();
+    else res.status(401).end()
+}, RemoveReviewHandler);
 
 ReviewsController.use('/:review/upvotes', passport.authenticate('jwt', {session: false}), verifyId('review'), UpvotesController);
 

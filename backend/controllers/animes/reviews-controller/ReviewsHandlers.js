@@ -44,7 +44,7 @@ const PostReviewHandler = async (req, res) => {
         })
 };
 
-const EditReviewHndler = (req, res) => {
+const EditReviewHandler = (req, res) => {
     mongoose.model('review').updateOne({
         _id: req.params.review,
         anime: req.params.anime
@@ -81,4 +81,4 @@ const RemoveReviewHandler = (req, res) => {
     });
 };
 
-module.exports = {GetReviewsHandler, PostReviewHandler, EditReviewHndler, RemoveReviewHandler};
+module.exports = {GetReviewsHandler, PostReviewHandler, EditReviewHandler, RemoveReviewHandler};

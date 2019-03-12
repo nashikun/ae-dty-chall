@@ -17,7 +17,10 @@ UserController.post('/login', (req, res) => {
 
 UserController.get('/verify/:URL', VerifyUserHandler);
 
-UserController.post('/:user/ban', verifyAdmin, BanUserHandler);
+UserController.post('/:user/ban', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    if (res.user.role === 'admin') next();
+    else res.status(401).end();
+}, BanUserHandler);
 
 UserController.use('/:user/profile', ProfileController);
 
