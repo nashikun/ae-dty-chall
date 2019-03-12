@@ -3,7 +3,7 @@ const {AddFriendsHandler, AddUsernameHandler, ChangeUsernameHandler, GetFriendRe
 
 const ProfileController = require('express').Router({mergeParams: true});
 const MessagesController = require('./MessagesController');
-const verifyUser = require('../../../util/verifyUser');
+const passport = require('passport');
 const verifyImage = require('../../../util/verifyImage');
 const verifyId = require('../../../util/verifyId');
 
@@ -30,26 +30,26 @@ const MIME_TYPE_MAP = {
 
 ProfileController.get('/', async (req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-        req.userId = null;
+        req.user = {_id: null};
         next();
     } else {
-        verifyUser(req, res, next)
+        passport.authenticate('jwt', {session: false})(req, res, next)
     }
 }, GetProfileHandler);
 
-ProfileController.put('/bio', verifyUser, UpdateBioHandler);
+ProfileController.put('/bio', passport.authenticate('jwt', {session: false}), UpdateBioHandler);
 
-ProfileController.put('/picture', verifyUser, multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
+ProfileController.put('/picture', passport.authenticate('jwt', {session: false}), multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
 
 ProfileController.get('/username', verifyId('user'), GetUsernameHandler);
 
 ProfileController.post('/username', verifyId('user'), AddUsernameHandler);
 
-ProfileController.put('/username', verifyUser, ChangeUsernameHandler);
+ProfileController.put('/username', passport.authenticate('jwt', {session: false}), ChangeUsernameHandler);
 
-ProfileController.post('/friends', verifyUser, AddFriendsHandler);
+ProfileController.post('/friends', passport.authenticate('jwt', {session: false}), AddFriendsHandler);
 
-ProfileController.get('/friends/requested', verifyUser, GetFriendRequestsHandler);
+ProfileController.get('/friends/requested', passport.authenticate('jwt', {session: false}), GetFriendRequestsHandler);
 
 ProfileController.use('/messages', MessagesController);
 

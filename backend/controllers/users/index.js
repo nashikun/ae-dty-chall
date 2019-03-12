@@ -1,21 +1,19 @@
 const UserController = require('express').Router({mergeParams: true});
+const mongoose = require('mongoose');
+const passport = require('passport');
 const ProfileController = require('./ProfileController');
 const ListController = require('./ListController');
 const {CreateUserHandle, GetUsersHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler} = require('./UsersHandlers');
 
 const verifyAdmin = require('../../util/verifyAdmin');
 
-const models = '../../models/';
-const User = require(models + 'user');
-const List = require(models + 'list');
-const Profile = require(models + 'profile');
-const Message = require(models + 'message');
-
 UserController.post('/', CreateUserHandle);
 
 UserController.get('/', GetUsersHandle);
 
-UserController.post('/login', LoginUserHandler);
+UserController.post('/login', (req, res) => {
+    passport.authenticate('local', {session: false}, LoginUserHandler(req, res))(req, res)
+});
 
 UserController.get('/verify/:URL', VerifyUserHandler);
 
@@ -26,7 +24,7 @@ UserController.use('/:user/profile', ProfileController);
 UserController.use('/:user/list', ListController);
 
 UserController.head('/emails/:email', (req, res) => {
-    User.findOne({email: req.params.email}, (err, user) => {
+    mongoose.model('user').findOne({email: req.params.email}, (err, user) => {
         if (err) {
             console.error(err);
             res.status(500).end();

@@ -16,8 +16,8 @@ const GetProfileHandler = async (req, res) => {
     if (!profile) {
         res.status(404).end()
     } else {
-        if (req.userId && !req.userId.equals(profile.user)) {
-            mongoose.model('profile').getFriends(req.userId, {user: profile.user}, {user: 1}, (err, friendship) => {
+        if (req.user._id && !req.user._id.equals(profile.user)) {
+            mongoose.model('profile').getFriends(req.user._id, {user: profile.user}, {user: 1}, (err, friendship) => {
                 if (err) {
                     console.error(err);
                     res.status(500).end()
@@ -29,7 +29,7 @@ const GetProfileHandler = async (req, res) => {
                 }
             })
         } else {
-            if (req.userId) {
+            if (req.user._id) {
                 profile.me = true;
             }
             res.status(200).json(profile)
@@ -38,14 +38,14 @@ const GetProfileHandler = async (req, res) => {
 };
 
 const UpdateBioHandler = async (req, res) => {
-    if (!req.userId.equals(req.params.user)) {
+    if (!req.user._id.equals(req.params.user)) {
         res.status(401).end();
     } else {
-        const updatedProfile = await mongoose.model('profile').updateOne({user: req.userId}, req.body).catch(err => {
+        const updatedProfile = await mongoose.model('profile').updateOne({user: req.user._id}, req.body).catch(err => {
             console.error(err);
             res.status(500).end()
         });
-        cachegoose.clearCache(req.userId + '-profile');
+        cachegoose.clearCache(req.user._id + '-profile');
         if (updatedProfile.n) {
             res.status(200).json(req.body);
         } else {
@@ -55,7 +55,7 @@ const UpdateBioHandler = async (req, res) => {
 };
 
 const UploadProfilePictureHndler = async (req, res) => {
-    if (!req.userId.equals(req.params.user)) {
+    if (!req.user._id.equals(req.params.user)) {
         res.status(401).end();
     } else {
         const picture = 'https://' + req.get('Host') + '/images/profiles/' + req.file.filename;
@@ -63,7 +63,7 @@ const UploadProfilePictureHndler = async (req, res) => {
             console.error(err);
             res.status(500).end()
         });
-        cachegoose.clearCache(req.userId + '-profile');
+        cachegoose.clearCache(req.user._id + '-profile');
         const oldImage = new URL(profile.picture).pathname;
         const oldImageArray = oldImage.split('/');
         if (oldImageArray[oldImageArray.length - 1] !== 'default.jpg') {
@@ -149,21 +149,21 @@ const AddUsernameHandler = async (req, res) => {
 };
 
 const ChangeUsernameHandler = async (req, res) => {
-    if (!req.userId.equals(req.params.user)) {
+    if (!req.user._id.equals(req.params.user)) {
         res.status(401).end();
     } else {
         const usernameExists = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
             console.error(err);
             res.status(500).end()
         });
-        if (usernameExists && !usernameExists.user.equals(req.userId)) {
+        if (usernameExists && !usernameExists.user.equals(req.user._id)) {
             res.status(400).json({usernameExists: true})
         } else {
-            const profile = await mongoose.model('profile').updateOne({user: req.userId}, {username: req.body.username}).catch(err => {
+            const profile = await mongoose.model('profile').updateOne({user: req.user._id}, {username: req.body.username}).catch(err => {
                 console.error(err);
                 res.status(500).end()
             });
-            cachegoose.clearCache(req.userId + '-list');
+            cachegoose.clearCache(req.user._id + '-list');
             if (profile.n) {
                 res.status(204).end()
             } else {
@@ -174,18 +174,18 @@ const ChangeUsernameHandler = async (req, res) => {
 };
 
 const AddFriendsHandler = (req, res) => {
-    if (req.userId.toString() === req.body.friend) {
+    if (req.user._id.toString() === req.body.friend) {
         res.status(400).end();
     } else {
-        mongoose.model('profile').requestFriend(req.userId, req.body.friend, (err, result) => {
+        mongoose.model('profile').requestFriend(req.user._id, req.body.friend, (err, result) => {
             res.status(201).json(result);
         });
     }
 };
 
 const GetFriendRequestsHandler = (req, res) => {
-    if (req.userId.toString() === req.params.user) {
-        mongoose.model('profile').getPendingFriends(req.userId, (err, friends) => {
+    if (req.user._id.toString() === req.params.user) {
+        mongoose.model('profile').getPendingFriends(req.user._id, (err, friends) => {
             if (err) {
                 console.error(err);
                 res.status(500).end()

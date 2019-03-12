@@ -58,7 +58,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
             useClass: ErrorInterceptor,
             multi: true
         },
-        EmailValidator,
+        EmailValidator
     ],
     bootstrap: [AppComponent],
 })

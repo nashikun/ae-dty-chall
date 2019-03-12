@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PostRatingHandler = (req, res) => {
-    mongoose.model('rating').create({user: req.userId, rating: req.body.rating, anime: req.params.anime})
+    mongoose.model('rating').create({user: req.user._id, rating: req.body.rating, anime: req.params.anime})
         .then(result => res.status(204).json({_id: result._id}))
         .catch(err => {
             console.error(err);
@@ -13,7 +13,7 @@ const ChangeRatingHandler = (req, res) => {
     mongoose.model('rating').updateOne({
         _id: req.params.rating,
         anime: req.params.anime,
-        user: req.userId
+        user: req.user._Id
     }, {$set: {rating: req.body.rating}})
         .exec((err, result) => {
             if (err) {

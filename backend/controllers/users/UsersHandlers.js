@@ -67,38 +67,39 @@ const GetUsersHandle = async (req, res) => {
 };
 
 const LoginUserHandler = (req, res) => {
-    mongoose.model('user').getAuthenticated(req.body.email, req.body.password, (err, user, reason) => {
+    return (err, user, reason) => {
         if (err) {
             console.error(err);
             res.status(500).end();
         } else {
             if (user) {
                 let payload = {subject: user._id, role: user.role};
-                let token = jwt.sign(payload, 'anassino');
+                let token = jwt.sign(payload, process.env.JWT_PWD, {expiresIn: "1h"});
                 res.status(201).json({
                     token: token,
-                    username: user.username,
                     role: user.role,
-                    picture: user.picture,
                     id: user.id
                 });
-            }
-            const reasons = mongoose.model('user').failedLogin;
-            switch (reason) {
-                case reasons.NOT_FOUND:
-                case reasons.PASSWORD_INCORRECT:
-                    res.status(401).json({WRONG_CREDITENTIALS: true});
-                    break;
-                case reasons.MAX_ATTEMPTS:
-                    //TODO send an email to the user
-                    res.status(400).json({MAX_ATTEMPTS: true});
-                    break;
+            } else {
+                const reasons = mongoose.model('user').failedLogin;
+                switch (reason) {
+                    case reasons.NOT_FOUND:
+                    case reasons.PASSWORD_INCORRECT:
+                        res.status(401).json({WRONG_CREDITENTIALS: true});
+                        break;
+                    case reasons.MAX_ATTEMPTS:
+                        //TODO send an email to the user
+                        res.status(400).json({MAX_ATTEMPTS: true});
+                        break;
+                }
             }
         }
-    })
+    }
 };
 
-const ChangePasswordHandler = (req,res) =>{};
+const ChangePasswordHandler = function (req, res) {
+
+};
 
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.URL;
@@ -145,5 +146,11 @@ const BanUserHandler = async (req, res) => {
     })
 };
 
-module.exports = {CreateUserHandle, GetUsersHandle, LoginUserHandler, VerifyUserHandler, BanUserHandler};
+module.exports = {
+    CreateUserHandle,
+    GetUsersHandle,
+    LoginUserHandler,
+    VerifyUserHandler,
+    BanUserHandler
+};
 
