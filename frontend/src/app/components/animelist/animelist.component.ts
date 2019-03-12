@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AnimelistService} from '../../services/animelist.service';
+import {Anime} from "../../interfaces/anime";
 
 @Component({
   selector: 'app-anime',
@@ -12,11 +13,11 @@ export class AnimelistComponent implements OnInit {
   constructor(private animelistService: AnimelistService, private _router: Router, private activeroute: ActivatedRoute) {
   }
 
-  watched = [];
-  onHold = [];
-  planToWatch = [];
-  dropped = [];
-  watching = [];
+  watched: Anime[] = [];
+  onHold: Anime[] = [];
+  planToWatch: Anime[] = [];
+  dropped: Anime[] = [];
+  watching: Anime[] = [];
   columnsToDisplay = ['Anime'];
 
   ngOnInit() {

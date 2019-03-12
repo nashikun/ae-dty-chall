@@ -1,7 +1,9 @@
 export interface Review {
-  anime: string,
-  review: string,
-  reviewerId: string,
-  reviewer: { username: string, picture: string },
-  upvotesCount: number
+    id: string,
+    anime: string
+    review: string,
+    reviewer: { user: string, username: string, picture: string },
+    upvoters: string[],
+    upvotesCount: number,
+    upvoted: boolean
 }

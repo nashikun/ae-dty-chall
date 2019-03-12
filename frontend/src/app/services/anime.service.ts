@@ -2,73 +2,76 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {environment} from 'src/environments/environment';
+import {Anime} from 'src/app/interfaces/anime';
+import {Review} from "../interfaces/review";
+
 
 const BACKEND = environment.backend;
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AnimeService {
 
-  constructor(private http: HttpClient, private _auth: AuthService) {
-  }
+    constructor(private http: HttpClient, private _auth: AuthService) {
+    }
 
-  getAnimes(PageSize, PageNumber, Search, SortType, SortOrder) {
-    return this.http.get<any>(BACKEND+`/animes/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
-  }
+    getAnimes(PageSize: Number, PageNumber: Number, Search: string, SortType: string, SortOrder: string) {
+        return this.http.get<{ animes: Anime[], count: number }>(BACKEND + `/animes/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
+    }
 
-  getAnime(anime) {
-    return this.http.get<any>(BACKEND+`/animes/${anime}`);
-  }
+    getAnime(animeId: string) {
+        return this.http.get<Anime>(BACKEND + `/animes/${animeId}`);
+    }
 
-  animeExists(anime) {
-    return this.http.head<any>(BACKEND + `/animes/${anime}`);
-  }
+    animeExists(animeId: string) {
+        return this.http.head<{ exists: string } | null>(BACKEND + `/animes/${animeId}`);
+    }
 
-  addAnime(anime) {
-    // const image = imageUrl.split(',')[1];
-    const postData = new FormData();
-    postData.append('name', anime.name);
-    postData.append('description', anime.description);
-    postData.append('episodes', anime.episodes);
-    postData.append('image', anime.image, anime.name);
-    return this.http.post<any>(BACKEND+'/animes', postData);
-  }
+    addAnime(anime: Anime) {
+        // const image = imageUrl.split(',')[1];
+        const postData = new FormData();
+        postData.append('name', anime.name);
+        postData.append('description', anime.description);
+        postData.append('episodes', anime.episodes);
+        postData.append('image', anime.image, anime.name);
+        return this.http.post<{ id: string }>(BACKEND + '/animes', postData);
+    }
 
-  getReviews(anime) {
-    return this.http.get<any>(BACKEND+`/animes/${anime}/reviews`);
-  }
+    getReviews(animeId: string) {
+        return this.http.get<{ reviews: Review[], userReview: Review }>(BACKEND + `/animes/${animeId}/reviews`);
+    }
 
-  postReview(anime, review) {
-    return this.http.post<any>(BACKEND+`/animes/${anime}/reviews`, {review: review});
-  }
+    postReview(animeId: string, review: Review) {
+        return this.http.post<Review>(BACKEND + `/animes/${animeId}/reviews`, {review: review});
+    }
 
-  editReview(anime, reviewId, review) {
-    return this.http.patch<any>(BACKEND+`/animes/${anime}/reviews/${reviewId}`, {review: review});
-  }
+    editReview(animeId: string, reviewId: string, review: Review) {
+        return this.http.patch<Review>(BACKEND + `/animes/${animeId}/reviews/${reviewId}`, {review: review});
+    }
 
-  deleteReview(anime, reviewId) {
-    return this.http.delete<any>(BACKEND+`/animes/${anime}/reviews/${reviewId}`);
-  }
+    deleteReview(animeId: string, reviewId: string) {
+        return this.http.delete<null>(BACKEND + `/animes/${animeId}/reviews/${reviewId}`);
+    }
 
-  upvote(anime, reviewId) {
-    return this.http.post<any>(BACKEND+`/animes/${anime}/reviews/${reviewId}/upvotes`, {});
-  }
+    upvote(animeId: string, reviewId: string) {
+        return this.http.post<{ upvotesCount: string }>(BACKEND + `/animes/${animeId}/reviews/${reviewId}/upvotes`, {});
+    }
 
-  unvote(anime, reviewId) {
-    return this.http.delete<any>(BACKEND+`/animes/${anime}/reviews/${reviewId}/upvotes/${this._auth.getId()}`, {});
-  }
+    unvote(animeId: string, reviewId: string) {
+        return this.http.delete<{ upvotesCount: string }>(BACKEND + `/animes/${animeId}/reviews/${reviewId}/upvotes/${this._auth.getId()}`, {});
+    }
 
-  addRating(anime, rating) {
-    return this.http.post<any>(BACKEND+`/animes/${anime}/ratings`, {rating: rating});
-  }
+    addRating(animeId: string, rating: string) {
+        return this.http.post<{ _id: string }>(BACKEND + `/animes/${animeId}/ratings`, {rating: rating});
+    }
 
-  changeRating(anime, ratingId, rating) {
-    return this.http.put<any>(BACKEND+`/animes/${anime}/ratings/${ratingId}`, {rating: rating});
-  }
+    changeRating(animeId: string, ratingId: string, rating: string) {
+        return this.http.put<null>(BACKEND + `/animes/${animeId}/ratings/${ratingId}`, {rating: rating});
+    }
 
-  getLatest() {
-    return this.http.get<any>(BACKEND+'/animes/latest');
-  }
+    getLatest() {
+        return this.http.get<Anime[]>(BACKEND + '/animes/latest');
+    }
 
 }

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-guest-header',
@@ -9,7 +8,7 @@ import {Router} from '@angular/router';
 })
 export class GuestHeaderComponent implements OnInit {
 
-  constructor(private _router: Router, public _auth: AuthService) {
+  constructor(public _auth: AuthService) {
   }
 
   ngOnInit() {

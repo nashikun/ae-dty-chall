@@ -70,7 +70,7 @@ export class MailSent {
     constructor(
         public dialogRef: MatDialogRef<MailSent>,
         @Inject(MAT_DIALOG_DATA) public data) {
-        // TODO maybe later on add the emai; jere to show it
+        // TODO maybe later on add the email here to show it
     }
 
 }

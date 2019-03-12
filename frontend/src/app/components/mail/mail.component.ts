@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MessagesService} from '../../services/messages.service';
 import {AuthService} from '../../services/auth.service';
-import {Message} from "../../interfaces/messages";
+import {Message} from "../../interfaces/message";
 
 @Component({
     selector: 'app-mail',
