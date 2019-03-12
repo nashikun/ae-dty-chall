@@ -77,6 +77,7 @@ const reasons = userSchema.statics.failedLogin = {
   UNVERIFIED: 3
 };
 
+/*
 userSchema.statics.getAuthenticated = function (email, password, cb) {
   this.findOne({email: email}, function (err, user) {
     if (err) {
@@ -119,6 +120,6 @@ userSchema.statics.getAuthenticated = function (email, password, cb) {
       });
     });
   });
-};
+};*/
 
 module.exports = mongoose.model('user', userSchema, 'users');

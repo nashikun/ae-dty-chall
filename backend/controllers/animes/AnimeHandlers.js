@@ -51,7 +51,6 @@ const GuestAnimesHandler = async (req, res) => {
 };
 
 const UserAnimesHandler = async (req, res) => {
-    console.log(req.user);
     const limit = +req.query.size || 10;
     const skip = limit * req.query.page || 0;
     let sort = {};

@@ -82,7 +82,7 @@ const LoginUserHandler = (req, res) => {
                 });
             } else {
                 const reasons = mongoose.model('user').failedLogin;
-                switch (reason) {
+                switch (reason.reason) {
                     case reasons.NOT_FOUND:
                     case reasons.PASSWORD_INCORRECT:
                         res.status(401).json({WRONG_CREDITENTIALS: true});
