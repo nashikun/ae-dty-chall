@@ -10,7 +10,6 @@ const PostRatingHandler = (req, res) => {
 };
 
 const ChangeRatingHandler = (req, res) => {
-    console.log(req.user);
     mongoose.model('rating').updateOne({
         _id: req.params.rating,
         anime: req.params.anime,

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const cachegoose = require('cachegoose');
 const emailvalidator = require('../../util/email-validator');
-const jwt = require("jsonwebtoken");
 const async = require('async');
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -66,37 +65,6 @@ const GetUsersHandle = async (req, res) => {
     })
 };
 
-const LoginUserHandler = (req, res) => {
-    return (err, user, reason) => {
-        if (err) {
-            console.error(err);
-            res.status(500).end();
-        } else {
-            if (user) {
-                let payload = {subject: user._id, role: user.role};
-                let token = jwt.sign(payload, process.env.JWT_PWD, {expiresIn: "1h"});
-                res.status(201).json({
-                    token: token,
-                    role: user.role,
-                    id: user.id
-                });
-            } else {
-                const reasons = mongoose.model('user').failedLogin;
-                switch (reason.reason) {
-                    case reasons.NOT_FOUND:
-                    case reasons.PASSWORD_INCORRECT:
-                        res.status(401).json({WRONG_CREDITENTIALS: true});
-                        break;
-                    case reasons.MAX_ATTEMPTS:
-                        //TODO send an email to the user
-                        res.status(400).json({MAX_ATTEMPTS: true});
-                        break;
-                }
-            }
-        }
-    }
-};
-
 const ChangePasswordHandler = function (req, res) {
 
 };
@@ -146,11 +114,22 @@ const BanUserHandler = async (req, res) => {
     })
 };
 
+const EmailExistsHandler = (req, res) => {
+    mongoose.model('user').findOne({email: req.params.email}, (err, user) => {
+        if (err) {
+            console.error(err);
+            res.status(500).end();
+        }
+        if (!user) res.status(404).end();
+        else res.status(204).end();
+    })
+}
+
 module.exports = {
     CreateUserHandle,
     GetUsersHandle,
-    LoginUserHandler,
     VerifyUserHandler,
-    BanUserHandler
+    BanUserHandler,
+    EmailExistsHandler
 };
 
