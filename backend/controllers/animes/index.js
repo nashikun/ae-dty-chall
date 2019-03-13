@@ -1,13 +1,13 @@
 const AnimesController = require('express').Router();
 const multer = require('multer');
 const path = require('path');
+const isAuthenticated = require('../../util/isAuthenticated');
 
 const MODELS = '../../models/';
 const Anime = require(MODELS + 'anime');
 const Reviews = require(MODELS + 'review');
 const Rating = require(MODELS + 'rating');
 
-const passport = require('passport');
 const verifyImage = require('../../util/verifyImage');
 const verifyId = require('../../util/verifyId');
 
@@ -30,32 +30,32 @@ const {GuestAnimesHandler, UserAnimesHandler, PostAnimeHandler, GetGuestAnimeHan
 const RatingsController = require('./ratings-controller');
 const ReviewsController = require('./reviews-controller');
 
-AnimesController.get('/', (req, res, next) => {
-    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-        GuestAnimesHandler(req, res)
+AnimesController.get('/', (req, res) => {
+    if (req.user) {
+        UserAnimesHandler(req, res)
     } else {
-        passport.authenticate('jwt', {session: false})(req, res, next)
+        GuestAnimesHandler(req, res)
     }
-}, UserAnimesHandler);
+});
 
-AnimesController.post('/', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
+AnimesController.post('/', isAuthenticated, (req, res, next) => {
     if (req.user.role === 'admin') next();
     else res.status(401).end()
 }, multer({storage: storage}).single('image'), verifyImage, PostAnimeHandler);
 
 AnimesController.head('/:animename', AnimeExistsHandler);
 
-AnimesController.get('/latest',(req,res,next)=>{
+AnimesController.get('/latest', (req, res, next) => {
     next()
 }, GetLatestAnimesHandler);
 
-AnimesController.get('/:anime', verifyId('anime'), async (req, res, next) => {
-    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-        GetGuestAnimeHandler(req, res)
+AnimesController.get('/:anime', verifyId('anime'), (req, res) => {
+    if (req.user) {
+        GetUserAnimeHandler(req, res)
     } else {
-        passport.authenticate('jwt', {session: false})(req, res, next);
+        GetGuestAnimeHandler(req, res);
     }
-}, GetUserAnimeHandler);
+});
 
 AnimesController.use('/:anime/ratings', verifyId('anime'), RatingsController);
 

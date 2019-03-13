@@ -5,6 +5,6 @@ const verifyId = require('../../../../util/verifyId');
 
 UpvotesController.post('/', AddUpvoteHandler);
 
-UpvotesController.delete('/:upvote', verifyId('upvotes'), RemoveUpvote);
+UpvotesController.delete('/:upvote', verifyId('upvote'), RemoveUpvote);
 
 module.exports = UpvotesController;

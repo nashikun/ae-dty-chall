@@ -1,4 +1,4 @@
-const passport = require('passport');
+const isAuthenticated = require('../../../util/isAuthenticated');
 const verifyId = require('../../../util/verifyId');
 
 const ListController = require('express').Router({mergeParams: true});
@@ -6,9 +6,9 @@ const {GetListHandler, AddListAnimeHandler, ChangeListAnime} = require('./ListHa
 
 ListController.get('/', verifyId('user'), GetListHandler);
 
-ListController.post('/', passport.authenticate('jwt', {session: false}), AddListAnimeHandler);
+ListController.post('/', isAuthenticated, AddListAnimeHandler);
 
-ListController.put('/:anime', passport.authenticate('jwt', {session: false}), verifyId('anime'), ChangeListAnime);
+ListController.put('/:anime', isAuthenticated, verifyId('anime'), ChangeListAnime);
 
 module.exports = ListController;
 

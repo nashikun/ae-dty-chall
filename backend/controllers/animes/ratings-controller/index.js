@@ -1,10 +1,11 @@
 const {ChangeRatingHandler, PostRatingHandler} = require("./RatingsHandlers");
-const passport = require('passport');
 const verifyId = require('../../../util/verifyId');
+const isAuthenticated = require('../../../util/isAuthenticated');
+
 const RatingsController = require('express').Router({mergeParams: true});
 
-RatingsController.post('/', passport.authenticate('jwt', {session: false}), PostRatingHandler);
+RatingsController.post('/', isAuthenticated, PostRatingHandler);
 
-RatingsController.put('/:rating', passport.authenticate('jwt', {session: false}), verifyId('rating'), ChangeRatingHandler);
+RatingsController.put('/:rating', isAuthenticated, verifyId('rating'), ChangeRatingHandler);
 
 module.exports = RatingsController;

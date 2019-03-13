@@ -13,6 +13,8 @@ export class AnimelistService {
     constructor(private http: HttpClient, private _auth: AuthService) {
     }
 
+    options = {withCredentials: true};
+
     getMyList() {
         return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/list`);
     }

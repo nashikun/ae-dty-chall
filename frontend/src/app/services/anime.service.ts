@@ -16,6 +16,8 @@ export class AnimeService {
     constructor(private http: HttpClient, private _auth: AuthService) {
     }
 
+    options = {withCredentials: true};
+
     getAnimes(PageSize: Number, PageNumber: Number, Search: string, SortType: string, SortOrder: string) {
         return this.http.get<{ animes: Anime[], count: number }>(BACKEND + `/animes/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
     }
@@ -59,7 +61,7 @@ export class AnimeService {
     }
 
     unvote(animeId: string, reviewId: string) {
-        return this.http.delete<{ upvotesCount: string }>(BACKEND + `/animes/${animeId}/reviews/${reviewId}/upvotes/${this._auth.getId()}`, {});
+        return this.http.delete<{ upvotesCount: string }>(BACKEND + `/animes/${animeId}/reviews/${reviewId}/upvotes/${this._auth.getId()}`);
     }
 
     addRating(animeId: string, rating: string) {

@@ -1,9 +1,8 @@
 const {AddFriendsHandler, AddUsernameHandler, ChangeUsernameHandler, GetFriendRequestsHandler, GetUsernameHandler} = require('./ProfileHandlers');
-
+const isAuthenticated = require('../../../util/isAuthenticated');
 
 const ProfileController = require('express').Router({mergeParams: true});
 const MessagesController = require('./MessagesController');
-const passport = require('passport');
 const verifyImage = require('../../../util/verifyImage');
 const verifyId = require('../../../util/verifyId');
 
@@ -29,27 +28,27 @@ const MIME_TYPE_MAP = {
 };
 
 ProfileController.get('/', async (req, res, next) => {
-    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
+    if (req.user) {
+        GetProfileHandler(req, res)
+    } else {
         req.user = {_id: null};
         next();
-    } else {
-        passport.authenticate('jwt', {session: false})(req, res, next)
     }
 }, GetProfileHandler);
 
-ProfileController.put('/bio', passport.authenticate('jwt', {session: false}), UpdateBioHandler);
+ProfileController.put('/bio', isAuthenticated, UpdateBioHandler);
 
-ProfileController.put('/picture', passport.authenticate('jwt', {session: false}), multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
+ProfileController.put('/picture', isAuthenticated, multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
 
 ProfileController.get('/username', verifyId('user'), GetUsernameHandler);
 
 ProfileController.post('/username', verifyId('user'), AddUsernameHandler);
 
-ProfileController.put('/username', passport.authenticate('jwt', {session: false}), ChangeUsernameHandler);
+ProfileController.put('/username', isAuthenticated, ChangeUsernameHandler);
 
-ProfileController.post('/friends', passport.authenticate('jwt', {session: false}), AddFriendsHandler);
+ProfileController.post('/friends', isAuthenticated, AddFriendsHandler);
 
-ProfileController.get('/friends/requested', passport.authenticate('jwt', {session: false}), GetFriendRequestsHandler);
+ProfileController.get('/friends/requested', isAuthenticated, GetFriendRequestsHandler);
 
 ProfileController.use('/messages', MessagesController);
 
