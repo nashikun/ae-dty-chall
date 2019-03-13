@@ -39,19 +39,18 @@ const GetProfileHandler = async (req, res) => {
 
 const UpdateBioHandler = async (req, res) => {
     if (!req.user._id.equals(req.params.user)) {
-        res.status(401).end();
-    } else {
-        const updatedProfile = await mongoose.model('profile').updateOne({user: req.user._id}, req.body).catch(err => {
-            console.error(err);
-            res.status(500).end()
-        });
-        cachegoose.clearCache(req.user._id + '-profile');
-        if (updatedProfile.n) {
-            res.status(200).json(req.body);
-        } else {
-            res.status(404).end();
-        }
+        return res.status(401).end();
     }
+    const updatedProfile = await mongoose.model('profile').updateOne({user: req.user._id}, req.body).catch(err => {
+        console.error(err);
+        return res.status(500).end()
+    });
+    cachegoose.clearCache(req.user._id + '-profile');
+    if (updatedProfile.n) {
+        return res.status(200).json(req.body);
+    }
+    return res.status(404).end();
+
 };
 
 const UploadProfilePictureHndler = async (req, res) => {
@@ -61,27 +60,27 @@ const UploadProfilePictureHndler = async (req, res) => {
         const picture = 'https://' + req.get('Host') + '/images/profiles/' + req.file.filename;
         const profile = await mongoose.model('profile').findOneAndUpdate({user: ObjectId(req.params.user)}, {picture: picture}).catch(err => {
             console.error(err);
-            res.status(500).end()
+            return res.status(500).end()
         });
         cachegoose.clearCache(req.user._id + '-profile');
         const oldImage = new URL(profile.picture).pathname;
         const oldImageArray = oldImage.split('/');
         if (oldImageArray[oldImageArray.length - 1] !== 'default.jpg') {
-            fs.unlink(path.join(__dirname, '..', '..', '..', oldImage), err => {
+            return fs.unlink(path.join(__dirname, '..', '..', '..', oldImage), err => {
                 if (err) {
                     console.error(err);
-                    res.status(500).end()
-                } else if (profile) {
-                    res.status(204).end()
-                } else {
-                    res.status(404).end()
+                    return res.status(500).end()
                 }
+                if (profile) {
+                    return res.status(204).end();
+                }
+                return res.status(404).end()
             })
-        } else if (profile) {
-            res.status(204).end()
-        } else {
-            res.status(404).end()
         }
+        if (profile) {
+            return res.status(204).end()
+        }
+        return res.status(404).end()
     }
 };
 
@@ -91,96 +90,88 @@ const GetUsernameHandler = async (req, res) => {
         res.status(500).end()
     });
     if (!user) {
-        res.status(404).end();
-    } else {
-        res.status(200).json({username: user.username});
+        return res.status(404).end();
     }
+    return res.status(200).json({username: user.username});
 };
 
 const AddUsernameHandler = async (req, res) => {
     const user = await mongoose.model('user').findById(req.params.user).catch(err => {
         console.error(err);
-        res.status(500).end()
+        return res.status(500).end()
     });
     if (!user) {
-        res.status(404).end();
+        return res.status(404).end();
+    }
+    if (user.verified) {
+        res.status(409).json({verified: true});
     } else {
-        if (user.verified) {
-            res.status(409).json({verified: true});
-        } else {
-            if (user.verificationURL !== req.body.url) {
-                res.status(403).json({wrongLink: true});
-            } else {
-                const username = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
-                    console.error(err);
-                    res.status(500).end()
-                });
-                if (username) {
-                    res.status(400).json({usernameExists: true})
-                } else {
-                    {
-                        const list = new mongoose.model('list')();
-                        const profile = new mongoose.model('profile')();
-                        user.verified = true;
-                        user.verificationURL = undefined;
-                        user.list = list._id;
-                        user.profile = profile._id;
-                        list.user = user._id;
-                        profile.user = user._id;
-                        profile.username = req.body.username;
-                        await user.save().catch(err => {
-                            console.error(err);
-                            res.status(500).end();
-                        });
-                        await list.save().catch(err => {
-                            console.error(err);
-                            res.status(500).end();
-                        });
-                        await profile.save().catch(err => {
-                            console.error(err);
-                            res.status(500).end();
-                        });
-                        res.status(201).json({success: true});
-                    }
-                }
-            }
+        if (user.verificationURL !== req.body.url) {
+            return res.status(403).json({wrongLink: true});
         }
+        const username = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
+            console.error(err);
+            return res.status(500).end()
+        });
+        if (username) {
+            return res.status(400).json({usernameExists: true})
+        }
+        const list = new mongoose.model('list')();
+        const profile = new mongoose.model('profile')();
+        user.verified = true;
+        user.verificationURL = undefined;
+        user.list = list._id;
+        user.profile = profile._id;
+        list.user = user._id;
+        profile.user = user._id;
+        profile.username = req.body.username;
+
+        //TODO make these parallel
+        await user.save().catch(err => {
+            console.error(err);
+            return res.status(500).end();
+        });
+        await list.save().catch(err => {
+            console.error(err);
+            res.status(500).end();
+        });
+        await profile.save().catch(err => {
+            console.error(err);
+            res.status(500).end();
+        });
+        res.status(201).json({success: true});
     }
 };
 
 const ChangeUsernameHandler = async (req, res) => {
     if (!req.user._id.equals(req.params.user)) {
-        res.status(401).end();
-    } else {
-        const usernameExists = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
-            console.error(err);
-            res.status(500).end()
-        });
-        if (usernameExists && !usernameExists.user.equals(req.user._id)) {
-            res.status(400).json({usernameExists: true})
-        } else {
-            const profile = await mongoose.model('profile').updateOne({user: req.user._id}, {username: req.body.username}).catch(err => {
-                console.error(err);
-                res.status(500).end()
-            });
-            cachegoose.clearCache(req.user._id + '-list');
-            if (profile.n) {
-                res.status(204).end()
-            } else {
-                res.status(404).end()
-            }
-        }
+        return res.status(401).end();
     }
+    const usernameExists = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
+        console.error(err);
+        res.status(500).end()
+    });
+    if (usernameExists && !usernameExists.user.equals(req.user._id)) {
+        return res.status(400).json({usernameExists: true})
+    }
+    const profile = await mongoose.model('profile').updateOne({user: req.user._id}, {username: req.body.username}).catch(err => {
+        console.error(err);
+        res.status(500).end()
+    });
+    cachegoose.clearCache(req.user._id + '-list');
+    if (profile.n) {
+        return res.status(204).end()
+    }
+    return res.status(404).end();
 };
 
 const AddFriendsHandler = (req, res) => {
     if (req.user._id.toString() === req.body.friend) {
-        res.status(400).end();
-    } else {
-        mongoose.model('profile').requestFriend(req.user._id, req.body.friend, (err, result) => {
-            res.status(201).json(result);
-        });
+        return res.status(400).end();
     }
+    mongoose.model('profile').requestFriend(req.user._id, req.body.friend, (err, result) => {
+        return res.status(201).json(result);
+    });
 };
 
 const GetFriendRequestsHandler = (req, res) => {
@@ -188,12 +179,12 @@ const GetFriendRequestsHandler = (req, res) => {
         mongoose.model('profile').getPendingFriends(req.user._id, (err, friends) => {
             if (err) {
                 console.error(err);
-                res.status(500).end()
-            } else {
-                res.status(200).json(friends)
+                return res.status(500).end()
             }
+            return res.status(200).json(friends)
         })
     }
+    return res.status(401).end();
 };
 
 module.exports = {

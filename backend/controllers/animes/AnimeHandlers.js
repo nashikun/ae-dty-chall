@@ -116,23 +116,21 @@ const UserAnimesHandler = async (req, res) => {
 const PostAnimeHandler = (req, res) => {
     mongoose.model('anime').findById(req.params.anime, (err, result) => {
             if (err) {
-                res.status(500).end();
+                return res.status(500).end();
             } else {
                 if (result) {
-                    res.status(400).end();
-                } else {
-                    let anime = new mongoose.model('anime')(req.body);
-                    anime.image = 'https://' + req.get('Host') + '/images/animes/' + req.file.filename;
-                    anime.save((err, savedAnime) => {
-                        if (err) {
-                            console.error(err);
-                            res.status(500).end();
-                        } else {
-                            cachegoose.clearCache('latest');
-                            res.status(200).json({id: savedAnime._id});
-                        }
-                    })
+                    return res.status(400).end();
                 }
+                let anime = new mongoose.model('anime')(req.body);
+                anime.image = 'https://' + req.get('Host') + '/images/animes/' + req.file.filename;
+                anime.save((err, savedAnime) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).end();
+                    }
+                    cachegoose.clearCache('latest');
+                    return res.status(200).json({id: savedAnime._id});
+                })
             }
         }
     );
@@ -144,37 +142,36 @@ const GetGuestAnimeHandler = async (req, res) => {
         .cache(0, req.params.anime + '-anime')
         .catch(err => {
             console.error(err);
-            res.status(500).end()
+            return res.status(500).end()
         });
     if (!anime) {
-        res.status(404).end();
-    } else {
-        const score = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}},
-            {
-                $group: {
-                    _id: null,
-                    score: {$avg: '$rating'},
-                }
-            }]).catch(err => {
-            console.error(err);
-            res.status(500).end()
-        });
-        if (score.length) {
-            anime.score = score[0].score;
-        } else {
-            anime.score = 'N/A'
-        }
-        res.status(200).json(anime);
+        return res.status(404).end();
     }
+    const score = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}},
+        {
+            $group: {
+                _id: null,
+                score: {$avg: '$rating'},
+            }
+        }]).catch(err => {
+        console.error(err);
+        res.status(500).end()
+    });
+    if (score.length) {
+        anime.score = score[0].score;
+    } else {
+        anime.score = 'N/A'
+    }
+    return res.status(200).json(anime);
 };
 
 const AnimeExistsHandler = async (req, res) => {
     const anime = await mongoose.model('anime').findOne({name: req.params.animename}).catch(err => {
         console.error(err);
-        res.status(500).end()
+        return res.status(500).end()
     });
-    if (anime) res.status(204).end();
-    else res.status(404).end();
+    if (anime) return res.status(204).end();
+    res.status(404).end();
 };
 
 const GetUserAnimeHandler = async (req, res) => {
@@ -202,35 +199,34 @@ const GetUserAnimeHandler = async (req, res) => {
     ]);
     const anime = animes[0];
     if (!anime) {
-        res.status(404).end()
-    } else {
-        const result = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}}, {
-            $facet: {
-                score: [{
-                    $group: {
-                        _id: null,
-                        score: {$avg: '$rating'},
-                    }
-                }], rating: [{$match: {'user': req.user._id}}]
-            }
-        }, {
-            $project: {
-                score: {$arrayElemAt: ['$score', 0]},
-                rating: {$arrayElemAt: ['$rating', 0]}
-            }
-        }]).catch(err => {
-            console.error(err);
-            res.status(500).end()
-        });
-        if (result[0].score) {
-            anime.score = result[0].score.score;
-            anime.rating = result[0].rating
-        } else {
-            anime.score = 'N/A';
-            anime.rating = {};
-        }
-        res.status(200).json(anime)
+        return res.status(404).end()
     }
+    const result = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}}, {
+        $facet: {
+            score: [{
+                $group: {
+                    _id: null,
+                    score: {$avg: '$rating'},
+                }
+            }], rating: [{$match: {'user': req.user._id}}]
+        }
+    }, {
+        $project: {
+            score: {$arrayElemAt: ['$score', 0]},
+            rating: {$arrayElemAt: ['$rating', 0]}
+        }
+    }]).catch(err => {
+        console.error(err);
+        return res.status(500).end()
+    });
+    if (result[0].score) {
+        anime.score = result[0].score.score;
+        anime.rating = result[0].rating
+    } else {
+        anime.score = 'N/A';
+        anime.rating = {};
+    }
+    res.status(200).json(anime)
 };
 
 const GetLatestAnimesHandler = async (req, res) => {
@@ -240,7 +236,7 @@ const GetLatestAnimesHandler = async (req, res) => {
         name: 1
     }).sort({_id: -1}).limit(5).cache('latest').catch(err => {
         console.error(err);
-        res.status(500).end()
+        return res.status(500).end()
     });
     res.status(200).json(latest);
 };

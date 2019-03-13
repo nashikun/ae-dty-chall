@@ -1,13 +1,7 @@
-const passportJWT = require("passport-jwt");
-const ExtractJWT = passportJWT.ExtractJwt;
-
 module.exports = {
     local: {
         usernameField: 'email',
         passwordField: 'password',
-    }, JWT: {
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.JWT_PWD
     }, fb: {
         clientID: '2043788692590804',
         clientSecret: '07071bcd7a4f77ba4480f98214029b6b',

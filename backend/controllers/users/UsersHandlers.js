@@ -8,21 +8,18 @@ const CreateUserHandle = (req, res) => {
     emailvalidator.createTempUser(req.body, (err, reasons, newTempUser) => {
         if (err) {
             console.error(err);
-            res.status(500).end();
-        } else {
-            if (reasons) {
-                res.status(400).json(reasons);
-            } else {
-                emailvalidator.sendVerificationEmail(newTempUser, function (err, info) {
-                    if (err) {
-                        console.error(err);
-                        res.status(500).end();
-                    } else {
-                        res.status(201).json({success: true});
-                    }
-                });
-            }
+            return res.status(500).end();
         }
+        if (reasons) {
+            return res.status(400).json(reasons);
+        }
+        emailvalidator.sendVerificationEmail(newTempUser, function (err, info) {
+            if (err) {
+                console.error(err);
+                return res.status(500).end();
+            }
+            return res.status(201).json({success: true});
+        });
     });
 };
 
@@ -58,10 +55,9 @@ const GetUsersHandle = async (req, res) => {
     ], (err, result) => {
         if (err) {
             console.error(err);
-            res.status(500).end()
-        } else {
-            res.status(200).json({users: result[0], count: result[1].length})
+            return res.status(500).end()
         }
+        return res.status(200).json({users: result[0], count: result[1].length})
     })
 };
 
@@ -74,14 +70,12 @@ const VerifyUserHandler = (req, res) => {
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, (err, user) => {
             if (err) {
                 console.error(err);
-                res.status(500).end();
-            } else {
-                if (!user) {
-                    res.status(404).end();
-                } else {
-                    res.status(200).json({id: user._id});
-                }
+                return res.status(500).end();
             }
+        if (!user) {
+            return res.status(404).end();
+        }
+        res.status(200).json({id: user._id});
         }
     )
 };
@@ -107,10 +101,9 @@ const BanUserHandler = async (req, res) => {
         cachegoose.clearCache(req.params.user + '-profile');
         if (err) {
             console.error(err);
-            res.status(500).end()
-        } else {
-            res.status(200).end();
+            return res.status(500).end()
         }
+        res.status(200).end();
     })
 };
 
@@ -118,12 +111,12 @@ const EmailExistsHandler = (req, res) => {
     mongoose.model('user').findOne({email: req.params.email}, (err, user) => {
         if (err) {
             console.error(err);
-            res.status(500).end();
+            return res.status(500).end();
         }
-        if (!user) res.status(404).end();
-        else res.status(204).end();
+        if (!user) return res.status(404).end();
+        return res.status(204).end();
     })
-}
+};
 
 module.exports = {
     CreateUserHandle,
