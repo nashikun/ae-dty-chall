@@ -8,23 +8,24 @@ const LoginUserHandler = (req, res) => {
             return res.status(500).end();
         }
         if (user) {
-            return req.logIn(user, function (err) {
+            req.logIn(user, function (err) {
                 res.status(201).json({
                     role: user.role,
                     id: user.id
                 });
             });
-        }
-        const reasons = mongoose.model('user').failedLogin;
-        switch (reason.reason) {
-            case reasons.NOT_FOUND:
-            case reasons.PASSWORD_INCORRECT:
-                return res.status(401).json({WRONG_CREDITENTIALS: true});
-            case reasons.MAX_ATTEMPTS:
-                //TODO send an email to the user
-                return res.status(400).json({MAX_ATTEMPTS: true});
-            default:
-                return res.status(400).json(reason);
+        } else {
+            const reasons = mongoose.model('user').failedLogin;
+            switch (reason.reason) {
+                case reasons.NOT_FOUND:
+                case reasons.PASSWORD_INCORRECT:
+                    return res.status(401).json({WRONG_CREDITENTIALS: true});
+                case reasons.MAX_ATTEMPTS:
+                    //TODO send an email to the user
+                    return res.status(400).json({MAX_ATTEMPTS: true});
+                default:
+                    return res.status(400).json(reason);
+            }
         }
     }
 };
