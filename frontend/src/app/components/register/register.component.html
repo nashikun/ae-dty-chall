@@ -4,7 +4,8 @@
             Register
         </mat-card-title>
     </mat-card-header>
-    <button type="button" class="btn" (click)="submitLogin();">Login with facebook</button>
+    <button (click)="fblogin()" id="button">Facebook Login</button>
+    <button (click)="loginFB()" class="btn" type="button">Login with facebook</button>
     <form class="form" [formGroup]="registrationForm" (submit)="registerUser()" autocomplete="on">
         <div>
             <mat-form-field>

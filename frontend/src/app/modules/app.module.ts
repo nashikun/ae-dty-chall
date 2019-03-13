@@ -17,6 +17,8 @@ import {AngularMaterialModule} from './angular-material.module';
 import {AuthModule} from './auth.module';
 import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from 'ngx-swiper-wrapper';
 import {UsersComponent} from "../components/users/users.component";
+import {LegalComponent} from "../components/legal/legal.component";
+import {LoginRedirectionComponent} from "../components/login-redirection.component";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -28,7 +30,9 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
-        UsersComponent
+        UsersComponent,
+        LegalComponent,
+        LoginRedirectionComponent,
     ],
     imports: [
         AppRoutingModule,

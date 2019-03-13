@@ -45,7 +45,9 @@ AnimesController.post('/', passport.authenticate('jwt', {session: false}), verif
 
 AnimesController.head('/:animename', AnimeExistsHandler);
 
-AnimesController.get('/latest', GetLatestAnimesHandler);
+AnimesController.get('/latest',(req,res,next)=>{
+    next()
+}, GetLatestAnimesHandler);
 
 AnimesController.get('/:anime', verifyId('anime'), async (req, res, next) => {
     if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {

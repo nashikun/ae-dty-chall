@@ -6,6 +6,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cachegoose = require('cachegoose');
 cachegoose(mongoose, {
@@ -20,6 +21,7 @@ const passport = require('passport');
 //controllers
 const animes = require('./controllers/animes');
 const users = require('./controllers/users');
+const auth = require('./controllers/auth');
 
 const db = process.env.DB;
 
@@ -46,23 +48,23 @@ mongoose.connect(db, {useNewUrlParser: true}, err => {
     if (err) console.error(err);
 });
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Authorization, Accept"
-    );
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PATCH, PUT, DELETE,HEAD, OPTIONS"
-    );
-    next();
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,HEAD');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept');
+    next()
 });
-//app.use(cors());
-app.use(helmet());
 
+app.use(helmet());
+app.use(cookieParser());
 app.use(bodyParser.json({limit: '2mb', extended: true}));
 
+app.use(session({
+    secret: 'secrettexthere',
+    saveUninitialized: true,
+    resave: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -75,8 +77,7 @@ app.use('/animes', animes);
 
 app.use('/users', users);
 
-app.get('/', function (req, res) {
-});
+app.use('/auth', auth);
 
 httpsServer.listen(3000);
 

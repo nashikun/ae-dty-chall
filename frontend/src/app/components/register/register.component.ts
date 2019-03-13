@@ -5,6 +5,9 @@ import {EmailValidator} from '../../validators/EmailValidator';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {environment} from '../../../environments/environment'
+import {HttpClient} from "@angular/common/http";
+
+const BACKEND = environment.backend;
 
 declare var FB: any;
 
@@ -22,10 +25,11 @@ export class RegisterComponent implements OnInit {
     errors = {emailExists: false, unverified: false};
 
     constructor(private _auth: AuthService,
-                private _router: Router,
+                private router: Router,
                 private fb: FormBuilder,
                 private emailValidator: EmailValidator,
-                private dialog: MatDialog) {
+                private dialog: MatDialog,
+                private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -71,7 +75,7 @@ export class RegisterComponent implements OnInit {
             if (res.success) {
                 const dialogRef = this.dialog.open(MailSent, {});
                 dialogRef.afterClosed().subscribe(() => {
-                    this._router.navigate(['/']);
+                    this.router.navigate(['/']);
                 });
             }
 
@@ -96,8 +100,33 @@ export class RegisterComponent implements OnInit {
             } else {
                 console.log('User login failed');
             }
-        }, {scope: 'default'});
+        });
+    }
 
+    loginFB() {
+        window.open(BACKEND + '/auth/facebook', '_blank', 'width=1, height=1');
+    }
+
+    fblogin() { //i want it on the page where you click that login
+        // I really dunnoho to do that with angular. dunno if it's even possible to listen to other components in it
+        // dude you can't run a very simple script on a page ????????????????????,
+        // I have no idea im a noon and never needed scripts, just event bindings and stuff
+        var href = href;
+        var frame = document.createElement("iframe");
+        frame.id = "loginFrame";
+        frame.style.display = "none";
+        frame.src = href;
+        document.querySelector("body").appendChild(frame);
+    }
+
+    setHandler() {
+        window.addEventListener("message", function (e) {
+            var data = e.data;
+            if (data._id && data.role) {
+                document.getElementById("loginFrame").remove();
+                alert(data);
+            }
+        });
     }
 }
 

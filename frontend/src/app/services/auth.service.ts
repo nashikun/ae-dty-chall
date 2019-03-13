@@ -25,7 +25,11 @@ export class AuthService {
     }
 
     loginUser(user) {
-        return this.http.post<any>(BACKEND + '/users/login', user).pipe(tap(res => {
+        //return this.http.get<any>(BACKEND + '/auth/login', {withCredentials: true});
+        return this.http.post<any>(BACKEND + '/auth/login', user, {
+            withCredentials: true,
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).pipe(tap(res => {
             localStorage.setItem('token', res.token);
             localStorage.setItem('id', res.id);
             localStorage.setItem('role', res.role);
@@ -45,12 +49,14 @@ export class AuthService {
         localStorage.removeItem('token');
         localStorage.removeItem('id');
         localStorage.removeItem('role');
-        this._router.navigate(['/']);
+        this.http.post<any>(BACKEND + '/auth/logout', {}).subscribe(() => {
+            this._router.navigate(['/']);
+        });
     };
 
     isAdmin = () => localStorage.getItem('role') === 'admin';
 
-    loggedIn = () => !!localStorage.getItem('token');
+    loggedIn = () => !!localStorage.getItem('id');
 
     getToken = () => localStorage.getItem('token');
 
