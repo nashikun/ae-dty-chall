@@ -158,7 +158,7 @@ const ChangeUsernameHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    cachegoose.clearCache(req.user._id + '-list');
+    cachegoose.clearCache(req.user._id + '-profile');
     if (profile.n) {
         return res.status(204).end()
     }
@@ -176,7 +176,7 @@ const AddFriendsHandler = (req, res) => {
 
 const GetFriendRequestsHandler = (req, res) => {
     if (req.user._id.toString() === req.params.user) {
-        mongoose.model('profile').getPendingFriends(req.user._id, (err, friends) => {
+        return mongoose.model('profile').getPendingFriends(req.user._id, (err, friends) => {
             if (err) {
                 console.error(err);
                 return res.status(500).end()

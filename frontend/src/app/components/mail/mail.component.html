@@ -5,7 +5,7 @@
         </mat-card-title>
     </mat-card-header>
     <p> From: <a [routerLink]="['/profile',mail.senderId]">{{mail.sender.username}}</a></p>
-    <p> To: {{mail.recipient.username}}</p>
+    <p> To: <a [routerLink]="['/profile',mail.recipientId]">{{mail.recipient.username}}</a></p>
     <p></p>
     <p>
         {{mail.message}}

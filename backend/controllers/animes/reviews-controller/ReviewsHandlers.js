@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 
 const GetReviewsHandler = async (req, res) => {
     let anime = await mongoose.model('anime').findById(req.params.anime)
@@ -32,7 +31,6 @@ const GetReviewsHandler = async (req, res) => {
             }
         }
     }
-    console.log(reviews);
     res.status(200).json({reviews: reviews, userReview: userReview});
 };
 

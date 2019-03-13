@@ -13,7 +13,7 @@ const SendMessageHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    cachegoose.clearCache(req.user._id + '-unreadmail');
+    cachegoose.clearCache(req.params.user + '-unreadmail');
     if (!message) {
         res.status(400).end()
     } else {
