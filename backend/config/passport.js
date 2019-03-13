@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local');
-const passportJWT = require("passport-jwt");
-const JWTStrategy = passportJWT.Strategy;
 const FacebookStrategy = require('passport-facebook');
 const reasons = mongoose.model('user').failedLogin;
 const config = require('./config');
@@ -14,7 +12,6 @@ module.exports = function (passport) {
 
     passport.deserializeUser(function (id, done) {
         mongoose.model('user').findById(id, function (err, user) {
-            console.log(id);
             done(err, user);
         });
     });
@@ -44,11 +41,10 @@ module.exports = function (passport) {
                     if (!user.loginAttempts && !user.lockUntil) {
                         return done(null, user);
                     }
-                    const updates = {
+                    return user.update({
                         $set: {loginAttempts: 0},
                         $unset: {lockUntil: 1}
-                    };
-                    return user.update(updates, function (err) {
+                    }, function (err) {
                         if (err) {
                             return done(err);
                         }
@@ -63,18 +59,6 @@ module.exports = function (passport) {
         });
     }));
 
-    passport.use(new JWTStrategy(config.JWT,
-        function (jwtPayload, cb) {
-            return mongoose.model('user').findById(jwtPayload.subject)
-                .then(user => {
-                    return cb(null, {_id: user._id, role: user.role});
-                })
-                .catch(err => {
-                    return cb(err);
-                });
-        }
-    ));
-
     passport.use(new FacebookStrategy(config.fb,
         async function (accessToken, refreshToken, profile, done) {
             const user = await mongoose.model('user').findOne({'email': profile._json.email}).catch(err => {
@@ -82,10 +66,9 @@ module.exports = function (passport) {
                 done(err);
             });
             if (user) {
-                done(null, user);
-            } else {
-
+                return done(null, user);
             }
+
         }
     ));
 };

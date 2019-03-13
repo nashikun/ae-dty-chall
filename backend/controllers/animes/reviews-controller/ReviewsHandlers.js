@@ -15,25 +15,25 @@ const GetReviewsHandler = async (req, res) => {
             res.status(500).end();
         });
     if (!anime) {
-        res.status(404).end();
-    } else {
-        let reviews = anime.reviews;
-        reviews = reviews.map(review => {
-            review.set('upvoted', review.hasUpvoted(req.user._id), {strict: false});
-            return review
-        });
-        const NumberReviews = reviews.length;
-        let userReview = null;
-        if (req.user._id) {
-            for (let i = 0; i < NumberReviews; i += 1) {
-                if (reviews[i].reviewer.user.equals(req.user._id)) {
-                    userReview = reviews.splice(i, 1)[0];
-                    break
-                }
+        return res.status(404).end();
+    }
+    let reviews = anime.reviews;
+    reviews = reviews.map(review => {
+        review.set('upvoted', review.hasUpvoted(req.user._id), {strict: false});
+        return review
+    });
+    const NumberReviews = reviews.length;
+    let userReview = null;
+    if (req.user._id) {
+        for (let i = 0; i < NumberReviews; i += 1) {
+            if (reviews[i].reviewer.user.equals(req.user._id)) {
+                userReview = reviews.splice(i, 1)[0];
+                break
             }
         }
-        res.status(200).json({reviews: reviews, userReview: userReview});
     }
+    console.log(reviews);
+    res.status(200).json({reviews: reviews, userReview: userReview});
 };
 
 const PostReviewHandler = async (req, res) => {
@@ -54,14 +54,12 @@ const EditReviewHandler = (req, res) => {
         .exec((err, result) => {
             if (err) {
                 console.error(err);
-                res.status(500).end();
-            } else {
-                if (result.n) {
-                    res.status(204).end();
-                } else {
-                    res.status(404).end();
-                }
+                return res.status(500).end();
             }
+            if (result.n) {
+                return res.status(204).end();
+            }
+            return res.status(404).end();
         });
 };
 

@@ -6,12 +6,10 @@ const UpvotesController = require('./upvotes-controller');
 const ReviewsController = require('express').Router({mergeParams: true});
 
 ReviewsController.get('/', (req, res) => {
-    if (req.user) {
-        GetReviewsHandler(req, res)
-    } else {
+    if (!req.user) {
         req.user = {_id: null};
-        next();
     }
+    GetReviewsHandler(req, res)
 });
 
 ReviewsController.post('/', isAuthenticated, PostReviewHandler);

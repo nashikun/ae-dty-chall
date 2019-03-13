@@ -5,7 +5,6 @@ import {EmailValidator} from '../../validators/EmailValidator';
 import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {environment} from '../../../environments/environment'
-import {HttpClient} from "@angular/common/http";
 
 const BACKEND = environment.backend;
 
@@ -104,6 +103,7 @@ export class RegisterComponent implements OnInit {
     }
 
     loginFB() {
+        console.log(BACKEND);
         window.open(BACKEND + '/auth/facebook', '_blank', 'width=1, height=1');
     }
 }

@@ -22,15 +22,14 @@ const GetListHandler = async (req, res) => {
         .cache(0, `${req.params.user}-list`)
         .catch(err => console.error(err));
     if (!list) {
-        res.status(404).end()
-    } else {
-        let formatedList = {};
-        const n = list.length;
-        for (let i = 0; i < n; i += 1) {
-            formatedList[list[i]._id] = list[i].animelist;
-        }
-        res.status(200).json(formatedList);
+        return res.status(404).end()
     }
+    let formatedList = {};
+    const n = list.length;
+    for (let i = 0; i < n; i += 1) {
+        formatedList[list[i]._id] = list[i].animelist;
+    }
+    res.status(200).json(formatedList);
 };
 
 const AddListAnimeHandler = async (req, res) => {
@@ -40,31 +39,28 @@ const AddListAnimeHandler = async (req, res) => {
             res.status(500).end()
         });
         if (!anime) {
-            res.status(404).end();
-        } else {
-            //scouldn't put it in a hook because of: ref:  https://github.com/Automattic/mongoose/issues/964
-            // should look for an alternative
-            cachegoose.clearCache(req.user._id + '-list');
-            const list = await mongoose.model('list').updateOne({
-                'user': req.user._id, 'anime': {$ne: anime.id}
-            }, {
-                $addToSet: {
-                    animelist: {
-                        'anime': anime.id,
-                        'status': req.body.status,
-                        'watchedEpisodes': req.body.watchedEpisodes
-                    }
-                }
-            });
-            if (!list.n) {
-                res.status(400).end()
-            } else {
-                res.status(204).end()
-            }
+            return res.status(404).end();
         }
-    } else {
-        res.status(401).end()
+        //couldn't put it in a hook because of: ref:  https://github.com/Automattic/mongoose/issues/964
+        // should look for an alternative
+        cachegoose.clearCache(req.user._id + '-list');
+        const list = await mongoose.model('list').updateOne({
+            'user': req.user._id, 'anime': {$ne: anime.id}
+        }, {
+            $addToSet: {
+                animelist: {
+                    'anime': anime.id,
+                    'status': req.body.status,
+                    'watchedEpisodes': req.body.watchedEpisodes
+                }
+            }
+        });
+        if (!list.n) {
+            return res.status(400).end()
+        }
+        return res.status(204).end()
     }
+    return res.status(401).end()
 };
 
 const ChangeListAnime = async (req, res) => {
@@ -74,38 +70,34 @@ const ChangeListAnime = async (req, res) => {
             res.status(500).end();
         });
         if (!anime) {
-            res.status(404).end();
-        } else {
-            if ((!req.body.watchedEpisodes || (0 <= req.body.watchedEpisodes && req.body.watchedEpisodes <= anime.episodes && Number.isInteger(req.body.watchedEpisodes))) && STATUSES.includes(req.body.status)) {
-                // either episodes aren't specified, or they are nd should verify the conditions
-                cachegoose.clearCache(req.user._id + '-list');
-                mongoose.model('list').updateOne({
-                    'user': req.user._id,
-                    'animelist.anime': anime._id
-                }, {
-                    $set: {
-                        'animelist.$.status': req.body.status,
-                        'animelist.$.watchedEpisodes': req.body.watchedEpisodes
-                    }
-                }, {new: true})
-                    .then(result => {
-                        if (result.n) {
-                            res.status(204).end();
-                        } else {
-                            res.status(404).end();
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        res.status(500).end()
-                    });
-            } else {
-                res.status(422).json({invalid: true})
-            }
+            return res.status(404).end();
         }
-    } else {
-        res.status(401).end()
+        if ((!req.body.watchedEpisodes || (0 <= req.body.watchedEpisodes && req.body.watchedEpisodes <= anime.episodes && Number.isInteger(req.body.watchedEpisodes))) && STATUSES.includes(req.body.status)) {
+            // either episodes aren't specified, or they are nd should verify the conditions
+            cachegoose.clearCache(req.user._id + '-list');
+            return mongoose.model('list').updateOne({
+                'user': req.user._id,
+                'animelist.anime': anime._id
+            }, {
+                $set: {
+                    'animelist.$.status': req.body.status,
+                    'animelist.$.watchedEpisodes': req.body.watchedEpisodes
+                }
+            }, {new: true})
+                .then(result => {
+                    if (result.n) {
+                        return res.status(204).end();
+                    }
+                    return res.status(404).end();
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).end()
+                });
+        }
+        return res.status(422).json({invalid: true})
     }
+    res.status(401).end()
 };
 
 

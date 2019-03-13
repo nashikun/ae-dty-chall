@@ -21,13 +21,13 @@
       <th *matHeaderCellDef mat-header-cell mat-sort-header> Score</th>
       <td *matCellDef="let anime" mat-cell>
         <mat-icon color="primary" svgIcon="star"></mat-icon>
-        {{anime.score}}
+        {{anime.score | number:'1.0-2'}}
       </td>
     </ng-container>
-    <ng-container matColumnDef="rating">
-      <!-- Score End-->
+    <!-- Score End-->
 
-      <!-- Rating Start-->
+    <!-- Rating Start-->
+    <ng-container matColumnDef="rating">
       <th *matHeaderCellDef mat-header-cell> Your Rating</th>
       <td *matCellDef="let anime" mat-cell>
         <mat-icon *ngIf="anime.rating.rating != 'N/A'" color="primary" svgIcon="star"></mat-icon>
