@@ -1,31 +1,25 @@
-const passport = require('passport');
 const verifyId = require('../../../util/verifyId');
 
 const {GetReviewsHandler, PostReviewHandler, EditReviewHandler, RemoveReviewHandler} = require('./ReviewsHandlers');
+const isAuthenticated = require('../../../util/isAuthenticated');
 const UpvotesController = require('./upvotes-controller');
 const ReviewsController = require('express').Router({mergeParams: true});
 
-ReviewsController.get('/', (req, res, next) => {
-    if (!req.headers.authorization || req.headers.authorization.split(' ')[1] === 'null') {
-        req.user._id = null;
-        next();
+ReviewsController.get('/', (req, res) => {
+    if (req.user) {
+        GetReviewsHandler(req, res)
     } else {
-        passport.authenticate('jwt', {session: false})(req, res, next);
+        req.user = {_id: null};
+        next();
     }
-}, GetReviewsHandler);
+});
 
-ReviewsController.post('/', passport.authenticate('jwt', {session: false}), PostReviewHandler);
+ReviewsController.post('/', isAuthenticated, PostReviewHandler);
 
-ReviewsController.patch('/:review', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
-    if (req.params.user === req.user._id.toString()) next();
-    else res.status(401).end()
-}, EditReviewHandler);
+ReviewsController.patch('/:review', isAuthenticated, verifyId('review'), EditReviewHandler);
 
-ReviewsController.delete('/:review', passport.authenticate('jwt', {session: false}), verifyId('review'), (req, res, next) => {
-    if (req.params.user === req.user._id.toString() || req.user.role === 'admin') next();
-    else res.status(401).end()
-}, RemoveReviewHandler);
+ReviewsController.delete('/:review', isAuthenticated, verifyId('review'), RemoveReviewHandler);
 
-ReviewsController.use('/:review/upvotes', passport.authenticate('jwt', {session: false}), verifyId('review'), UpvotesController);
+ReviewsController.use('/:review/upvotes', isAuthenticated, verifyId('review'), UpvotesController);
 
 module.exports = ReviewsController;

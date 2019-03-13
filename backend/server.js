@@ -48,12 +48,17 @@ mongoose.connect(db, {useNewUrlParser: true}, err => {
     if (err) console.error(err);
 });
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
+    res.header('Accept', 'multipart/form-data,application/json');
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,HEAD');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept');
-    next()
+    if (req.method === 'OPTIONS') {
+        res.status(204).end()
+    } else {
+        next()
+    }
 });
 
 app.use(helmet());

@@ -10,11 +10,15 @@ const BACKEND = environment.backend;
 })
 export class ProfileService {
 
+    options = {
+        withCredentials: true,
+    };
+
     constructor(private http: HttpClient, private _auth: AuthService) {
     }
 
-    getUsers(PageSize, PageNumber, Search, SortType, SortOrder){
-        return this.http.get<any>(BACKEND+`/users/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
+    getUsers(PageSize, PageNumber, Search, SortType, SortOrder) {
+        return this.http.get<any>(BACKEND + `/users/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);
     }
 
     getProfile(userId) {

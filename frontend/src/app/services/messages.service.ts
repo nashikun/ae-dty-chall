@@ -14,6 +14,8 @@ export class MessagesService {
     constructor(private http: HttpClient, private _auth: AuthService) {
     }
 
+    options = {withCredentials: true};
+
     sendMessage(userId: string, message: Message) {
         return this.http.post<{ id: string }>(BACKEND + `/users/${userId}/profile/messages`, message);
     }

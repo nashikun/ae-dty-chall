@@ -14,7 +14,7 @@ module.exports = function (passport) {
 
     passport.deserializeUser(function (id, done) {
         mongoose.model('user').findById(id, function (err, user) {
-            console.log(user);
+            console.log(id);
             done(err, user);
         });
     });

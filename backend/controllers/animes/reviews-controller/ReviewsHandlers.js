@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const GetReviewsHandler = async (req, res) => {
     let anime = await mongoose.model('anime').findById(req.params.anime)
@@ -47,7 +48,8 @@ const PostReviewHandler = async (req, res) => {
 const EditReviewHandler = (req, res) => {
     mongoose.model('review').updateOne({
         _id: req.params.review,
-        anime: req.params.anime
+        anime: req.params.anime,
+        reviewerId: req.user._id
     }, {$set: {review: req.body.review}})
         .exec((err, result) => {
             if (err) {
@@ -64,21 +66,24 @@ const EditReviewHandler = (req, res) => {
 };
 
 const RemoveReviewHandler = (req, res) => {
-    mongoose.model('review').deleteOne({
-        _id: req.params.review,
-        anime: req.params.anime
-    }, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).end()
-        } else {
-            if (result.n) {
-                res.status(204).end()
-            } else {
-                res.status(404).end()
+    mongoose.model('review').findOne({
+            _id: req.params.review,
+            anime: req.params.anime
+        }, (err, review) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).end();
             }
+            if (review) {
+                if (review.reviewerId.equals(req.user._id) || req.user.role === 'admin') {
+                    review.remove();
+                    return res.status(204).end();
+                }
+                return res.status(401).end()
+            }
+            return res.status(404).end()
         }
-    });
+    );
 };
 
 module.exports = {GetReviewsHandler, PostReviewHandler, EditReviewHandler, RemoveReviewHandler};

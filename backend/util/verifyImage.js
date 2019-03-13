@@ -1,5 +1,4 @@
 const fileType = require('file-type');
-const path = require('path');
 const fs = require("fs");
 const PERMITTED_EXT = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
 

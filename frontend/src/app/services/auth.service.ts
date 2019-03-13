@@ -14,6 +14,7 @@ export class AuthService {
     constructor(private http: HttpClient, private _router: Router) {
     }
 
+    options = {withCredentials: true};
     public username = '';
 
     usernameExists(email) {
@@ -26,10 +27,7 @@ export class AuthService {
 
     loginUser(user) {
         //return this.http.get<any>(BACKEND + '/auth/login', {withCredentials: true});
-        return this.http.post<any>(BACKEND + '/auth/login', user, {
-            withCredentials: true,
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-        }).pipe(tap(res => {
+        return this.http.post<any>(BACKEND + '/auth/login', user).pipe(tap(res => {
             localStorage.setItem('token', res.token);
             localStorage.setItem('id', res.id);
             localStorage.setItem('role', res.role);
