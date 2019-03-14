@@ -1,18 +1,5 @@
 const mongoose = require('mongoose');
-const async = require('async');
 const emailvalidator = require('../../util/email-validator');
-
-const generateUsername = async function (username) {
-    const user = await mongoose.model('profile').findOne({username: username}).catch(err => {
-        console.error(err);
-        throw err
-    });
-    if (user) {
-        username += Math.floor(Math.random() * 100 + 1);
-        return generateUsername(username);
-    }
-    return username
-};
 
 const LoginUserHandler = (req, res, next) => {
     return (err, user, reason) => {
@@ -68,22 +55,13 @@ const VerifyUserHandler = (req, res) => {
             if (!user) {
                 return res.status(404).end();
             }
-            const list = new mongoose.model('list')();
-            const profile = new mongoose.model('profile')();
-            const username = await generateUsername('user');
-            list.user = user._id;
-            profile.user = user._id;
-            profile.username = username;
-            console.log(username);
-            await async.parallel([list.save, profile.save]).catch(err => {
+        emailvalidator.createProfile(user, (err, profile) => {
+            if (err) {
                 console.error(err);
                 return res.status(500).end();
-            });
-            user.verified = true;
-            user.verificationURL = undefined;
-            user.list = list._id;
-            user.profile = profile._id;
-            user.save().then(() => res.redirect(process.env.FRONTEND + `/verified?username=${username}`));
+            }
+            req.redirect(process.env.FRONTEND + `/verify?username=${profile}`)
+        })
         }
     )
 };
