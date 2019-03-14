@@ -4,7 +4,7 @@ import {AnimeService} from '../../services/anime.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {AnimelistService} from '../../services/animelist.service';
 import {Anime} from "../../interfaces/anime";
 import {Review} from "../../interfaces/review";
@@ -16,7 +16,7 @@ import {Review} from "../../interfaces/review";
 })
 export class AnimeComponent implements OnInit {
 
-    constructor(public _auth: AuthService, private _animelist: AnimelistService, private _anime: AnimeService,
+    constructor(public _auth: AuthenticationService, private _animelist: AnimelistService, private _anime: AnimeService,
                 private _activatedRoute: ActivatedRoute, private fb: FormBuilder, private matIconRegistry: MatIconRegistry,
                 private domSanitizer: DomSanitizer) {
         this.matIconRegistry.addSvgIcon('upvoted',

@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
+import {CookieService} from "ngx-cookie-service";
 
 const BACKEND = environment.backend;
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
 
-    constructor(private http: HttpClient, private _router: Router) {
+    constructor(private http: HttpClient, private _router: Router, private cookieService: CookieService, private injector: Injector) {
     }
 
-    options = {withCredentials: true};
     public username = '';
 
     usernameExists(email) {
@@ -26,13 +26,26 @@ export class AuthService {
     }
 
     loginUser(user) {
-        //return this.http.get<any>(BACKEND + '/auth/login', {withCredentials: true});
         return this.http.post<any>(BACKEND + '/auth/login', user).pipe(tap(res => {
-            localStorage.setItem('token', res.token);
             localStorage.setItem('id', res.id);
             localStorage.setItem('role', res.role);
+            this.cookieService.set('jwt', res.token, 12 * 60 * 60);
+            localStorage.setItem('token', res.token);
             return res;
         }));
+    }
+
+
+    loginSocial(provider: string, token: string) {
+        return this.http.post<any>(BACKEND + '/auth/' + provider + '/token', {access_token: token})
+            .pipe(tap((res: any) => {
+                console.log(res.token);
+                localStorage.setItem('id', res.id);
+                localStorage.setItem('role', res.role);
+                this.cookieService.set('jwt', res.token, 12 * 60 * 60);
+                localStorage.setItem('token', res.token);
+                return res;
+            }));
     }
 
     verifyUser(Url) {
@@ -54,10 +67,10 @@ export class AuthService {
 
     isAdmin = () => localStorage.getItem('role') === 'admin';
 
-    loggedIn = () => !!localStorage.getItem('id');
-
-    getToken = () => localStorage.getItem('token');
+    loggedIn = () => !!localStorage.getItem('token');
 
     getId = () => localStorage.getItem('id');
+
+    getToken = () => localStorage.getItem('token');
 
 }

@@ -30,13 +30,13 @@ const {GuestAnimesHandler, UserAnimesHandler, PostAnimeHandler, GetGuestAnimeHan
 const RatingsController = require('./ratings-controller');
 const ReviewsController = require('./reviews-controller');
 
-AnimesController.get('/', (req, res) => {
-    if (req.user) {
-        UserAnimesHandler(req, res)
+AnimesController.get('/', (req, res, next) => {
+    if (req.cookies) {
+        isAuthenticated(req, res, next)
     } else {
         GuestAnimesHandler(req, res)
     }
-});
+}, UserAnimesHandler);
 
 AnimesController.post('/', isAuthenticated, (req, res, next) => {
     if (req.user.role === 'admin') next();
@@ -49,13 +49,13 @@ AnimesController.get('/latest', (req, res, next) => {
     next()
 }, GetLatestAnimesHandler);
 
-AnimesController.get('/:anime', verifyId('anime'), (req, res) => {
-    if (req.user) {
-        GetUserAnimeHandler(req, res)
+AnimesController.get('/:anime', verifyId('anime'), (req, res, next) => {
+    if (req.cookies) {
+        isAuthenticated(req, res, next)
     } else {
         GetGuestAnimeHandler(req, res);
     }
-});
+}, GetUserAnimeHandler);
 
 AnimesController.use('/:anime/ratings', verifyId('anime'), RatingsController);
 

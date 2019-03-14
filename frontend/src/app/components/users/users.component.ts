@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {MatIconRegistry, PageEvent, Sort} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
     sortType: string = 'createdAt';
     sortOrder: string = 'desc';
 
-    constructor(private _auth: AuthService, private _route: ActivatedRoute, private _profile: ProfileService) {
+    constructor(private _auth: AuthenticationService, private _route: ActivatedRoute, private _profile: ProfileService) {
     }
 
     ngOnInit() {

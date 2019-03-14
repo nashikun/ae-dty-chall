@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MessagesService} from '../../services/messages.service';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {Message} from "../../interfaces/message";
 
 @Component({
@@ -21,7 +21,7 @@ export class MailComponent implements OnInit {
         recipient: {user: '', username: ''}
     };
 
-    constructor(private _activatedRoute: ActivatedRoute, private messages: MessagesService, public _auth: AuthService) {
+    constructor(private _activatedRoute: ActivatedRoute, private messages: MessagesService, public _auth: AuthenticationService) {
     }
 
     ngOnInit() {

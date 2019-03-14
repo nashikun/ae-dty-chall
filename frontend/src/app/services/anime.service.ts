@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
+import {AuthenticationService} from './authentication.service';
 import {environment} from 'src/environments/environment';
 import {Anime} from 'src/app/interfaces/anime';
 import {Review} from "../interfaces/review";
@@ -13,10 +13,8 @@ const BACKEND = environment.backend;
 })
 export class AnimeService {
 
-    constructor(private http: HttpClient, private _auth: AuthService) {
+    constructor(private http: HttpClient, private _auth: AuthenticationService) {
     }
-
-    options = {withCredentials: true};
 
     getAnimes(PageSize: Number, PageNumber: Number, Search: string, SortType: string, SortOrder: string) {
         return this.http.get<{ animes: Anime[], count: number }>(BACKEND + `/animes/?page=${PageNumber}&size=${PageSize}&search=${Search}&sort=${SortType}&order=${SortOrder}`);

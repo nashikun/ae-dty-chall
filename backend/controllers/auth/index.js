@@ -3,29 +3,30 @@ const AuthController = require('express').Router({mergeParams: true});
 const {LoginUserHandler, LogoutHandler} = require('./AuthHandlers');
 
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
-AuthController.get('/login', function (req, res) {
-    res.send({user: req.user});
-});
 
-AuthController.post('/login', function (req, res) {
+const attachToken = function (req, res) {
+    const token = jwt.sign({id: req.user.id, role: req.user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
+    res.header('Access-Control-Expose-Headers', 'x-auth-token');
+    res.setHeader('x-auth-token', token);
+    res.status(200).send({id: req.user.id, role: req.user.role, token: token});
+};
+
+AuthController.post('/login', function (req, res, next) {
     passport.authenticate('local', {
-        session: true,
-        failureRedirect: '/login',
+        session: false,
         failureFlash: false
     }, function (err, user, info) {
-        LoginUserHandler(req, res)(err, user, info);
-    },)(req, res)
-});
+        LoginUserHandler(req, res, next)(err, user, info);
+    },)(req, res, next)
+}, attachToken);
+
+AuthController.post('/facebook/token', passport.authenticate('facebook-token'), attachToken);
+
+AuthController.post('/google/token', passport.authenticate('google-token'), attachToken);
 
 AuthController.post('/logout', LogoutHandler);
 
-AuthController.get('/facebook', passport.authenticate('facebook'));
-
-AuthController.get('/facebook/callback',
-    passport.authenticate('facebook', {failureRedirect: '/login'}),
-    function (req, res) {
-        res.redirect(process.env.FRONTEND + `/redirect?id=${req.user._id}&role=${req.user.role}`);
-    });
 
 module.exports = AuthController;

@@ -61,10 +61,6 @@ const GetUsersHandle = async (req, res) => {
     })
 };
 
-const ChangePasswordHandler = function (req, res) {
-
-};
-
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.URL;
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, (err, user) => {
@@ -80,6 +76,7 @@ const VerifyUserHandler = (req, res) => {
     )
 };
 
+//TODO make sure it works as expected
 const BanUserHandler = async (req, res) => {
     await async.parallel([
         (cb) => {

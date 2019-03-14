@@ -53,7 +53,7 @@ class EmailValidator {
     }
 
     static sendVerificationEmail(tempUser, cb) {
-        const URL = process.env.FRONTEND + '/verify/' + tempUser.verificationURL;
+        const URL = process.env.BACKEND + 'auth/verify/' + tempUser.verificationURL;
         message.html = message.html.replace(/\${URL}/g, URL);
         message.text = message.text.replace(/\${URL}/g, URL);
         message.to = tempUser.email;

@@ -5,7 +5,7 @@ import {AppComponent} from '../app.component';
 import {HomeComponent} from '../components/home/home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
+import {AuthenticationService} from '../services/authentication.service';
 import {TokenInterceptor} from '../token-interceptor';
 import {ErrorInterceptor} from '../error-interceptor';
 import {AnimeService} from '../services/anime.service';
@@ -19,6 +19,7 @@ import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from 'ngx-swiper-wra
 import {UsersComponent} from "../components/users/users.component";
 import {LegalComponent} from "../components/legal/legal.component";
 import {LoginRedirectionComponent} from "../components/login-redirection.component";
+import {CookieService} from "ngx-cookie-service";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -47,7 +48,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         SwiperModule
     ],
     providers: [
-        AuthService,
+        CookieService,
+        AuthenticationService,
         AnimeService,
         {
             provide: SWIPER_CONFIG,

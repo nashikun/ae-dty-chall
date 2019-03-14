@@ -28,8 +28,8 @@ const MIME_TYPE_MAP = {
 };
 
 ProfileController.get('/', async (req, res, next) => {
-    if (req.user) {
-        GetProfileHandler(req, res)
+    if (req.cookies) {
+        isAuthenticated(req, res, next)
     } else {
         req.user = {_id: null};
         next();

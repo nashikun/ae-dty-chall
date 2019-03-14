@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class VerificationComponent implements OnInit {
     errors = {};
     verified: boolean = false;
 
-    constructor(private _auth: AuthService, private _activatedRoute: ActivatedRoute) {
+    constructor(private _auth: AuthenticationService, private _activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {

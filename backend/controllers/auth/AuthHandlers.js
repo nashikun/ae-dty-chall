@@ -1,19 +1,14 @@
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
-const LoginUserHandler = (req, res) => {
+const LoginUserHandler = (req, res, next) => {
     return (err, user, reason) => {
         if (err) {
             console.error(err);
             return res.status(500).end();
         }
         if (user) {
-            req.logIn(user, function (err) {
-                res.status(201).json({
-                    role: user.role,
-                    id: user.id
-                });
-            });
+            req.user = user;
+            return next(null, user);
         } else {
             const reasons = mongoose.model('user').failedLogin;
             switch (reason.reason) {

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
+import {AuthenticationService} from './authentication.service';
 import {environment} from 'src/environments/environment';
 
 const BACKEND = environment.backend;
@@ -10,10 +10,8 @@ const BACKEND = environment.backend;
 })
 export class AnimelistService {
 
-    constructor(private http: HttpClient, private _auth: AuthService) {
+    constructor(private http: HttpClient, private _auth: AuthenticationService) {
     }
-
-    options = {withCredentials: true};
 
     getMyList() {
         return this.http.get<any>(BACKEND + `/users/${this._auth.getId()}/list`);

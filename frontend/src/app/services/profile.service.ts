@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
+import {AuthenticationService} from './authentication.service';
 import {environment} from '../../environments/environment';
 
 const BACKEND = environment.backend;
@@ -10,11 +10,7 @@ const BACKEND = environment.backend;
 })
 export class ProfileService {
 
-    options = {
-        withCredentials: true,
-    };
-
-    constructor(private http: HttpClient, private _auth: AuthService) {
+    constructor(private http: HttpClient, private _auth: AuthenticationService) {
     }
 
     getUsers(PageSize, PageNumber, Search, SortType, SortOrder) {

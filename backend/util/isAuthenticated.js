@@ -1,7 +1,3 @@
-module.exports = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next()
-    } else {
-        res.status(401).end();
-    }
-};
+const passport = require('passport');
+
+module.exports = passport.authenticate('jwt', {session: false});

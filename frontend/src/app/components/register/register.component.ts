@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {AuthenticationService} from '../../services/authentication.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmailValidator} from '../../validators/EmailValidator';
 import {Router} from '@angular/router';
@@ -8,8 +8,6 @@ import {environment} from '../../../environments/environment'
 
 const BACKEND = environment.backend;
 
-declare var FB: any;
-
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -17,42 +15,21 @@ declare var FB: any;
 })
 
 export class RegisterComponent implements OnInit {
-
     show = true;
     captcha_key: string = environment.captcha_key;
     registrationForm: FormGroup;
     errors = {emailExists: false, unverified: false};
 
-    constructor(private _auth: AuthService,
+    constructor(private _auth: AuthenticationService,
                 private router: Router,
                 private fb: FormBuilder,
                 private emailValidator: EmailValidator,
-                private dialog: MatDialog
+                private dialog: MatDialog,
+
     ) {
     }
 
     ngOnInit() {
-        (window as any).fbAsyncInit = function () {
-            FB.init({
-                appId: '2043788692590804',
-                cookie: true,
-                xfbml: true,
-                version: 'v3.2'
-            });
-            FB.AppEvents.logPageView();
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
         this.registrationForm = this.fb.group({
             email: new FormControl(null, {
                 validators: [Validators.required, Validators.pattern('([!#-\'*+/-9=?A-Z^-~-]+(\\.[!#-\'*+/-9=?A-Z^-~-]+)*|"([]!#-[^-~ \\t]' +
@@ -77,34 +54,10 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/']);
                 });
             }
-
         }, (err) => {
             this.show = true;
             this.errors = err.error || {};
         });
-    }
-
-    submitLogin() {
-        console.log("submit login to facebook");
-        // FB.login();
-        FB.login((response) => {
-            console.log('submitLogin', response);
-            if (response.authResponse) {
-                FB.api(
-                    '/me?fields=id,name,email,birthday,profile_pic',
-                    function (response) {
-                        console.log('API', response);
-                    }
-                );
-            } else {
-                console.log('User login failed');
-            }
-        });
-    }
-
-    loginFB() {
-        console.log(BACKEND);
-        window.open(BACKEND + '/auth/facebook', '_blank', 'width=1, height=1');
     }
 }
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
+import {AuthenticationService} from './authentication.service';
 import {environment} from '../../environments/environment';
 import {Message} from "../interfaces/message";
 
@@ -11,7 +11,7 @@ const BACKEND = environment.backend;
 })
 export class MessagesService {
 
-    constructor(private http: HttpClient, private _auth: AuthService) {
+    constructor(private http: HttpClient, private _auth: AuthenticationService) {
     }
 
     options = {withCredentials: true};

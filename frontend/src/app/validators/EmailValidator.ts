@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {AuthenticationService} from '../services/authentication.service';
 import {AbstractControl} from "@angular/forms";
 import { of, timer} from "rxjs";
 import {catchError, mapTo, switchMap} from "rxjs/operators";
@@ -10,7 +10,7 @@ import {catchError, mapTo, switchMap} from "rxjs/operators";
 
 export class EmailValidator {
 
-  constructor(private _auth: AuthService) {
+  constructor(private _auth: AuthenticationService) {
   }
 
   available(control: AbstractControl) {

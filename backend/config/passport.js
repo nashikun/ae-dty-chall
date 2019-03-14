@@ -1,8 +1,17 @@
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local');
-const FacebookStrategy = require('passport-facebook');
+const JWTStrategy = require('passport-jwt').Strategy;
+const FacebookTokenStrategy = require('passport-facebook-token');
+const GoogleTokenStrategy = require('passport-google-token').Strategy;
 const reasons = mongoose.model('user').failedLogin;
 const config = require('./config');
+const cookieExtractor = function (req) {
+    const token = null;
+    if (req && req.cookies) {
+        token = req.cookies['jwt'];
+    }
+    return token;
+};
 
 module.exports = function (passport) {
 
@@ -59,7 +68,20 @@ module.exports = function (passport) {
         });
     }));
 
-    passport.use(new FacebookStrategy(config.fb,
+    passport.use(new JWTStrategy(config.jwt,
+        function (req, jwtPayload, cb) {
+            return mongoose.model('user').findById(jwtPayload.id)
+                .then(user => {
+                    req.user = user;
+                    return cb(null, user);
+                })
+                .catch(err => {
+                    return cb(err);
+                });
+        }
+    ));
+
+    passport.use(new FacebookTokenStrategy(config.fb,
         async function (accessToken, refreshToken, profile, done) {
             const user = await mongoose.model('user').findOne({'email': profile._json.email}).catch(err => {
                 console.error(err);
@@ -69,6 +91,20 @@ module.exports = function (passport) {
                 return done(null, user);
             }
 
+        }
+    ));
+
+    passport.use(new GoogleTokenStrategy(config.google,
+        async function (accessToken, refreshToken, profile, done) {
+            const user = await mongoose.model('user').findOne({'email': profile._json.email}).catch(err => {
+                console.error(err);
+                done(err);
+            });
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, null);
+            }
         }
     ));
 };

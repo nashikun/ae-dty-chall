@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 import {AnimeService} from '../../services/anime.service';
 import {AnimelistService} from '../../services/animelist.service';
 import {MatIconRegistry, PageEvent, Sort} from '@angular/material';
@@ -26,7 +26,7 @@ export class AnimesComponent implements OnInit {
     sortType: string = 'score';
     sortOrder: string = 'desc';
 
-    constructor(private _auth: AuthService, private _route: ActivatedRoute, private _anime: AnimeService, private _animelist: AnimelistService,
+    constructor(private _auth: AuthenticationService, private _route: ActivatedRoute, private _anime: AnimeService, private _animelist: AnimelistService,
                 private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
         this.matIconRegistry.addSvgIcon('star',
             this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/baseline-star-24px.svg'));

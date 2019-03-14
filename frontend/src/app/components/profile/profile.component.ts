@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ImageValidator} from '../../validators/ImageValidator';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {AuthService} from '../../services/auth.service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 export class Profile {
     username: string;
@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
     buttons_md = [["bold", "italic", "underline"], ["strikeThrough", "superscript", "subscript"], ["fontName", "fontSize", "color"], ["justifyLeft", "justifyCenter", "justifyRight"], ["removeFormat", "undo", "redo"], ["horizontalLine", "orderedList", "unorderedList"], ["link", "unlink", "image", "video"]];
     buttons_sm = [["bold", "italic", "underline"], ["fontName", "fontSize", "color"], ["justifyLeft", "justifyCenter", "justifyRight"], ["removeFormat", "undo", "redo"], ["link", "unlink", "image", "video"]];
 
-    constructor(private profileService: ProfileService, private auth: AuthService, private router: Router,
+    constructor(private profileService: ProfileService, private auth: AuthenticationService, private router: Router,
                 private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
     }
 

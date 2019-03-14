@@ -15,7 +15,6 @@ cachegoose(mongoose, {
     host: process.env.CACHE_HOST,
     password: process.env.CACHE_PWD
 });
-const session = require("express-session");
 const passport = require('passport');
 
 //controllers
@@ -53,7 +52,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,HEAD');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept, x-auth-token');
     if (req.method === 'OPTIONS') {
         res.status(204).end()
     } else {
@@ -65,11 +64,6 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json({limit: '2mb', extended: true}));
 
-app.use(session({
-    secret: 'secrettexthere',
-    saveUninitialized: true,
-    resave: true
-}));
 app.use(passport.initialize());
 app.use(passport.session());
 
