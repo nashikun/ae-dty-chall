@@ -1,6 +1,6 @@
 const AuthController = require('express').Router({mergeParams: true});
 
-const {LoginUserHandler, LogoutHandler} = require('./AuthHandlers');
+const {LoginUserHandler, CreateUserHandle, VerifyUserHandler, LogoutHandler} = require('./AuthHandlers');
 
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
@@ -21,6 +21,10 @@ AuthController.post('/login', function (req, res, next) {
         LoginUserHandler(req, res, next)(err, user, info);
     },)(req, res, next)
 }, attachToken);
+
+AuthController.post('/signup', CreateUserHandle);
+
+AuthController.get('/verify/:url', VerifyUserHandler);
 
 AuthController.post('/facebook/token', passport.authenticate('facebook-token'), attachToken);
 

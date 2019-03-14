@@ -78,49 +78,4 @@ const reasons = userSchema.statics.failedLogin = {
     UNVERIFIED: 3
 };
 
-/*
-userSchema.statics.getAuthenticated = function (email, password, cb) {
-  this.findOne({email: email}, function (err, user) {
-    if (err) {
-      return cb(err);
-    }
-    if (!user) {
-      return cb(null, null, reasons.NOT_FOUND);
-    }
-    if (!user.verified) {
-      return cb(null, null, reasons.UNVERIFIED);
-    }
-    if (user.isLocked) {
-      return user.incLoginAttempts(function (err) {
-        if (err) return cb(err);
-        return cb(null, null, reasons.MAX_ATTEMPTS);
-      });
-    }
-    user.comparePassword(password, function (err, isMatch) {
-      if (err) {
-        return cb(err);
-      }
-      if (isMatch) {
-        if (!user.loginAttempts && !user.lockUntil) {
-          return cb(null, user);
-        }
-        const updates = {
-          $set: {loginAttempts: 0},
-          $unset: {lockUntil: 1}
-        };
-        return user.update(updates, function (err) {
-          if (err) {
-            return cb(err);
-          }
-          return cb(null, user);
-        });
-      }
-      user.incLoginAttempts(function (err) {
-        if (err) return cb(err);
-        return cb(null, null, reasons.PASSWORD_INCORRECT);
-      });
-    });
-  });
-};*/
-
 module.exports = mongoose.model('user', userSchema, 'users');

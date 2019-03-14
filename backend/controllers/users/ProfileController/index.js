@@ -1,4 +1,4 @@
-const {AddFriendsHandler, AddUsernameHandler, ChangeUsernameHandler, GetFriendRequestsHandler, GetUsernameHandler} = require('./ProfileHandlers');
+const {AddFriendsHandler, ChangeUsernameHandler, GetFriendRequestsHandler, GetUsernameHandler} = require('./ProfileHandlers');
 const isAuthenticated = require('../../../util/isAuthenticated');
 
 const ProfileController = require('express').Router({mergeParams: true});
@@ -41,8 +41,6 @@ ProfileController.put('/bio', isAuthenticated, UpdateBioHandler);
 ProfileController.put('/picture', isAuthenticated, multer({storage: storage}).single('picture'), verifyImage, UploadProfilePictureHndler);
 
 ProfileController.get('/username', verifyId('user'), GetUsernameHandler);
-
-ProfileController.post('/username', verifyId('user'), AddUsernameHandler);
 
 ProfileController.put('/username', isAuthenticated, ChangeUsernameHandler);
 

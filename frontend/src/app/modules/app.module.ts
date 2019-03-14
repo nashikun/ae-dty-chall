@@ -18,7 +18,6 @@ import {AuthModule} from './auth.module';
 import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from 'ngx-swiper-wrapper';
 import {UsersComponent} from "../components/users/users.component";
 import {LegalComponent} from "../components/legal/legal.component";
-import {LoginRedirectionComponent} from "../components/login-redirection.component";
 import {CookieService} from "ngx-cookie-service";
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -32,8 +31,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         HomeComponent,
         PageNotFoundComponent,
         UsersComponent,
-        LegalComponent,
-        LoginRedirectionComponent,
+        LegalComponent
     ],
     imports: [
         AppRoutingModule,

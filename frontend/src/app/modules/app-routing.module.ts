@@ -7,7 +7,6 @@ import {VerificationComponent} from '../components/verification/verification.com
 import {PageNotFoundComponent} from '../components/errors/page-not-found.component';
 import {UsersComponent} from "../components/users/users.component";
 import {LegalComponent} from "../components/legal/legal.component";
-import {LoginRedirectionComponent} from "../components/login-redirection.component";
 
 const routes: Routes = [
     {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -17,7 +16,6 @@ const routes: Routes = [
     {path: 'users', component: UsersComponent},
     {path: 'profile', loadChildren: './profile.module#ProfileModule'},
     {path: 'animes', loadChildren: './anime.module#AnimeModule'},
-    {path: 'redirect', component: LoginRedirectionComponent},
     {path: 'privacy-policy', component: LegalComponent, data: {page: 'privacy-policy.html'}},
     {path: '**', component: PageNotFoundComponent}];
 

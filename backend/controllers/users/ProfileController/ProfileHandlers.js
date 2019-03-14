@@ -95,54 +95,6 @@ const GetUsernameHandler = async (req, res) => {
     return res.status(200).json({username: user.username});
 };
 
-const AddUsernameHandler = async (req, res) => {
-    const user = await mongoose.model('user').findById(req.params.user).catch(err => {
-        console.error(err);
-        return res.status(500).end()
-    });
-    if (!user) {
-        return res.status(404).end();
-    }
-    if (user.verified) {
-        res.status(409).json({verified: true});
-    } else {
-        if (user.verificationURL !== req.body.url) {
-            return res.status(403).json({wrongLink: true});
-        }
-        const username = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
-            console.error(err);
-            return res.status(500).end()
-        });
-        if (username) {
-            return res.status(400).json({usernameExists: true})
-        }
-        const list = new mongoose.model('list')();
-        const profile = new mongoose.model('profile')();
-        user.verified = true;
-        user.verificationURL = undefined;
-        user.list = list._id;
-        user.profile = profile._id;
-        list.user = user._id;
-        profile.user = user._id;
-        profile.username = req.body.username;
-
-        //TODO make these parallel
-        await user.save().catch(err => {
-            console.error(err);
-            return res.status(500).end();
-        });
-        await list.save().catch(err => {
-            console.error(err);
-            res.status(500).end();
-        });
-        await profile.save().catch(err => {
-            console.error(err);
-            res.status(500).end();
-        });
-        res.status(201).json({success: true});
-    }
-};
-
 const ChangeUsernameHandler = async (req, res) => {
     if (!req.user._id.equals(req.params.user)) {
         return res.status(401).end();
@@ -192,7 +144,6 @@ module.exports = {
     UpdateBioHandler,
     UploadProfilePictureHndler,
     GetUsernameHandler,
-    AddUsernameHandler,
     ChangeUsernameHandler,
     AddFriendsHandler,
     GetFriendRequestsHandler

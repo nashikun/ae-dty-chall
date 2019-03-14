@@ -12,7 +12,7 @@ const BACKEND = environment.backend;
 })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient, private _router: Router, private cookieService: CookieService, private injector: Injector) {
+    constructor(private http: HttpClient, private _router: Router, private cookieService: CookieService) {
     }
 
     public username = '';
@@ -22,7 +22,7 @@ export class AuthenticationService {
     }
 
     registerUser(user) {
-        return this.http.post<any>(BACKEND + `/users`, user);
+        return this.http.post<any>(BACKEND + `/auth/signup`, user);
     }
 
     loginUser(user) {
