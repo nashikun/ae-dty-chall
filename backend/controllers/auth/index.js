@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 
 
 const attachToken = function (req, res) {
-    console.log('after');
     const token = jwt.sign({id: req.user.id, role: req.user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
     res.header('Access-Control-Expose-Headers', 'x-auth-token');
     res.setHeader('x-auth-token', token);

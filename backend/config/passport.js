@@ -82,10 +82,8 @@ module.exports = function (passport) {
                 done(err);
             });
             if (user) {
-                console.log('bbbb');
                 return done(null, user);
             }
-            console.log(profile._json.email);
             const newuser = new mongoose.model('user')({email: profile._json.email});
             emailValidator.createProfile(newuser, (err, username, user) => {
                 if (err) return done(err);
@@ -101,10 +99,8 @@ module.exports = function (passport) {
                 done(err);
             });
             if (user) {
-                console.log('bbbb');
                 return done(null, user);
             }
-            console.log(profile._json.email);
             const newuser = new mongoose.model('user')({email: profile._json.email});
             emailValidator.createProfile(newuser, (err, username, user) => {
                 if (err) return done(err);
