@@ -6,8 +6,6 @@ import {Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {environment} from '../../../environments/environment'
 
-const BACKEND = environment.backend;
-
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
@@ -61,7 +59,6 @@ export class RegisterComponent implements OnInit {
         });
     }
 }
-
 
 @Component({
     selector: 'mail-sent',

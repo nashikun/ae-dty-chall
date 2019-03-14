@@ -27,7 +27,17 @@ AuthController.post('/signup', CreateUserHandle);
 
 AuthController.post('/verify/:url', VerifyUserHandler);
 
-AuthController.post('/facebook/token', passport.authenticate('facebook-token'), attachToken);
+AuthController.post('/facebook/token', function (req, res, next) {
+    passport.authenticate('facebook-token', {}, function (err, user) {
+        if (err) {
+            console.error(err);
+            return res.status(500).end()
+        }
+        if (!user) return res.status(401).end();
+        req.user = user;
+        next();
+    })(req, res, next)
+}, attachToken);
 
 AuthController.post('/google/token', function (req, res, next) {
     passport.authenticate('google-token', {}, function (err, user) {
