@@ -28,15 +28,26 @@ const LoginUserHandler = (req, res, next) => {
 };
 
 const CreateUserHandle = (req, res) => {
-    emailvalidator.createTempUser(req.body, (err, reasons, newTempUser) => {
+    emailvalidator.createTempUser(req.body, (err, reasons, user) => {
         if (err) {
             console.error(err);
             return res.status(500).end();
         }
         if (reasons) {
-            return res.status(400).json(reasons);
+            if (reasons.otherMethod) {
+                //if the user alrady uses a new method, add a password andlog him in
+                return mongoose.model('user').findOneAndUpdate({email: req.body.email}, {password: req.body.password}, (err, user) => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).end();
+                    }
+                    const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
+                    return res.status(200).send({id: user.id, role: user.role, token: token, verified: true})
+                });
+            }
+            return res.status(400).end();
         }
-        emailvalidator.sendVerificationEmail(newTempUser, function (err, info) {
+        emailvalidator.sendVerificationEmail(user, function (err, info) {
             if (err) {
                 console.error(err);
                 return res.status(500).end();
@@ -61,7 +72,6 @@ const VerifyUserHandler = (req, res) => {
                 console.error(err);
                 return res.status(500).end();
             }
-            req.user = user;
             const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
             res.status(200).send({id: user.id, role: user.role, token: token, username: username})
         })

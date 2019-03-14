@@ -70,7 +70,8 @@ const BanUserHandler = async (req, res) => {
 };
 
 const EmailExistsHandler = (req, res) => {
-    mongoose.model('user').findOne({email: req.params.email}, (err, user) => {
+    // ifban email doesn't have a password, the user should be able to register (to add a password login method)
+    mongoose.model('user').findOne({email: req.params.email, password: {$exists: true}}, (err, user) => {
         if (err) {
             console.error(err);
             return res.status(500).end();

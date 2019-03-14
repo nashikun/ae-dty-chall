@@ -22,7 +22,13 @@ export class AuthenticationService {
     }
 
     registerUser(user) {
-        return this.http.post<any>(BACKEND + `/auth/signup`, user);
+        return this.http.post<any>(BACKEND + `/auth/signup`, user).pipe(tap(res => {
+            localStorage.setItem('id', res.id);
+            localStorage.setItem('role', res.role);
+            this.cookieService.set('jwt', res.token, 12 * 60 * 60);
+            localStorage.setItem('token', res.token);
+            return res;
+        }));
     }
 
     loginUser(user) {

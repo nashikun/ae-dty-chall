@@ -25,7 +25,6 @@ export class RegisterComponent implements OnInit {
                 private fb: FormBuilder,
                 private emailValidator: EmailValidator,
                 private dialog: MatDialog,
-
     ) {
     }
 
@@ -48,7 +47,9 @@ export class RegisterComponent implements OnInit {
         this.show = false;
         this._auth.registerUser(this.registrationForm.value).subscribe(res => {
             this.show = true;
-            if (res.success) {
+            if (res.verified) {
+                this.router.navigate(['/']);
+            } else {
                 const dialogRef = this.dialog.open(MailSent, {});
                 dialogRef.afterClosed().subscribe(() => {
                     this.router.navigate(['/']);

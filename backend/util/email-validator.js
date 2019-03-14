@@ -56,6 +56,9 @@ class EmailValidator {
         if (foundUser) {
             if (!foundUser.verified) {
                 reasons.unverified = true;
+            } else if (!foundUser.password) {
+                // if verified and doesn't have a password,the user is logged in using fb or google
+                reasons.otherMethod = true;
             } else {
                 reasons.emailExists = true;
             }
