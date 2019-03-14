@@ -24,7 +24,7 @@ AuthController.post('/login', function (req, res, next) {
 
 AuthController.post('/signup', CreateUserHandle);
 
-AuthController.get('/verify/:url', VerifyUserHandler);
+AuthController.post('/verify/:url', VerifyUserHandler);
 
 AuthController.post('/facebook/token', passport.authenticate('facebook-token'), attachToken);
 

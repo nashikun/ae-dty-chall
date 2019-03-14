@@ -49,11 +49,14 @@ export class AuthenticationService {
     }
 
     verifyUser(Url) {
-        return this.http.get<any>(BACKEND + `/users/verify/${Url}`);
-    }
-
-    addUsername(userId, url, username) {
-        return this.http.post<any>(BACKEND + `/users/${userId}/profile/username`, {url: url, username: username});
+        return this.http.post<any>(BACKEND + `/auth/verify/${Url}`, {}).pipe(tap((res: any) => {
+            console.log(res.token);
+            localStorage.setItem('id', res.id);
+            localStorage.setItem('role', res.role);
+            this.cookieService.set('jwt', res.token, 12 * 60 * 60);
+            localStorage.setItem('token', res.token);
+            return res;
+        }));
     }
 
     logOut = () => {

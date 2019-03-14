@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const emailvalidator = require('../../util/email-validator');
 
 const LoginUserHandler = (req, res, next) => {
@@ -47,6 +48,7 @@ const CreateUserHandle = (req, res) => {
 
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.url;
+    console.log(URL);
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, async (err, user) => {
             if (err) {
                 console.error(err);
@@ -55,12 +57,14 @@ const VerifyUserHandler = (req, res) => {
             if (!user) {
                 return res.status(404).end();
             }
-        emailvalidator.createProfile(user, (err, profile) => {
+        emailvalidator.createProfile(user, (err, username) => {
             if (err) {
                 console.error(err);
                 return res.status(500).end();
             }
-            req.redirect(process.env.FRONTEND + `/verify?username=${profile}`)
+            req.user = user;
+            const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
+            res.status(200).send({id: user.id, role: user.role, token: token, username: username})
         })
         }
     )

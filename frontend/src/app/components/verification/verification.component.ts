@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../services/authentication.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProfileService} from "../../services/profile.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     selector: 'app-verification',
@@ -10,38 +11,28 @@ import {ActivatedRoute} from '@angular/router';
 
 export class VerificationComponent implements OnInit {
 
-    userId: string;
-    Url: string = '';
+    url: string = '';
     username: string = '';
-    show: boolean = false;
     errors = {};
-    verified: boolean = false;
+    show: boolean = false;
 
-    constructor(private _auth: AuthenticationService, private _activatedRoute: ActivatedRoute) {
+    constructor(private profile: ProfileService, private _activatedRoute: ActivatedRoute, private router: Router, private auth: AuthenticationService) {
     }
 
     ngOnInit() {
-        this.Url = this._activatedRoute.snapshot.paramMap.get('Url');
-        this._auth.verifyUser(this.Url).subscribe(id => {
-            this.userId = id.id;
+        this.url = this._activatedRoute.snapshot.paramMap.get('url');
+        this.auth.verifyUser(this.url).subscribe(res => {
             this.show = true;
+            this.username = res.username;
         });
     }
 
     saveUsername() {
-        this._auth.addUsername(this.userId, this.Url, this.username).subscribe(res => {
-            if (res.success) {
-                this.verified = true;
-                this.show = false;
-            }
+        this.profile.changeUsername(this.username).subscribe(() => {
+            this.router.navigate(['/']);
         }, err => {
             this.errors = err.error;
         });
     }
 
 }
-
-/*
-* () => {
-      this._router.navigate([`/animelist`]);
-    }*/

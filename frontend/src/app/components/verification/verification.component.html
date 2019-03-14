@@ -1,4 +1,4 @@
-<div *ngIf="show"> Please choose a username to finish the verification
+<div *ngIf="show"> Please change your username
   <p>
   </p>
   <form (submit)="saveUsername()">
@@ -6,17 +6,8 @@
       <input matInput name="username" placeholder="Username" [(ngModel)]="username" required>
     </mat-form-field>
     <button mat-button type="submit"> Save username</button>
-    <mat-error *ngIf="errors.verified" class="alert alert-warning" role="alert">
-      The user is already verified.
-    </mat-error>
-    <mat-error *ngIf="errors.wrongLink" class="alert alert-warning" role="alert">
-      Wrong verification link.
-    </mat-error>
     <mat-error *ngIf="errors.usernameExists" class="alert alert-warning" role="alert">
       Username already taken
     </mat-error>
   </form>
-</div>
-<div *ngIf="verified">
-  Verification complete. You can now login
 </div>

@@ -65,7 +65,7 @@ class EmailValidator {
     }
 
     static sendVerificationEmail(tempUser, cb) {
-        const URL = process.env.BACKEND + '/auth/verify/' + tempUser.verificationURL;
+        const URL = process.env.FRONTEND + '/verify/' + tempUser.verificationURL;
         message.html = message.html.replace(/\${URL}/g, URL);
         message.text = message.text.replace(/\${URL}/g, URL);
         message.to = tempUser.email;
@@ -93,7 +93,7 @@ class EmailValidator {
         user.verificationURL = undefined;
         user.list = list._id;
         user.profile = profile._id;
-        user.save().then(() => cb(null, username));
+        user.save().then(user => cb(null, username, user));
     }
 
 }
