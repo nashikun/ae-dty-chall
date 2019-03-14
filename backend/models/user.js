@@ -16,8 +16,8 @@ const userSchema = Schema({
     },
     password: {
         type: String,
-        required: [true, "please enter a valid password"],
-        match: [passwordPattern, 'invalid password']
+        match: [passwordPattern, 'invalid password'],
+        // not required because of other login methods
     },
     role: {type: String, default: 'user'},
     list: {type: Schema.Types.ObjectId, ref: 'list'},
@@ -48,6 +48,7 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.methods.comparePassword = function (candidatePassword, next) {
+    if (!this.password) return next(null);
     bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
         if (err) return next(err);
         next(null, isMatch);

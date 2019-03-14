@@ -3,15 +3,9 @@ const LocalStrategy = require('passport-local');
 const JWTStrategy = require('passport-jwt').Strategy;
 const FacebookTokenStrategy = require('passport-facebook-token');
 const GoogleTokenStrategy = require('passport-google-token').Strategy;
+const emailValidator = require('../util/email-validator');
 const reasons = mongoose.model('user').failedLogin;
 const config = require('./config');
-const cookieExtractor = function (req) {
-    const token = null;
-    if (req && req.cookies) {
-        token = req.cookies['jwt'];
-    }
-    return token;
-};
 
 module.exports = function (passport) {
 
@@ -90,7 +84,7 @@ module.exports = function (passport) {
             if (user) {
                 return done(null, user);
             }
-
+            console.log(profile);
         }
     ));
 
@@ -101,10 +95,15 @@ module.exports = function (passport) {
                 done(err);
             });
             if (user) {
+                console.log('bbbb');
                 return done(null, user);
-            } else {
-                return done(null, null);
             }
+            console.log(profile._json.email);
+            const newuser = new mongoose.model('user')({email: profile._json.email});
+            emailValidator.createProfile(newuser, (err, username, user) => {
+                if (err) return done(err);
+                return done(null, user, username)
+            });
         }
     ));
 };

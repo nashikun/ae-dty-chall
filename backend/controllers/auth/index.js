@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 
 
 const attachToken = function (req, res) {
+    console.log('after');
     const token = jwt.sign({id: req.user.id, role: req.user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
     res.header('Access-Control-Expose-Headers', 'x-auth-token');
     res.setHeader('x-auth-token', token);
@@ -28,7 +29,17 @@ AuthController.post('/verify/:url', VerifyUserHandler);
 
 AuthController.post('/facebook/token', passport.authenticate('facebook-token'), attachToken);
 
-AuthController.post('/google/token', passport.authenticate('google-token'), attachToken);
+AuthController.post('/google/token', function (req, res, next) {
+    passport.authenticate('google-token', {}, function (err, user) {
+        if (err) {
+            console.error(err);
+            return res.status(500).end()
+        }
+        if (!user) return res.status(401).end();
+        req.user = user;
+        next();
+    })(req, res, next)
+}, attachToken);
 
 AuthController.post('/logout', LogoutHandler);
 
