@@ -39,13 +39,13 @@ class EmailValidator {
             if (err) return cb(err);
             if (reasons) return cb(err, reasons);
             const id = new mongoose.Types.ObjectId();
+            const url = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             const createdUser = await User.create({
                 _id: id,
                 password: user.password,
                 email: user.email,
-                verificationURL: id + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+                verificationURL: id + url
             }).catch(err => cb(err));
-            console.error(user);
             return cb(null, null, createdUser);
         })
     }

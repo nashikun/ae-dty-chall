@@ -48,7 +48,6 @@ const CreateUserHandle = (req, res) => {
 
 const VerifyUserHandler = (req, res) => {
     const URL = req.params.url;
-    console.log(URL);
     mongoose.model('user').findOne({verificationURL: URL, verified: false}, async (err, user) => {
             if (err) {
                 console.error(err);
