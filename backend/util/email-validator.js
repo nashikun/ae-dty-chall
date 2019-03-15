@@ -75,13 +75,21 @@ class EmailValidator {
     transporter.sendMail(message, (err, info) => cb(err, info));
   }
 
-  static async createProfile(user, cb) {
+  static async createProfile(user, optional, callback) {
+    let username, cb;
+    if (optional) {
+      username = optional.replace(/ /g, "_");
+      cb = callback;
+    } else {
+      username = 'user';
+      cb = optional;
+    }
     const list = new mongoose.model('list')();
     const profile = new mongoose.model('profile')();
-    const username = await generateUsername('user');
+    const uniqueUsername = await generateUsername(username);
     list.user = user._id;
     profile.user = user._id;
-    profile.username = username;
+    profile.username = uniqueUsername;
     // for some reason async parallel wouldnt work here, something about '$__'  being undefined. Should fix
     // if I have the time
     await list.save().catch(err => {
@@ -96,7 +104,7 @@ class EmailValidator {
     user.verificationURL = undefined;
     user.list = list._id;
     user.profile = profile._id;
-    user.save().then(user => cb(null, username, user));
+    user.save().then(user => cb(null, uniqueUsername, user));
   }
 
 }

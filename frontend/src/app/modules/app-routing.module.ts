@@ -13,6 +13,7 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'verify/:url', component: VerificationComponent},
+    {path: 'verify', component: VerificationComponent},
     {path: 'users', component: UsersComponent},
     {path: 'profile', loadChildren: './profile.module#ProfileModule'},
     {path: 'animes', loadChildren: './anime.module#AnimeModule'},

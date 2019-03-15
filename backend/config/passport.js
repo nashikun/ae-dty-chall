@@ -75,7 +75,7 @@ module.exports = function (passport) {
         return done(null, user);
       }
       const newuser = new mongoose.model('user')({email: profile._json.email});
-      emailValidator.createProfile(newuser, (err, username, user) => {
+      emailValidator.createProfile(newuser, profile._json.name, (err, username, user) => {
         if (err) return done(err);
         return done(null, user, username)
       });
@@ -92,7 +92,7 @@ module.exports = function (passport) {
         return done(null, user);
       }
       const newuser = new mongoose.model('user')({email: profile._json.email});
-      emailValidator.createProfile(newuser, (err, username, user) => {
+      emailValidator.createProfile(newuser, profile._json.name, (err, username, user) => {
         if (err) return done(err);
         return done(null, user, username)
       });

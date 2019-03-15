@@ -99,11 +99,14 @@ const ChangeUsernameHandler = async (req, res) => {
   if (!req.user._id.equals(req.params.user)) {
     return res.status(401).end();
   }
-  const usernameExists = await mongoose.model('profile').findOne({username: req.body.username}).catch(err => {
+  const usernameExists = await mongoose.model('profile').findOne({
+    username: req.body.username,
+    user: {$ne: ObjectId(req.user._id)}
+  }).catch(err => {
     console.error(err);
     res.status(500).end()
   });
-  if (usernameExists && !usernameExists.user.equals(req.user._id)) {
+  if (usernameExists) {
     return res.status(400).json({usernameExists: true})
   }
   const profile = await mongoose.model('profile').updateOne({user: req.user._id}, {username: req.body.username}).catch(err => {

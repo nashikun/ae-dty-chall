@@ -1,5 +1,4 @@
-import {AuthService} from "angularx-social-login";
-import {FacebookLoginProvider, GoogleLoginProvider} from "angularx-social-login";
+import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angularx-social-login";
 import {Component, OnInit} from "@angular/core";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
@@ -17,8 +16,12 @@ export class SigninComponent implements OnInit {
 
     ngOnInit() {
         this.authService.authState.subscribe((user) => {
-            this.authenticationService.loginSocial(user.provider.toLowerCase(), user.authToken).subscribe(() => {
-                    this.router.navigate(['/'])
+            this.authenticationService.loginSocial(user.provider.toLowerCase(), user.authToken).subscribe(res => {
+                    if (res.username) {
+                        this.router.navigate(['verify'], {queryParams: {username: res.username}})
+                    } else {
+                        this.router.navigate(['/'])
+                    }
                 }, () => {
                     this.authService.signOut()
                 }

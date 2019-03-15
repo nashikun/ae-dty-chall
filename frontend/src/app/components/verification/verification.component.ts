@@ -21,10 +21,17 @@ export class VerificationComponent implements OnInit {
 
     ngOnInit() {
         this.url = this._activatedRoute.snapshot.paramMap.get('url');
-        this.auth.verifyUser(this.url).subscribe(res => {
-            this.show = true;
-            this.username = res.username;
-        });
+        if (this.url) {
+            this.auth.verifyUser(this.url).subscribe(res => {
+                this.show = true;
+                this.username = res.username;
+            });
+        } else {
+            this._activatedRoute.queryParams.subscribe(params => {
+                this.username = params.username;
+                this.show = true;
+            })
+        }
     }
 
     saveUsername() {
