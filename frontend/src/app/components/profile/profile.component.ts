@@ -168,6 +168,7 @@ export class ProfileComponent implements OnInit {
             birthdate = birthdate.toISOStringp();
         }
         this.profileService.updateProfile({birthdate: birthdate, ...bio}).subscribe(() => {
+            this.profile = {username, picture, birthdate, ...bio};
             this.editProfile = false;
         });
     }
