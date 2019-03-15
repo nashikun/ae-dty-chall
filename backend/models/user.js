@@ -34,7 +34,7 @@ userSchema.index({email: 1});
 
 userSchema.index({createdAt: 1}, {expireAfterSeconds: 60 * 60 * 24, partialFilterExpression: {verified: false}});
 
-userSchema.pre('save', function (next) {
+userSchema.pre('validate', function (next) {
     let user = this;
     if (!user.isModified('password')) return next();
     bcrypt.genSalt(10, function (err, salt) {

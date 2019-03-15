@@ -36,11 +36,13 @@ const CreateUserHandle = (req, res) => {
         if (reasons) {
             if (reasons.otherMethod) {
                 //if the user alrady uses a new method, add a password andlog him in
-                return mongoose.model('user').findOneAndUpdate({email: req.body.email}, {password: req.body.password}, (err, user) => {
+                return mongoose.model('user').findOne({email: req.body.email}, async (err, user) => {
                     if (err) {
                         console.error(err);
                         return res.status(500).end();
                     }
+                    user.password = req.body.password;
+                    await user.save();
                     const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
                     return res.status(200).send({id: user.id, role: user.role, token: token, verified: true})
                 });

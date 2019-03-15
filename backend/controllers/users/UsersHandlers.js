@@ -57,7 +57,7 @@ const BanUserHandler = async (req, res) => {
             mongoose.model('list').deleteMany({user: ObjectId(req.params.user)}, cb)
         },
         (cb) => {
-            mongoose.model('review').deleteMany({user: ObjectId(req.params.user)}, cb)
+            mongoose.model('review').deleteMany({reviewerId: ObjectId(req.params.user)}, cb)
         }
     ], (err, result) => {
         cachegoose.clearCache(req.params.user + '-profile');

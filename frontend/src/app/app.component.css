@@ -1,0 +1,10 @@
+body{
+    overflow-x:hidden;
+}
+
+.policy {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 98%;
+}

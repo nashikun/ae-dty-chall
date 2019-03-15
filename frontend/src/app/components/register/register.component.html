@@ -4,7 +4,6 @@
             Register
         </mat-card-title>
     </mat-card-header>
-    <app-signin></app-signin>
     <form class="form" [formGroup]="registrationForm" (submit)="registerUser()" autocomplete="on">
         <div>
             <mat-form-field>
@@ -48,5 +47,6 @@
         <mat-spinner *ngIf="!show">
         </mat-spinner>
     </form>
+    <app-signin></app-signin>
 </mat-card>
 

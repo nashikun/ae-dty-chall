@@ -47,13 +47,13 @@ const UpdateBioHandler = async (req, res) => {
     });
     cachegoose.clearCache(req.user._id + '-profile');
     if (updatedProfile.n) {
-        return res.status(200).json(req.body);
+        return res.status(204).end();
     }
     return res.status(404).end();
 
 };
 
-const UploadProfilePictureHndler = async (req, res) => {
+const UploadProfilePictureHandler = async (req, res) => {
     if (!req.user._id.equals(req.params.user)) {
         res.status(401).end();
     } else {
@@ -142,7 +142,7 @@ const GetFriendRequestsHandler = (req, res) => {
 module.exports = {
     GetProfileHandler,
     UpdateBioHandler,
-    UploadProfilePictureHndler,
+    UploadProfilePictureHandler,
     GetUsernameHandler,
     ChangeUsernameHandler,
     AddFriendsHandler,

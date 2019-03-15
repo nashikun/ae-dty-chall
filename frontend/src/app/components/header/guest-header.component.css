@@ -1,8 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
+}
+
+mat-toolbar.mat-toolbar.mat-primary.mat-toolbar-single-row {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }

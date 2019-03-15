@@ -9,13 +9,13 @@ const GuestAnimesHandler = async (req, res) => {
     switch (req.query.order) {
         default:
         case 'asc':
-            sort[req.query.sort] = 1;
+            sort[req.query.sort || 'name'] = 1;
             break;
         case 'desc':
-            sort[req.query.sort] = -1;
+            sort[req.query.sort || 'name'] = -1;
             break;
     }
-    const animes = await mongoose.model('anime').aggregate([{
+    const results = await mongoose.model('anime').aggregate([{
         $match: {name: {$regex: req.query.search || "", $options: 'i'}}
     }, {
         $lookup: {
@@ -42,12 +42,15 @@ const GuestAnimesHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    let total;
-    if (animes.length) total = animes[0].total;
-    let count;
-    if (total.length) count = total[0].count;
-    else count = 0;
-    res.status(200).json({animes: animes[0].paginated_results, count: count})
+    let count, animes;
+    try {
+        count = results[0].total[0].count;
+        animes = results[0].paginated_results;
+    } catch {
+        count = 0;
+        animes = [];
+    }
+    res.status(200).json({animes, count})
 };
 
 const UserAnimesHandler = async (req, res) => {
@@ -63,7 +66,7 @@ const UserAnimesHandler = async (req, res) => {
             sort[req.query.sort] = -1;
             break;
     }
-    const animes = await mongoose.model('anime').aggregate([{
+    const results = await mongoose.model('anime').aggregate([{
         $match: {name: {$regex: req.query.search || "", $options: 'i'}}
     }, {
         $lookup: {
@@ -106,11 +109,15 @@ const UserAnimesHandler = async (req, res) => {
         console.error(err);
         res.status(500).end()
     });
-    const total = animes[0].total;
-    let count;
-    if (total.length) count = total[0].count;
-    else count = 0;
-    res.status(200).json({animes: animes[0].paginated_results, count: count})
+    let count, animes;
+    try {
+        count = results[0].total[0].count;
+        animes = results[0].paginated_results;
+    } catch {
+        count = 0;
+        animes = [];
+    }
+    res.status(200).json({animes, count})
 };
 
 const PostAnimeHandler = (req, res) => {

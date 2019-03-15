@@ -102,7 +102,6 @@ export class ProfileComponent implements OnInit {
             this.profileService.getMyProfile().subscribe(res => {
                 this.loaded = true;
                 this.profile = res;
-                console.log(res);
                 this.imageUrl = this.profile.picture;
                 this.profileForm = this.fb.group({
                     username: new FormControl(this.profile.username, {validators: [Validators.required]}),
@@ -169,8 +168,7 @@ export class ProfileComponent implements OnInit {
         if (birthdate && birthdate != this.profile.birthdate) {
             birthdate = birthdate.toISOString();
         }
-        this.profileService.updateProfile({birthdate: birthdate, ...bio}).subscribe(res => {
-            this.profile = res;
+        this.profileService.updateProfile({birthdate: birthdate, ...bio}).subscribe(() => {
             this.editProfile = false;
         });
     }

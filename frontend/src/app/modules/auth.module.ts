@@ -13,15 +13,16 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider} from "angularx-social-login";
+import {environment} from "../../environments/environment";
 
 let config = new AuthServiceConfig([
     {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider("42829928231-om2fbrg8kofb77jagpo8rv42go4neavf.apps.googleusercontent.com")
+        provider: new GoogleLoginProvider(environment.google_app_id)
     },
     {
         id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider("2043788692590804")
+        provider: new FacebookLoginProvider(environment.fb_app_id)
     }
 ]);
 

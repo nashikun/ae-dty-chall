@@ -9,16 +9,6 @@ const config = require('./config');
 
 module.exports = function (passport) {
 
-    passport.serializeUser(function (user, done) {
-        done(null, user._id);
-    });
-
-    passport.deserializeUser(function (id, done) {
-        mongoose.model('user').findById(id, function (err, user) {
-            done(err, user);
-        });
-    });
-
     passport.use(new LocalStrategy(config.local, (email, password, done) => {
         mongoose.model('user').findOne({email: email}, function (err, user) {
             if (err) {

@@ -37,3 +37,12 @@
   color: #aaa;
   background-color: #eee;
 }
+
+img {
+  filter: none;
+  transition: filter 0.2s ease;
+}
+img:hover {
+  filter: opacity(0.8);
+  cursor: pointer;
+}
