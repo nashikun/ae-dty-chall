@@ -3,15 +3,15 @@ const friends = require('../mongoose-friends');
 const Schema = mongoose.Schema;
 
 const profileSchema = Schema({
-    user: {type: Schema.Types.ObjectId, ref: 'user'},
-    username: {type: String, index: {unique: true}},
-    birthdate: Date,
-    bio: {type: String, default: 'No Bio Added'},
-    gender: String,
-    location: String,
-    picture: {type: String, default: 'https://api.ae-dty-chall.com/images/profiles/default.jpg'},
+  user: {type: Schema.Types.ObjectId, ref: 'user'},
+  username: {type: String, index: {unique: true}},
+  birthdate: Date,
+  bio: {type: String, default: 'No Bio Added'},
+  gender: String,
+  location: String,
+  picture: {type: String, default: 'https://api.ae-dty-chall.com/images/profiles/default.jpg'},
 }, {
-    timestamps: {createdAt: true, updatedAt: false}
+  timestamps: {createdAt: true, updatedAt: false}
 });
 
 profileSchema.index({user: 1}, {unique: true});

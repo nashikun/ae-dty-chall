@@ -1,4 +1,6 @@
-<app-guest-header *ngIf="!_auth.loggedIn()"></app-guest-header>
-<app-user-header *ngIf="_auth.loggedIn()"></app-user-header>
-<router-outlet></router-outlet>
-<a routerLink="privacy-policy" class="policy"> Privacy Policy </a>
+<div fxLayout="column" fxFill>
+    <app-guest-header *ngIf="!_auth.loggedIn()"></app-guest-header>
+    <app-user-header *ngIf="_auth.loggedIn()"></app-user-header>
+    <router-outlet fxFill></router-outlet>
+    <a routerLink="privacy-policy" class="policy" fxLayoutAlign="center baseline"> Privacy Policy </a>
+</div>

@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const animeSchema = mongoose.Schema({
   name: {type: String, default: '', required: [true, "enter a name"]},
   description: {type: String, default: ''},
   episodes: {type: Number, required: true},
-  views: {type: Number, default: 0},
-  image: {type: String, default: ''},
+  image: {type: String, default: ''}
 });
 
-/*animeSchema.post('save', function(){
-  cachegoose.clearCache('animes');
-});*/
+animeSchema.plugin(AutoIncrement, {inc_field: 'seq_anime'});
 
 animeSchema.virtual('reviewsCount', {ref: 'reviews', localField: '_id', foreignField: 'anime', count: true});
 

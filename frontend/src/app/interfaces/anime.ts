@@ -1,5 +1,6 @@
 export interface Anime {
     _id: string;
+    seq_anime: number
     name: string,
     description: string,
     episodes: string,

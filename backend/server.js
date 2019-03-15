@@ -6,14 +6,13 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cachegoose = require('cachegoose');
 cachegoose(mongoose, {
-    engine: 'redis',
-    port: process.env.CACHE_PORT,
-    host: process.env.CACHE_HOST,
-    password: process.env.CACHE_PWD
+  engine: 'redis',
+  port: process.env.CACHE_PORT,
+  host: process.env.CACHE_HOST,
+  password: process.env.CACHE_PWD
 });
 const passport = require('passport');
 
@@ -44,24 +43,23 @@ const Message = require(models + 'message');
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.connect(db, {useNewUrlParser: true}, err => {
-    if (err) console.error(err);
+  if (err) console.error(err);
 });
 
 app.use(function (req, res, next) {
-    res.header('Accept', 'multipart/form-data,application/json');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,HEAD');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept, x-auth-token');
-    if (req.method === 'OPTIONS') {
-        res.status(204).end()
-    } else {
-        next()
-    }
+  res.header('Accept', 'multipart/form-data,application/json');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,HEAD');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Authorization, Accept, x-auth-token');
+  if (req.method === 'OPTIONS') {
+    res.status(204).end()
+  } else {
+    next()
+  }
 });
 
 app.use(helmet());
-app.use(cookieParser());
 app.use(bodyParser.json({limit: '2mb', extended: true}));
 
 app.use(passport.initialize());

@@ -41,8 +41,8 @@ export class AddAnimeComponent implements OnInit {
 
     addAnime() {
         this._animeService.addAnime(this.addanimeForm.value)
-            .subscribe((res: { id: string }) => {
-                this._router.navigate(['/animes', res.id]);
+            .subscribe((res: { id: string, name: string }) => {
+                this._router.navigate(['/animes', res.id, res.name]);
             });
     }
 

@@ -8,8 +8,8 @@ const {GetUsersHandle, BanUserHandler, EmailExistsHandler} = require('./UsersHan
 UserController.get('/', GetUsersHandle);
 
 UserController.post('/:user/ban', isAuthenticated, (req, res, next) => {
-    if (req.user.role === 'admin') next();
-    else res.status(401).end();
+  if (req.user.role === 'admin') next();
+  else res.status(401).end();
 }, BanUserHandler);
 
 UserController.use('/:user/profile', ProfileController);

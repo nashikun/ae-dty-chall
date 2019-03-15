@@ -14,8 +14,7 @@ export class Profile {
     picture: string | ArrayBuffer;
     location: string;
     gender: string;
-    friendship: string;
-    me: boolean
+    friendship: string
 }
 
 // date Format
@@ -91,7 +90,7 @@ export class ProfileComponent implements OnInit {
             this.toolbarOptions["toolbar"] = this.buttons_sm;
         }
         this.userId = this.activatedRoute.snapshot.paramMap.get('user');
-        if (this.userId) {
+        if (this.userId && this.userId != this.auth.getId()) {
             this.profileService.getProfile(this.userId).subscribe(res => {
                 this.profile = res;
                 this.imageUrl = this.profile.picture;
@@ -106,7 +105,7 @@ export class ProfileComponent implements OnInit {
                 this.profileForm = this.fb.group({
                     username: new FormControl(this.profile.username, {validators: [Validators.required]}),
                     bio: new FormControl(this.profile.bio, {}),
-                    // Thought about adding a validator to prevent injection attacks, but apparently
+                    // Thought about adding a validator to prevent xss attacks, but apparently
                     // input is escaped  in the plugin already
                     picture: new FormControl(this.profile.picture, {asyncValidators: [ImageValidator]}),
                     birthdate: new FormControl(this.profile.birthdate, {validators: []}),
@@ -166,7 +165,7 @@ export class ProfileComponent implements OnInit {
     updateProfile() {
         let {birthdate, username, picture, ...bio} = this.profileForm.value;
         if (birthdate && birthdate != this.profile.birthdate) {
-            birthdate = birthdate.toISOString();
+            birthdate = birthdate.toISOStringp();
         }
         this.profileService.updateProfile({birthdate: birthdate, ...bio}).subscribe(() => {
             this.editProfile = false;
@@ -174,7 +173,10 @@ export class ProfileComponent implements OnInit {
     }
 
     addFriend() {
-        this.profileService.addFriend(this.userId).subscribe();
+        this.profileService.addFriend(this.userId).subscribe(res => {
+            console.log(res);
+            this.profile.friendship = this.profile.friendship ? "pending" : "accepted";
+        });
     }
 
     banUser() {
