@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 const emailPattern = new RegExp('([!#-\'*+/-9=?A-Z^-~-]+(\\.[!#-\'*+/-9=?A-Z^-~-]+)*|"([]!#-[^-~ \\t]|(\\\\[\\t -~]))+")@([!#-\'*+/-9=?A-Z^-~-]+(\\.[!#-\'*+/-9=?A-Z^-~-]+)*|\\[[\\t -Z^-~]*])');
 // RFC 5322
 const passwordPattern = new RegExp('(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+).{6,}$');
@@ -47,8 +46,6 @@ userSchema.pre('validate', function (next) {
     });
   });
 });
-
-userSchema.plugin(AutoIncrement, {inc_field: 'seq_user'});
 
 userSchema.methods.comparePassword = function (candidatePassword, next) {
   if (!this.password) return next(null);

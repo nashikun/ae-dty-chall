@@ -8,19 +8,17 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {AnimelistService} from '../../services/animelist.service';
 import {Anime} from "../../interfaces/anime";
 import {Review} from "../../interfaces/review";
-import {Location, LocationStrategy, PathLocationStrategy} from "@angular/common";
 
 @Component({
     selector: 'app-anime',
     templateUrl: './anime.component.html',
     styleUrls: ['./anime.component.css'],
-    providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class AnimeComponent implements OnInit {
 
     constructor(public _auth: AuthenticationService, private _animelist: AnimelistService, private _anime: AnimeService,
                 private _activatedRoute: ActivatedRoute, private fb: FormBuilder, private matIconRegistry: MatIconRegistry,
-                private domSanitizer: DomSanitizer, private location: Location) {
+                private domSanitizer: DomSanitizer) {
 
         this.matIconRegistry.addSvgIcon('upvoted',
             this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/baseline-thumb_up_alt-24px.svg'));
@@ -37,7 +35,6 @@ export class AnimeComponent implements OnInit {
     reviewForm: FormGroup;
     anime: Anime = {
         name: '',
-        seq_anime: 0,
         image: '',
         description: '',
         _id: '',
@@ -57,8 +54,10 @@ export class AnimeComponent implements OnInit {
         });
         this._anime.getAnime(this._activatedRoute.snapshot.paramMap.get('anime')).subscribe(anime => {
             this.anime = anime;
+            if (!anime.rating) {
+                anime.rating = {_id: '', rating: 'N/A'};
+            }
             this.loaded = true;
-            this.location.replaceState('animes/' + anime.seq_anime + '/' + anime.name);
         }, error => {
             console.error(error);
             this.loaded = true;

@@ -144,7 +144,6 @@ const PostAnimeHandler = (req, res) => {
 };
 
 const GetGuestAnimeHandler = async (req, res) => {
-  console.log(req.params.anime);
   const anime = await mongoose.model('anime').findOne({seq_anime: req.params.anime})
     .lean()
     .cache(0, req.params.anime + '-anime')
@@ -155,7 +154,7 @@ const GetGuestAnimeHandler = async (req, res) => {
   if (!anime) {
     return res.status(404).end();
   }
-  const score = await mongoose.model('rating').aggregate([{$match: {anime: anime._id}},
+  const score = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}},
     {
       $group: {
         _id: null,
@@ -205,10 +204,10 @@ const GetUserAnimeHandler = async (req, res) => {
       }
     }
   ]);
-  const anime = animes[0];
-  if (!anime) {
+  if (!animes.length) {
     return res.status(404).end()
   }
+  const anime = animes[0];
   const result = await mongoose.model('rating').aggregate([{$match: {anime: ObjectId(req.params.anime)}}, {
     $facet: {
       score: [{

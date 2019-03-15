@@ -18,7 +18,6 @@ export class LegalComponent implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe((data => {
-            console.log(data);
             this.http.get('assets/' + data.page, {observe: 'response', responseType: 'text'}).subscribe(res => {
                 this.pageTemplate = res.body;
             })

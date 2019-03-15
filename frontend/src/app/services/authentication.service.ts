@@ -37,7 +37,6 @@ export class AuthenticationService {
 
 
     loginSocial(provider: string, token: string) {
-        console.log(BACKEND + '/auth/' + provider + '/token');
         return this.http.post<any>(BACKEND + '/auth/' + provider + '/token', {access_token: token})
             .pipe(tap(res => this.save_creds(res)));
     }

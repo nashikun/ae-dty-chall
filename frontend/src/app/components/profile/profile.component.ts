@@ -174,8 +174,7 @@ export class ProfileComponent implements OnInit {
 
     addFriend() {
         this.profileService.addFriend(this.userId).subscribe(res => {
-            console.log(res);
-            this.profile.friendship = this.profile.friendship ? "pending" : "accepted";
+            this.profile.friendship = res.status;
         });
     }
 

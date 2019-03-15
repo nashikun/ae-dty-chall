@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const animeSchema = mongoose.Schema({
   name: {type: String, default: '', required: [true, "enter a name"]},
@@ -8,7 +7,6 @@ const animeSchema = mongoose.Schema({
   image: {type: String, default: ''}
 });
 
-animeSchema.plugin(AutoIncrement, {inc_field: 'seq_anime'});
 
 animeSchema.virtual('reviewsCount', {ref: 'reviews', localField: '_id', foreignField: 'anime', count: true});
 

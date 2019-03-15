@@ -8,9 +8,8 @@
                 <p></p>
 
                 <!--Status Bar Start -->
-                <button (click)="Add()" *ngIf="_auth.loggedIn() && !anime.status" mat-button>Add</button>
                 <mat-icon color="primary" svgIcon="star"></mat-icon>
-                Score: {{anime.score | number:'1.0-2'}}
+                Score: {{(anime.score === 'N/A') ? anime.score : (anime.score | number:'1.0-2')}}
                 <p></p>
                 <div *ngIf="_auth.loggedIn()">
                     <mat-icon *ngIf="anime.rating.rating != 'N/A'" color="primary" svgIcon="star"></mat-icon>
@@ -48,6 +47,7 @@
                         </button>
                     </div>
                 </div>
+                <button (click)="Add()" *ngIf="_auth.loggedIn() && !anime.status" mat-button>Add</button>
                 <!--Status Bar End -->
 
             </div>

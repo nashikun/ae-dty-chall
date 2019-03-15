@@ -28,7 +28,7 @@ const MIME_TYPE_MAP = {
 };
 
 ProfileController.get('/', async (req, res, next) => {
-    if (req.cookies) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[1]) {
         isAuthenticated(req, res, next)
     } else {
         req.user = {_id: null};

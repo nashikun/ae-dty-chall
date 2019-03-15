@@ -31,7 +31,7 @@ const RatingsController = require('./ratings-controller');
 const ReviewsController = require('./reviews-controller');
 
 AnimesController.get('/', (req, res, next) => {
-  if (req.cookies) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[1]) {
     isAuthenticated(req, res, next)
   } else {
     GuestAnimesHandler(req, res)
@@ -50,7 +50,7 @@ AnimesController.get('/latest', (req, res, next) => {
 }, GetLatestAnimesHandler);
 
 AnimesController.get('/:anime', (req, res, next) => {
-  if (req.cookies) {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[1]) {
     isAuthenticated(req, res, next)
   } else {
     GetGuestAnimeHandler(req, res);
