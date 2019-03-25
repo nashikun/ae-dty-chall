@@ -14,7 +14,7 @@ let message = {
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // upgrade later with STARTTLS
+  secure: false, // upgrade latver with STARTTLS
   auth: {
     user: "aedtychallenge@gmail.com",
     pass: "dtychallenge2019"
@@ -77,7 +77,7 @@ class EmailValidator {
 
   static async createProfile(user, optional, callback) {
     let username, cb;
-    if (optional) {
+    if (callback) {
       username = optional.replace(/ /g, "_");
       cb = callback;
     } else {

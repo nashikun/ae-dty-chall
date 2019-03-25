@@ -35,7 +35,7 @@ export class AnimeService {
         postData.append('description', anime.description);
         postData.append('episodes', anime.episodes);
         postData.append('image', anime.image, anime.name);
-        return this.http.post<{ id: string, name: string }>(BACKEND + '/animes', postData);
+        return this.http.post<{ id: string }>(BACKEND + '/animes', postData);
     }
 
     getReviews(animeId: string) {

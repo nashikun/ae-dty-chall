@@ -11,8 +11,7 @@ const cachegoose = require('cachegoose');
 cachegoose(mongoose, {
   engine: 'redis',
   port: process.env.CACHE_PORT,
-  host: process.env.CACHE_HOST,
-  password: process.env.CACHE_PWD
+  host: process.env.CACHE_HOST
 });
 const passport = require('passport');
 

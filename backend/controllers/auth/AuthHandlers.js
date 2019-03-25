@@ -43,7 +43,7 @@ const CreateUserHandle = (req, res) => {
           }
           user.password = req.body.password;
           await user.save();
-          const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
+          const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD);
           return res.status(200).send({id: user.id, role: user.role, token: token, verified: true})
         });
       }
@@ -74,8 +74,8 @@ const VerifyUserHandler = (req, res) => {
           console.error(err);
           return res.status(500).end();
         }
-        const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD, {expiresIn: 60 * 120});
-        res.status(200).send({id: user.id, role: user.role, token: token, username: username})
+        const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_PWD);
+        return res.status(200).send({id: user.id, role: user.role, token: token, username: username})
       })
     }
   )
