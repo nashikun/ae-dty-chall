@@ -55,10 +55,6 @@ Admins have access to the above functionalities and:
 * Ban users.
 * Remove users reviews.
 
-## Accessing the project 
-
-You can find a live version of the site [here](https://www.ae-dty-chall.com)  
-
 ### Notes
 
 I used DB Ids in my front end URLs, and while it doesn't seem like an issue, it might be a bad practice / bad for user experience. I thought about using uuids instead but seing I had little time left and had to change my whole project structure, I decided against it.
